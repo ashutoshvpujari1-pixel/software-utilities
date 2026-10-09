@@ -1,0 +1,90 @@
+[
+    {
+        "question": "Which keyword is used to inherit a class in Java?",
+        "options": [
+            "implements",
+            "extends",
+            "inherits",
+            "super"
+        ],
+        "answer": "extends",
+        "explanation": "The extends keyword is used when one Java class inherits from another class."
+    },
+    {
+        "question": "Which method is the entry point of a standard Java application?",
+        "options": [
+            "start()",
+            "run()",
+            "main()",
+            "execute()"
+        ],
+        "answer": "main()",
+        "explanation": "A standard Java application starts execution from the public static void main(String[] args) method."
+    },
+    {
+        "question": "Which annotation is commonly used to define a REST controller in Spring Boot?",
+        "options": [
+            "@Controller",
+            "@RestController",
+            "@Service",
+            "@Repository"
+        ],
+        "answer": "@RestController",
+        "explanation": "@RestController is a Spring annotation that combines @Controller and @ResponseBody and is commonly used for REST APIs."
+    },
+    {
+        "question": "Which HTTP method is normally used to retrieve data from a REST API?",
+        "options": [
+            "POST",
+            "PUT",
+            "GET",
+            "DELETE"
+        ],
+        "answer": "GET",
+        "explanation": "GET is normally used to retrieve resources from a REST API without modifying the resource."
+    },
+    {
+        "question": "Which collection does not allow duplicate elements in Java?",
+        "options": [
+            "List",
+            "ArrayList",
+            "Set",
+            "LinkedList"
+        ],
+        "answer": "Set",
+        "explanation": "The Set interface represents a collection that does not allow duplicate elements."
+    },
+    {
+        "question": "Which keyword is used to create an object in Java?",
+        "options": [
+            "class",
+            "object",
+            "new",
+            "create"
+        ],
+        "answer": "new",
+        "explanation": "The new keyword is used to create an object and allocate memory for it."
+    },
+    {
+        "question": "Which file is commonly used to configure a Spring Boot application using YAML?",
+        "options": [
+            "spring.xml",
+            "application.yaml",
+            "config.xml",
+            "boot.yaml"
+        ],
+        "answer": "application.yaml",
+        "explanation": "Spring Boot automatically recognizes application.yaml as one of the standard configuration files."
+    },
+    {
+        "question": "Which HTTP status code means 'Not Found'?",
+        "options": [
+            "200",
+            "201",
+            "400",
+            "404"
+        ],
+        "answer": "404",
+        "explanation": "HTTP status code 404 means that the requested resource could not be found."
+    }
+]

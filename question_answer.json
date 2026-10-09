@@ -1,0 +1,26 @@
+{
+    "question": "Which of the following is used to create a REST API endpoint in a Spring Boot application?",
+
+    "options": [
+        {
+            "value": "A",
+            "text": "@RestController"
+        },
+        {
+            "value": "B",
+            "text": "@Repository"
+        },
+        {
+            "value": "C",
+            "text": "@Entity"
+        },
+        {
+            "value": "D",
+            "text": "@ConfigurationProperties"
+        }
+    ],
+
+    "answer": "A",
+
+    "explanation": "@RestController is used to define a Spring MVC controller whose methods can directly return data such as JSON or XML as the HTTP response. @Repository is generally used for persistence-layer components, @Entity maps a Java class to a database entity, and @ConfigurationProperties is used for binding external configuration properties."
+}

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Technical Puzzle - Test your programming and software development knowledge with a technical multiple-choice puzzle.">
+
+    <meta name="keywords"
+          content="technical puzzle, programming quiz, Java quiz, coding puzzle, developer quiz">
+
+    <meta name="author"
+          content="GenerateSourceCode">
+
+    <title>Technical Puzzle | GenerateSourceCode</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #172554, #1d4ed8);
+            color: white;
+            padding: 22px 20px;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        header p {
+            margin: 8px 0 0;
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .puzzle-card {
+            background: white;
+            border-radius: 18px;
+            padding: 32px;
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.12);
+        }
+
+        .badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-weight: bold;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .question {
+            font-size: 23px;
+            line-height: 1.5;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+        }
+
+        .option {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #ffffff;
+        }
+
+        .option:hover {
+            border-color: #60a5fa;
+            background: #eff6ff;
+            transform: translateY(-1px);
+        }
+
+        .option input {
+            width: 19px;
+            height: 19px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .option.selected {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .option-label {
+            font-size: 17px;
+            line-height: 1.4;
+            cursor: pointer;
+        }
+
+        .submit-area {
+            margin-top: 28px;
+            text-align: center;
+        }
+
+        button {
+            border: none;
+            border-radius: 10px;
+            padding: 14px 30px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        #submitBtn {
+            background: #2563eb;
+            color: white;
+        }
+
+        #submitBtn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        #submitBtn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #retryBtn {
+            background: #0f766e;
+            color: white;
+            margin-top: 15px;
+            display: none;
+        }
+
+        #retryBtn:hover {
+            background: #115e59;
+        }
+
+        .result {
+            display: none;
+            margin-top: 30px;
+            padding: 22px;
+            border-radius: 14px;
+            line-height: 1.6;
+        }
+
+        .result.correct {
+            background: #dcfce7;
+            border: 2px solid #22c55e;
+            color: #166534;
+        }
+
+        .result.incorrect {
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+            color: #991b1b;
+        }
+
+        .result-title {
+            font-size: 23px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0,0,0,0.15);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+            color: #475569;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 24px;
+            }
+
+            .container {
+                margin: 20px auto;
+            }
+
+            .puzzle-card {
+                padding: 22px;
+            }
+
+            .question {
+                font-size: 20px;
+            }
+
+            .option-label {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🧩 Technical Puzzle</h1>
+    <p>Test your programming and software development knowledge</p>
+</header>
+
+<div class="container">
+
+    <div id="loading" class="loading">
+        Loading technical puzzle...
+    </div>
+
+    <div id="errorMessage"
+         class="error"
+         style="display:none;">
+    </div>
+
+    <div id="puzzleCard"
+         class="puzzle-card"
+         style="display:none;">
+
+        <div class="badge">
+            Technical Challenge
+        </div>
+
+        <div id="question"
+             class="question">
+        </div>
+
+        <div id="options"
+             class="options">
+        </div>
+
+        <div class="submit-area">
+
+            <button id="submitBtn"
+                    onclick="submitAnswer()"
+                    disabled>
+                Submit Answer
+            </button>
+
+            <br>
+
+            <button id="retryBtn"
+                    onclick="retryPuzzle()">
+                Try Again
+            </button>
+
+        </div>
+
+        <div id="result"
+             class="result">
+
+            <div id="resultTitle"
+                 class="result-title">
+            </div>
+
+            <div id="resultMessage">
+            </div>
+
+            <div class="explanation">
+
+                <strong>
+                    💡 Explanation
+                </strong>
+
+                <div id="explanationText"
+                     style="margin-top:8px;">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    Technical Puzzle | GenerateSourceCode
+</footer>
+
+
+<script>
+
+    let puzzleData = null;
+    let selectedAnswer = null;
+
+
+    /*
+     * Load question_answer.json
+     *
+     * The JSON file must be present in the
+     * same folder as this HTML file.
+     */
+    async function loadPuzzle() {
+
+        try {
+
+            const response =
+                await fetch("question_answer.json");
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Unable to load question_answer.json"
+                );
+            }
+
+            puzzleData =
+                await response.json();
+
+            validatePuzzleData();
+
+            displayPuzzle();
+
+        }
+        catch (error) {
+
+            console.error(error);
+
+            document.getElementById("loading")
+                .style.display = "none";
+
+            const errorMessage =
+                document.getElementById("errorMessage");
+
+            errorMessage.style.display = "block";
+
+            errorMessage.innerHTML =
+                `
+                <strong>Unable to load puzzle.</strong>
+                <br><br>
+                Please make sure that
+                <b>question_answer.json</b>
+                exists in the same folder as this HTML file.
+                `;
+        }
+    }
+
+
+    /*
+     * Validate JSON structure
+     */
+    function validatePuzzleData() {
+
+        if (!puzzleData.question) {
+
+            throw new Error(
+                "Question is missing."
+            );
+        }
+
+        if (!Array.isArray(puzzleData.options)) {
+
+            throw new Error(
+                "Options must be an array."
+            );
+        }
+
+        if (puzzleData.options.length < 2) {
+
+            throw new Error(
+                "At least two options are required."
+            );
+        }
+
+        if (!puzzleData.answer) {
+
+            throw new Error(
+                "Correct answer is missing."
+            );
+        }
+
+        if (!puzzleData.explanation) {
+
+            throw new Error(
+                "Answer explanation is missing."
+            );
+        }
+    }
+
+
+    /*
+     * Display question and options
+     */
+    function displayPuzzle() {
+
+        document.getElementById("loading")
+            .style.display = "none";
+
+        document.getElementById("puzzleCard")
+            .style.display = "block";
+
+        document.getElementById("question")
+            .textContent =
+            puzzleData.question;
+
+        const optionsContainer =
+            document.getElementById("options");
+
+        optionsContainer.innerHTML = "";
+
+        puzzleData.options.forEach(
+            function(option, index) {
+
+                const optionDiv =
+                    document.createElement("div");
+
+                optionDiv.className = "option";
+
+                optionDiv.dataset.value =
+                    option.value;
+
+                optionDiv.innerHTML =
+                    `
+                    <input
+                        type="radio"
+                        name="answer"
+                        id="option${index}"
+                        value="${escapeHtml(option.value)}"
+                    >
+
+                    <label
+                        class="option-label"
+                        for="option${index}">
+                        ${escapeHtml(option.text)}
+                    </label>
+                    `;
+
+                optionDiv.addEventListener(
+                    "click",
+                    function() {
+
+                        const radio =
+                            optionDiv.querySelector(
+                                "input"
+                            );
+
+                        radio.checked = true;
+
+                        selectOption(
+                            optionDiv,
+                            option.value
+                        );
+                    }
+                );
+
+                optionsContainer.appendChild(
+                    optionDiv
+                );
+            }
+        );
+    }
+
+
+    /*
+     * Select an option
+     */
+    function selectOption(
+        selectedElement,
+        answer
+    ) {
+
+        selectedAnswer = answer;
+
+        document
+            .querySelectorAll(".option")
+            .forEach(function(option) {
+
+                option.classList.remove(
+                    "selected"
+                );
+            });
+
+        selectedElement.classList.add(
+            "selected"
+        );
+
+        document.getElementById("submitBtn")
+            .disabled = false;
+    }
+
+
+    /*
+     * Submit answer
+     */
+    function submitAnswer() {
+
+        if (!selectedAnswer) {
+
+            return;
+        }
+
+        const result =
+            document.getElementById("result");
+
+        const resultTitle =
+            document.getElementById("resultTitle");
+
+        const resultMessage =
+            document.getElementById(
+                "resultMessage"
+            );
+
+        const explanationText =
+            document.getElementById(
+                "explanationText"
+            );
+
+        result.style.display = "block";
+
+        explanationText.textContent =
+            puzzleData.explanation;
+
+        if (
+            selectedAnswer.toLowerCase() ===
+            puzzleData.answer.toLowerCase()
+        ) {
+
+            result.className =
+                "result correct";
+
+            resultTitle.innerHTML =
+                "✅ Correct Answer!";
+
+            resultMessage.innerHTML =
+                `
+                Excellent! Your answer is correct.
+                <br>
+                <strong>Correct Answer:</strong>
+                ${escapeHtml(puzzleData.answer)}
+                `;
+
+        }
+        else {
+
+            result.className =
+                "result incorrect";
+
+            resultTitle.innerHTML =
+                "❌ Incorrect Answer";
+
+            resultMessage.innerHTML =
+                `
+                Your selected answer is incorrect.
+                <br>
+                <strong>Correct Answer:</strong>
+                ${escapeHtml(puzzleData.answer)}
+                `;
+        }
+
+        document.getElementById("submitBtn")
+            .disabled = true;
+
+        document.getElementById("retryBtn")
+            .style.display = "inline-block";
+
+        /*
+         * Prevent changing answer after submission
+         */
+        document
+            .querySelectorAll(
+                'input[name="answer"]'
+            )
+            .forEach(function(input) {
+
+                input.disabled = true;
+
+            });
+
+        result.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }
+
+
+    /*
+     * Try the same puzzle again
+     */
+    function retryPuzzle() {
+
+        selectedAnswer = null;
+
+        document.getElementById("result")
+            .style.display = "none";
+
+        document.getElementById("submitBtn")
+            .disabled = true;
+
+        document.getElementById("retryBtn")
+            .style.display = "none";
+
+        document
+            .querySelectorAll(
+                'input[name="answer"]'
+            )
+            .forEach(function(input) {
+
+                input.disabled = false;
+                input.checked = false;
+
+            });
+
+        document
+            .querySelectorAll(".option")
+            .forEach(function(option) {
+
+                option.classList.remove(
+                    "selected"
+                );
+
+            });
+    }
+
+
+    /*
+     * Basic HTML escaping
+     */
+    function escapeHtml(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    /*
+     * Start application
+     */
+    loadPuzzle();
+
+</script>
+
+</body>
+</html>
