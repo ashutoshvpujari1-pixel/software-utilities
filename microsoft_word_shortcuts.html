@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Word Keyboard Shortcuts Reference</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        word: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#2b579a', // Official Word Blue accent
+                            600: '#1e3a8a',
+                            700: '#1e293b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        kbd {
+            font-family: inherit;
+        }
+        /* Custom scrollbar for modern feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-300">
+
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-blue-500/20">
+                    <i class="fa-solid fa-file-word"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight tracking-tight">Word Shortcuts</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Interactive Reference & Practice App</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleQuizModal(true)" class="hidden sm:inline-flex items-center space-x-2 px-3.5 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium text-sm hover:bg-blue-100 dark:hover:bg-blue-900/50 transition">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Practice Quiz</span>
+                </button>
+                <button id="themeToggle" onclick="toggleTheme()" class="w-10 h-10 rounded-lg flex items-center justify-center bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition" aria-label="Toggle theme">
+                    <i class="fa-solid fa-moon dark:hidden"></i>
+                    <i class="fa-solid fa-sun hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-6">
+        
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl pointer-events-none">
+                <i class="fa-solid fa-file-word"></i>
+            </div>
+            <div class="relative z-10 max-w-2xl">
+                <span class="inline-block px-3 py-1 rounded-full bg-white/20 text-xs font-semibold uppercase tracking-wider mb-3">MS Word Masterclass</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight mb-3">Boost Your Productivity</h2>
+                <p class="text-blue-100 text-sm sm:text-base leading-relaxed mb-6">
+                    Master essential keyboard shortcuts for Microsoft Word. Search instantly across formatting, navigation, tables, function keys, and editing tools to streamline your document workflow.
+                </p>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <input type="text" id="searchInput" oninput="filterShortcuts()" placeholder="Search by shortcut (e.g. Ctrl + C), action, or keyword..." 
+                        class="w-full pl-11 pr-4 py-3.5 bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-white placeholder-slate-400 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-white text-sm sm:text-base transition">
+                    <button id="clearSearch" onclick="clearSearchInput()" class="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hidden">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none" id="categoryTabs">
+            <button onclick="setCategory('all')" data-category="all" class="category-btn whitespace-nowrap px-4 py-2 rounded-xl text-sm font-medium transition bg-blue-600 text-white shadow-sm">
+                All Shortcuts (<span id="count-all">0</span>)
+            </button>
+            <button onclick="setCategory('general')" data-category="general" class="category-btn whitespace-nowrap px-4 py-2 rounded-xl text-sm font-medium transition bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700">
+                General & File (<span id="count-general">0</span>)
+            </button>
+            <button onclick="setCategory('font')" data-category="font" class="category-btn whitespace-nowrap px-4 py-2 rounded-xl text-sm font-medium transition bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700">
+                Font Formatting (<span id="count-font">0</span>)
+            </button>
+            <button onclick="setCategory('paragraph')" data-category="paragraph" class="category-btn whitespace-nowrap px-4 py-2 rounded-xl text-sm font-medium transition bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700">
+                Paragraph (<span id="count-paragraph">0</span>)
+            </button>
+            <button onclick="setCategory('navigation')" data-category="navigation" class="category-btn whitespace-nowrap px-4 py-2 rounded-xl text-sm font-medium transition bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700">
+                Navigation & Selection (<span id="count-navigation">0</span>)
+            </button>
+            <button onclick="setCategory('editing')" data-category="editing" class="category-btn whitespace-nowrap px-4 py-2 rounded-xl text-sm font-medium transition bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700">
+                Editing & Search (<span id="count-editing">0</span>)
+            </button>
+            <button onclick="setCategory('tables')" data-category="tables" class="category-btn whitespace-nowrap px-4 py-2 rounded-xl text-sm font-medium transition bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700">
+                Tables (<span id="count-tables">0</span>)
+            </button>
+            <button onclick="setCategory('function')" data-category="function" class="category-btn whitespace-nowrap px-4 py-2 rounded-xl text-sm font-medium transition bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700">
+                Function Keys (F1-F12) (<span id="count-function">0</span>)
+            </button>
+        </div>
+
+        <div id="shortcutsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Shortcuts populated dynamically via JavaScript -->
+        </div>
+
+        <div id="emptyState" class="hidden flex-col items-center justify-center py-16 px-4 text-center">
+            <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-400 text-2xl mb-4">
+                <i class="fa-solid fa-face-confused"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-200 mb-1">No shortcuts found</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 max-w-sm mb-4">We couldn't find any shortcuts matching your search. Try adjusting your search query or category filter.</p>
+            <button onclick="resetFilters()" class="px-4 py-2 rounded-xl bg-blue-600 text-white font-medium text-sm hover:bg-blue-700 transition shadow-sm">
+                Reset Filters
+            </button>
+        </div>
+
+    </main>
+
+    <footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>Microsoft Word Keyboard Shortcuts Reference • Built for productivity</p>
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleQuizModal(true)" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Take Practice Quiz</button>
+                <span>•</span>
+                <span id="totalShortcutsCount">0 shortcuts loaded</span>
+            </div>
+        </div>
+    </footer>
+
+    <div id="quizModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm hidden p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-700 relative transform transition-all">
+            <button onclick="toggleQuizModal(false)" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xl w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div id="quizContent">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold">Word Shortcut Quiz</h3>
+                        <p id="quizProgress" class="text-xs text-slate-500 dark:text-slate-400">Question 1 of 5</p>
+                    </div>
+                </div>
+
+                <div id="quizQuestionBox" class="mb-6">
+                    <h4 id="quizQuestionText" class="text-base font-semibold text-slate-800 dark:text-slate-100 mb-4">What is the shortcut for bold text?</h4>
+                    <div id="quizOptions" class="space-y-2.5">
+                        <!-- Options generated dynamically -->
+                    </div>
+                </div>
+
+                <div id="quizResultBox" class="hidden text-center py-6">
+                    <div class="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 flex items-center justify-center text-3xl mx-auto mb-4">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-1">Quiz Completed!</h4>
+                    <p id="quizScoreText" class="text-slate-600 dark:text-slate-300 text-sm mb-6">You scored 5 out of 5 correct!</p>
+                    <button onclick="startQuiz()" class="px-6 py-2.5 rounded-xl bg-blue-600 text-white font-medium text-sm hover:bg-blue-700 transition shadow-md">
+                        Try Again
+                    </button>
+                </div>
+
+                <div id="quizFooter" class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+                    <span id="quizScoreDisplay" class="text-xs font-semibold text-slate-500 dark:text-slate-400">Score: 0</span>
+                    <button id="nextQuizBtn" onclick="nextQuizQuestion()" class="px-4 py-2 rounded-xl bg-slate-900 dark:bg-slate-700 text-white font-medium text-sm hover:bg-slate-800 dark:hover:bg-slate-600 transition hidden">
+                        Next Question <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-4 py-3 rounded-xl shadow-xl flex items-center space-x-3 text-sm font-medium">
+        <i class="fa-solid fa-circle-check text-green-400 dark:text-green-600"></i>
+        <span id="toastMessage">Shortcut copied to clipboard!</span>
+    </div>
+
+    <script>
+        // Comprehensive Microsoft Word Shortcut Database
+        const shortcutsData = [
+            // General & File
+            { key: "Ctrl + N", action: "Create a new document", category: "general", desc: "Opens a blank document window instantly." },
+            { key: "Ctrl + O", action: "Open an existing document", category: "general", desc: "Browse and open saved documents." },
+            { key: "Ctrl + S", action: "Save the current document", category: "general", desc: "Quickly saves changes made to your active file." },
+            { key: "F12", action: "Save As", category: "general", desc: "Opens the Save As dialog box to rename or change format." },
+            { key: "Ctrl + P", action: "Print document", category: "general", desc: "Opens print settings and preview pane." },
+            { key: "Ctrl + W", action: "Close active document", category: "general", desc: "Closes the current window without quitting Word." },
+            { key: "Ctrl + Z", action: "Undo last action", category: "general", desc: "Reverses your previous edit or action." },
+            { key: "Ctrl + Y", action: "Redo action", category: "general", desc: "Repeats your last undone action." },
+            { key: "Ctrl + K", action: "Insert hyperlink", category: "general", desc: "Adds a clickable web or document link." },
+            { key: "F1", action: "Open Help pane", category: "general", desc: "Access Microsoft Word help and support resources." },
+            { key: "Alt + Tab", action: "Switch open windows", category: "general", desc: "Quickly toggle between Word and other apps." },
+
+            // Font Formatting
+            { key: "Ctrl + B", action: "Bold text", category: "font", desc: "Makes selected text bold or removes bold." },
+            { key: "Ctrl + I", action: "Italicize text", category: "font", desc: "Applies or removes italic formatting." },
+            { key: "Ctrl + U", action: "Underline text", category: "font", desc: "Adds or removes a single underline." },
+            { key: "Ctrl + Shift + D", action: "Double underline", category: "font", desc: "Applies a double underline beneath selected text." },
+            { key: "Ctrl + Shift + W", action: "Underline words only", category: "font", desc: "Underlines words without underlining spaces between them." },
+            { key: "Ctrl + Shift + K", action: "Small caps", category: "font", desc: "Changes lowercase letters to small capital letters." },
+            { key: "Ctrl + Shift + A", action: "All caps", category: "font", desc: "Converts all selected letters to uppercase." },
+            { key: "Ctrl + [", action: "Decrease font size by 1pt", category: "font", desc: "Shrinks selected text size incrementally." },
+            { key: "Ctrl + ]", action: "Increase font size by 1pt", category: "font", desc: "Enlarges selected text size incrementally." },
+            { key: "Ctrl + Shift + >", action: "Increase font size to next preset", category: "font", desc: "Quickly scales up font size." },
+            { key: "Ctrl + Shift + <", action: "Decrease font size to previous preset", category: "font", desc: "Quickly scales down font size." },
+            { key: "Ctrl + Space", action: "Remove character formatting", category: "font", desc: "Resets font styling back to default normal style." },
+            { key: "Ctrl + Shift + C", action: "Copy text formatting", category: "font", desc: "Copies formatting style from selection (Format Painter)." },
+            { key: "Ctrl + Shift + V", action: "Paste text formatting", category: "font", desc: "Applies copied formatting style to new selection." },
+
+            // Paragraph
+            { key: "Ctrl + L", action: "Align text left", category: "paragraph", desc: "Aligns paragraph text to the left margin." },
+            { key: "Ctrl + E", action: "Center text", category: "paragraph", desc: "Centers paragraph text horizontally." },
+            { key: "Ctrl + R", action: "Align text right", category: "paragraph", desc: "Aligns paragraph text to the right margin." },
+            { key: "Ctrl + J", action: "Justify text", category: "paragraph", desc: "Distributes text evenly between left and right margins." },
+            { key: "Ctrl + 1", action: "Single line spacing", category: "paragraph", desc: "Sets line spacing to 1.0." },
+            { key: "Ctrl + 2", action: "Double line spacing", category: "paragraph", desc: "Sets line spacing to 2.0." },
+            { key: "Ctrl + 5", action: "1.5 line spacing", category: "paragraph", desc: "Sets line spacing to 1.5." },
+            { key: "Ctrl + 0", action: "Add/remove space before paragraph", category: "paragraph", desc: "Toggles 12pt spacing above current paragraph." },
+            { key: "Ctrl + M", action: "Indent paragraph from left", category: "paragraph", desc: "Moves paragraph further right." },
+            { key: "Ctrl + Shift + M", action: "Remove paragraph indent", category: "paragraph", desc: "Moves indented paragraph back to the left." },
+            { key: "Ctrl + T", action: "Hanging indent", category: "paragraph", desc: "Indents all lines except the first line (ideal for citations)." },
+            { key: "Ctrl + Shift + T", action: "Reduce hanging indent", category: "paragraph", desc: "Decreases hanging indent level." },
+            { key: "Ctrl + Q", action: "Remove paragraph formatting", category: "paragraph", desc: "Clears custom paragraph alignment and spacing." },
+
+            // Navigation & Selection
+            { key: "Left / Right Arrow", action: "Move cursor one character", category: "navigation", desc: "Moves cursor left or right by one letter." },
+            { key: "Ctrl + Left / Right", action: "Move cursor one word", category: "navigation", desc: "Jumps cursor across entire words." },
+            { key: "Up / Down Arrow", action: "Move cursor one line up/down", category: "navigation", desc: "Navigates vertically line by line." },
+            { key: "Home", action: "Go to start of line", category: "navigation", desc: "Instantly moves cursor to the beginning of the current line." },
+            { key: "End", action: "Go to end of line", category: "navigation", desc: "Instantly moves cursor to the end of the current line." },
+            { key: "Ctrl + Home", action: "Go to start of document", category: "navigation", desc: "Jumps straight to page 1, line 1." },
+            { key: "Ctrl + End", action: "Go to end of document", category: "navigation", desc: "Jumps to the very last character of the document." },
+            { key: "Page Up / Down", action: "Scroll up/down one screen", category: "navigation", desc: "Fast scrolling through document pages." },
+            { key: "Shift + Arrow keys", action: "Select text incrementally", category: "navigation", desc: "Highlights characters or lines as you move." },
+            { key: "Ctrl + Shift + Left/Right", action: "Select word by word", category: "navigation", desc: "Highlights whole words progressively." },
+            { key: "Ctrl + Shift + Home", action: "Select to start of document", category: "navigation", desc: "Highlights everything from cursor to the beginning." },
+            { key: "Ctrl + Shift + End", category: "Select to end of document", action: "Select to end of document", category: "navigation", desc: "Highlights everything from cursor to the very end." },
+            { key: "Ctrl + A", action: "Select entire document", category: "navigation", desc: "Highlights all text and objects in the file." },
+            { key: "F8", action: "Extend selection mode", category: "navigation", desc: "Press repeatedly to expand selection from word to doc." },
+
+            // Editing & Search
+            { key: "Backspace", action: "Delete character to the left", category: "editing", desc: "Erases preceding character." },
+            { key: "Delete", action: "Delete character to the right", category: "editing", desc: "Erases following character." },
+            { key: "Ctrl + Backspace", action: "Delete word to the left", category: "editing", desc: "Erases the entire preceding word." },
+            { key: "Ctrl + Delete", action: "Delete word to the right", category: "editing", desc: "Erases the entire following word." },
+            { key: "Ctrl + F", action: "Find text", category: "editing", desc: "Opens navigation pane to search for words/phrases." },
+            { key: "Ctrl + H", action: "Find and Replace", category: "editing", desc: "Opens dialog to search and replace text automatically." },
+            { key: "Ctrl + G", action: "Go To page, section, or line", category: "editing", desc: "Jumps directly to a specific page or bookmark." },
+            { key: "Ctrl + X", action: "Cut selected text", category: "editing", desc: "Removes selection and copies it to clipboard." },
+            { key: "Ctrl + C", action: "Copy selected text", category: "editing", desc: "Copies selection to clipboard." },
+            { key: "Ctrl + V", action: "Paste clipboard contents", category: "editing", desc: "Inserts copied text into cursor location." },
+            { key: "Shift + F3", action: "Change text case", category: "editing", desc: "Cycles between lowercase, UPPERCASE, and Title Case." },
+
+            // Tables
+            { key: "Tab", action: "Move to next cell in table", category: "tables", desc: "Jumps to the right cell; creates new row if in last cell." },
+            { key: "Shift + Tab", action: "Move to previous cell", category: "tables", desc: "Jumps to the left cell in a table row." },
+            { key: "Alt + Home", action: "First cell in current row", category: "tables", desc: "Navigates to column 1 of the active row." },
+            { key: "Alt + End", action: "Last cell in current row", category: "tables", desc: "Navigates to the final column of the active row." },
+            { key: "Alt + Page Up", action: "Top cell in current column", category: "tables", desc: "Jumps to row 1 of the active column." },
+            { key: "Alt + Page Down", action: "Bottom cell in current column", category: "tables", desc: "Jumps to the last row of the active column." },
+
+            // Function Keys (F1-F12)
+            { key: "F1", action: "Open Help", category: "function", desc: "Launches Word help window." },
+            { key: "F2", action: "Move text or graphic", category: "function", desc: "Select item, press F2, click destination, press Enter." },
+            { key: "F3", action: "Insert AutoText entry", category: "function", desc: "Inserts saved building blocks or quick parts." },
+            { key: "F4", action: "Repeat last action", category: "function", desc: "Repeats your previous typing, formatting, or command." },
+            { key: "F5", action: "Open Go To tab", category: "function", desc: "Opens Find and Replace dialog directly on 'Go To'." },
+            { key: "F6", action: "Next pane or frame", category: "function", desc: "Cycles focus through document panes and taskbars." },
+            { key: "F7", action: "Spell check", category: "function", desc: "Opens Editor pane to check spelling and grammar." },
+            { key: "F8", action: "Extend selection", category: "function", desc: "Activates selection extension mode." },
+            { key: "F9", action: "Update selected fields", category: "function", desc: "Refreshes fields like table of contents or page numbers." },
+            { key: "F10", action: "Show key tips / menu bar", category: "function", desc: "Displays keyboard shortcuts for the ribbon menu." },
+            { key: "F11", action: "Next field", category: "function", desc: "Jumps to the next form field or mail merge field." },
+            { key: "F12", action: "Save As dialog", category: "function", desc: "Opens the Save As window immediately." }
+        ];
+
+        let currentCategory = 'all';
+
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', () => {
+            updateCategoryCounts();
+            renderShortcuts();
+            
+            // Check system preference for dark mode
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark');
+            }
+        });
+
+        // Update category badge counts
+        function updateCategoryCounts() {
+            document.getElementById('count-all').textContent = shortcutsData.length;
+            const categories = ['general', 'font', 'paragraph', 'navigation', 'editing', 'tables', 'function'];
+            categories.forEach(cat => {
+                const count = shortcutsData.filter(s => s.category === cat).length;
+                const el = document.getElementById(`count-${cat}`);
+                if (el) el.textContent = count;
+            });
+            document.getElementById('totalShortcutsCount').textContent = `${shortcutsData.length} shortcuts loaded`;
+        }
+
+        // Set active category tab
+        function setCategory(category) {
+            currentCategory = category;
+            
+            // Update tab styles
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                if (btn.getAttribute('data-category') === category) {
+                    btn.className = "category-btn whitespace-nowrap px-4 py-2 rounded-xl text-sm font-medium transition bg-blue-600 text-white shadow-sm";
+                } else {
+                    btn.className = "category-btn whitespace-nowrap px-4 py-2 rounded-xl text-sm font-medium transition bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700";
+                }
+            });
+
+            renderShortcuts();
+        }
+
+        // Render shortcuts grid based on filter and search
+        function renderShortcuts() {
+            const container = document.getElementById('shortcutsContainer');
+            const emptyState = document.getElementById('emptyState');
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            
+            // Clear search button visibility
+            const clearBtn = document.getElementById('clearSearch');
+            if (query.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+
+            // Filter data
+            const filtered = shortcutsData.filter(item => {
+                const matchesCategory = currentCategory === 'all' || item.category === currentCategory;
+                const matchesSearch = item.key.toLowerCase().includes(query) || 
+                                      item.action.toLowerCase().includes(query) || 
+                                      item.desc.toLowerCase().includes(query);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+                return;
+            }
+
+            emptyState.classList.remove('flex');
+            emptyState.classList.add('hidden');
+
+            container.innerHTML = filtered.map((item, index) => {
+                // Format shortcut keys into nice <kbd> badges
+                const keyHtml = formatKeyCombo(item.key);
+                const categoryBadgeName = getCategoryName(item.category);
+                
+                return `
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200/80 dark:border-slate-700/80 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 uppercase tracking-wider">
+                                    ${categoryBadgeName}
+                                </span>
+                                <button onclick="copyToClipboard('${item.key.replace(/'/g, "\\'")}', '${item.action.replace(/'/g, "\\'")}')" 
+                                    class="text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition opacity-0 group-hover:opacity-100 focus:opacity-100" title="Copy Shortcut">
+                                    <i class="fa-regular fa-copy"></i>
+                                </button>
+                            </div>
+                            <h3 class="font-semibold text-slate-800 dark:text-slate-100 text-base mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">
+                                ${item.action}
+                            </h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                                ${item.desc}
+                            </p>
+                        </div>
+                        <div class="pt-3 border-t border-slate-100 dark:border-slate-700/60 flex items-center justify-between">
+                            <div class="flex flex-wrap gap-1.5 items-center">
+                                ${keyHtml}
+                            </div>
+                            <button onclick="copyToClipboard('${item.key.replace(/'/g, "\\'")}', '${item.action.replace(/'/g, "\\'")}')" 
+                                class="text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline">
+                                Copy Key
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Format key combinations like "Ctrl + Shift + W" into distinct keyboard badges
+        function formatKeyCombo(keyString) {
+            const parts = keyString.split('+').map(p => p.trim());
+            return parts.map((part, i) => {
+                return `<kbd class="px-2 py-1 text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-md shadow-2xs">${part}</kbd>`;
+            }).join('<span class="text-slate-400 text-xs px-0.5">+</span>');
+        }
+
+        // Get readable category name
+        function getCategoryName(cat) {
+            const map = {
+                'general': 'General',
+                'font': 'Font',
+                'paragraph': 'Paragraph',
+                'navigation': 'Navigation',
+                'editing': 'Editing',
+                'tables': 'Tables',
+                'function': 'Function Key'
+            };
+            return map[cat] || cat;
+        }
+
+        // Filter trigger
+        function filterShortcuts() {
+            renderShortcuts();
+        }
+
+        // Clear search input
+        function clearSearchInput() {
+            document.getElementById('searchInput').value = '';
+            renderShortcuts();
+        }
+
+        // Reset filters
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            setCategory('all');
+        }
+
+        // Theme toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+
+        // Toast notification
+        function copyToClipboard(key, action) {
+            const textToCopy = `${key}: ${action}`;
+            
+            // Fallback clipboard method
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            textArea.style.position = "fixed";  // Avoid scrolling to bottom
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast(`Copied: ${key}`);
+            } catch (err) {
+                showToast(`Failed to copy shortcut`);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+            toastMsg.textContent = message;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        // Practice Quiz Logic
+        let quizQuestions = [];
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+        let quizActive = false;
+
+        function toggleQuizModal(show) {
+            const modal = document.getElementById('quizModal');
+            if (show) {
+                modal.classList.remove('hidden');
+                startQuiz();
+            } else {
+                modal.classList.add('hidden');
+                quizActive = false;
+            }
+        }
+
+        function startQuiz() {
+            quizScore = 0;
+            currentQuizIndex = 0;
+            quizActive = true;
+            
+            // Shuffle shortcuts data for quiz
+            const shuffled = [...shortcutsData].sort(() => 0.5 - Math.random());
+            quizQuestions = shuffled.slice(0, 5); // 5 questions per quiz session
+            
+            document.getElementById('quizResultBox').classList.add('hidden');
+            document.getElementById('quizQuestionBox').classList.remove('hidden');
+            document.getElementById('quizFooter').classList.remove('hidden');
+            
+            loadQuizQuestion();
+        }
+
+        function loadQuizQuestion() {
+            if (currentQuizIndex >= quizQuestions.length) {
+                showQuizResults();
+                return;
+            }
+
+            const q = quizQuestions[currentQuizIndex];
+            document.getElementById('quizProgress').textContent = `Question ${currentQuizIndex + 1} of ${quizQuestions.length}`;
+            document.getElementById('quizQuestionText').textContent = `What is the keyboard shortcut for: "${q.action}"?`;
+            document.getElementById('quizScoreDisplay').textContent = `Score: ${quizScore}`;
+            document.getElementById('nextQuizBtn').classList.add('hidden');
+
+            // Generate 3 wrong options + 1 correct option
+            const wrongOptions = shortcutsData
+                .filter(s => s.key !== q.key)
+                .sort(() => 0.5 - Math.random())
+                .slice(0, 3)
+                .map(s => s.key);
+            
+            const options = [...wrongOptions, q.key].sort(() => 0.5 - Math.random());
+
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = options.map(opt => `
+                <button onclick="checkQuizAnswer(this, '${opt.replace(/'/g, "\\'")}', '${q.key.replace(/'/g, "\\'")}')" 
+                    class="w-full text-left px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:border-blue-300 dark:hover:border-blue-700 transition text-sm font-medium flex items-center justify-between group">
+                    <span>${opt}</span>
+                    <span class="w-5 h-5 rounded-full border border-slate-300 dark:border-slate-600 flex items-center justify-center text-xs text-transparent group-hover:border-blue-500">
+                        <i class="fa-solid fa-check"></i>
+                    </span>
+                </button>
+            `).join('');
+        }
+
+        function checkQuizAnswer(button, selected, correct) {
+            // Disable all option buttons
+            const buttons = document.querySelectorAll('#quizOptions button');
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selected === correct) {
+                quizScore++;
+                button.classList.remove('bg-slate-50', 'dark:bg-slate-900/50', 'border-slate-200', 'dark:border-slate-700');
+                button.classList.add('bg-green-50', 'dark:bg-green-900/30', 'border-green-500', 'text-green-700', 'dark:text-green-300');
+                button.querySelector('span:last-child').classList.remove('text-transparent', 'border-slate-300');
+                button.querySelector('span:last-child').classList.add('bg-green-500', 'text-white', 'border-green-500');
+            } else {
+                button.classList.remove('bg-slate-50', 'dark:bg-slate-900/50', 'border-slate-200', 'dark:border-slate-700');
+                button.classList.add('bg-red-50', 'dark:bg-red-900/30', 'border-red-500', 'text-red-700', 'dark:text-red-300');
+                
+                // Highlight correct one
+                buttons.forEach(btn => {
+                    if (btn.textContent.trim().includes(correct)) {
+                        btn.classList.remove('bg-slate-50', 'dark:bg-slate-900/50');
+                        btn.classList.add('bg-green-50', 'dark:bg-green-900/30', 'border-green-500', 'text-green-700', 'dark:text-green-300');
+                    }
+                });
+            }
+
+            document.getElementById('quizScoreDisplay').textContent = `Score: ${quizScore}`;
+            document.getElementById('nextQuizBtn').classList.remove('hidden');
+        }
+
+        function nextQuizQuestion() {
+            currentQuizIndex++;
+            loadQuizQuestion();
+        }
+
+        function showQuizResults() {
+            document.getElementById('quizQuestionBox').classList.add('hidden');
+            document.getElementById('quizFooter').classList.add('hidden');
+            document.getElementById('quizResultBox').classList.remove('hidden');
+            document.getElementById('quizScoreText').textContent = `You scored ${quizScore} out of ${quizQuestions.length} correct!`;
+        }
+    </script>
+</body>
+</html>
