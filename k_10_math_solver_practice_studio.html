@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-10 Math Solver & Practice Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+</head>
+
+<body class="bg-slate-50 text-slate-800 font-sans h-full flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
+
+    <header class="bg-indigo-600 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white/10 p-2.5 rounded-2xl backdrop-blur-md border border-white/20">
+                    <svg class="w-7 h-7 text-indigo-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight">K-10 Math Master</h1>
+                    <p class="text-xs text-indigo-200">Interactive Solver, Step-by-Step Guide & Practice Hub</p>
+                </div>
+            </div>
+            <nav class="flex bg-indigo-700/80 p-1.5 rounded-xl border border-indigo-500/40 text-sm font-semibold">
+                <button onclick="switchMode('solver')" id="nav-solver" class="px-4 py-2 rounded-lg bg-white text-indigo-700 shadow-sm transition-all">Math Solver & Guide</button>
+                <button onclick="switchMode('practice')" id="nav-practice" class="px-4 py-2 rounded-lg text-indigo-100 hover:text-white transition-all">Practice Quiz & Score</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 overflow-y-auto">
+
+        <!-- SOLVER VIEW -->
+        <div id="view-solver" class="space-y-6">
+            <!-- Grade Filter Bar -->
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-400">Filter Topics by Grade Level</h2>
+                    <span id="active-grade-label" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full w-fit">Showing All Grades (1st - 10th)</span>
+                </div>
+                <div class="flex flex-wrap gap-2" id="grade-filters">
+                    <button onclick="filterGrade('all')" class="grade-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white transition-all shadow-sm">All Grades</button>
+                    <button onclick="filterGrade('1-3')" class="grade-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">Grades 1–3</button>
+                    <button onclick="filterGrade('4-6')" class="grade-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">Grades 4–6</button>
+                    <button onclick="filterGrade('7-8')" class="grade-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">Grades 7–8</button>
+                    <button onclick="filterGrade('9-10')" class="grade-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">Grades 9–10</button>
+                </div>
+            </div>
+
+            <!-- Topic Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="topics-grid">
+                <!-- Dynamic topic cards rendered by JS -->
+            </div>
+        </div>
+
+        <!-- PRACTICE VIEW -->
+        <div id="view-practice" class="hidden space-y-6 max-w-3xl mx-auto">
+            <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-200 text-center space-y-6">
+                <div class="inline-flex bg-indigo-50 text-indigo-600 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">Interactive Quiz Mode</div>
+                <h2 class="text-2xl font-extrabold text-slate-900">Test Your K-10 Math Skills</h2>
+                <p class="text-slate-600 text-sm max-w-md mx-auto">Practice random math problems across different grade levels. Earn points and review step-by-step explanations for each question!</p>
+                
+                <div id="quiz-setup" class="space-y-4 pt-4">
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <button onclick="startQuiz('1-3')" class="p-4 rounded-2xl border-2 border-slate-200 hover:border-indigo-600 hover:bg-indigo-50/50 transition-all text-left group">
+                            <span class="block text-xs text-slate-400 font-bold uppercase">Basic</span>
+                            <span class="text-base font-extrabold text-slate-800 group-hover:text-indigo-600">Grades 1–3</span>
+                        </button>
+                        <button onclick="startQuiz('4-6')" class="p-4 rounded-2xl border-2 border-slate-200 hover:border-indigo-600 hover:bg-indigo-50/50 transition-all text-left group">
+                            <span class="block text-xs text-slate-400 font-bold uppercase">Intermediate</span>
+                            <span class="text-base font-extrabold text-slate-800 group-hover:text-indigo-600">Grades 4–6</span>
+                        </button>
+                        <button onclick="startQuiz('7-8')" class="p-4 rounded-2xl border-2 border-slate-200 hover:border-indigo-600 hover:bg-indigo-50/50 transition-all text-left group">
+                            <span class="block text-xs text-slate-400 font-bold uppercase">Advanced</span>
+                            <span class="text-base font-extrabold text-slate-800 group-hover:text-indigo-600">Grades 7–8</span>
+                        </button>
+                        <button onclick="startQuiz('9-10')" class="p-4 rounded-2xl border-2 border-slate-200 hover:border-indigo-600 hover:bg-indigo-50/50 transition-all text-left group">
+                            <span class="block text-xs text-slate-400 font-bold uppercase">High School</span>
+                            <span class="text-base font-extrabold text-slate-800 group-hover:text-indigo-600">Grades 9–10</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="quiz-active" class="hidden space-y-6 text-left">
+                    <div class="flex justify-between items-center bg-slate-50 px-4 py-3 rounded-2xl border border-slate-200 text-sm font-semibold">
+                        <span id="quiz-progress" class="text-slate-600">Question 1 of 5</span>
+                        <span id="quiz-score" class="text-indigo-600">Score: 0</span>
+                    </div>
+                    <div class="p-6 bg-slate-50/70 rounded-2xl border border-slate-200/80 space-y-4">
+                        <h3 id="quiz-question-title" class="text-lg font-bold text-slate-900">Question title here</h3>
+                        <p id="quiz-question-text" class="text-slate-600">Question prompt here...</p>
+                        <div id="quiz-options" class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                            <!-- Options generated dynamically -->
+                        </div>
+                    </div>
+                    <div id="quiz-feedback" class="hidden p-4 rounded-xl text-sm font-semibold"></div>
+                    <div class="flex justify-end">
+                        <button id="quiz-next-btn" onclick="nextQuizQuestion()" class="hidden px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-all shadow-sm">Next Question</button>
+                    </div>
+                </div>
+
+                <div id="quiz-results" class="hidden space-y-6">
+                    <div class="p-6 bg-indigo-50 rounded-2xl border border-indigo-100 space-y-2">
+                        <h3 class="text-2xl font-extrabold text-indigo-900">Quiz Completed! 🎉</h3>
+                        <p id="quiz-final-score" class="text-lg font-bold text-indigo-700">You scored 5 out of 5</p>
+                    </div>
+                    <button onclick="resetQuiz()" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-all shadow-sm">Try Another Quiz</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="calculator-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                <div class="flex items-center space-x-3">
+                    <div id="modal-icon" class="p-2.5 bg-indigo-100 text-indigo-600 rounded-xl">
+                        <!-- Icon -->
+                    </div>
+                    <div>
+                        <h3 id="modal-title" class="text-lg font-extrabold text-slate-900">Calculator Title</h3>
+                        <p id="modal-grade" class="text-xs font-semibold text-indigo-600">Grade Level</p>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="w-9 h-9 flex items-center justify-center rounded-xl bg-slate-200/60 hover:bg-slate-200 text-slate-600 font-bold transition-all">✕</button>
+            </div>
+            <div class="p-6 space-y-6">
+                <!-- Description / Formula tip -->
+                <div id="modal-formula-box" class="p-4 bg-indigo-50/60 rounded-2xl border border-indigo-100/80 text-xs text-indigo-900 space-y-1">
+                    <span class="font-bold uppercase tracking-wider block text-indigo-700">Formula / Rule:</span>
+                    <p id="modal-formula-text" class="font-medium text-slate-700">Formula text here...</p>
+                </div>
+
+                <!-- Dynamic Inputs Form -->
+                <div id="modal-inputs" class="space-y-4">
+                    <!-- Inputs rendered here -->
+                </div>
+
+                <!-- Calculate Action Button -->
+                <button onclick="calculateResult()" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-xl shadow-md shadow-indigo-200 transition-all">
+                    Calculate & Show Steps
+                </button>
+
+                <!-- Results and Step by Step Box -->
+                <div id="modal-result-container" class="hidden space-y-4 pt-2 border-t border-slate-100">
+                    <div class="p-4 bg-emerald-50 rounded-2xl border border-emerald-200 flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Final Answer:</span>
+                        <span id="modal-final-answer" class="text-lg font-extrabold text-emerald-900">-</span>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Step-by-Step Explanation:</h4>
+                        <div id="modal-steps" class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2 text-sm text-slate-700">
+                            <!-- Steps rendered here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Database of K-10 Mathematics Topics & Operations
+        const mathTopics = [
+            {
+                id: 'arithmetic',
+                title: 'Basic Arithmetic',
+                grade: '1st - 4th Grade',
+                gradeCat: '1-3',
+                icon: '➕',
+                desc: 'Addition, Subtraction, Multiplication & Division with carry and borrow steps.',
+                formula: 'Multiplication is repeated addition; Division is repeated subtraction or grouping.',
+                inputs: [
+                    { id: 'op', label: 'Operation', type: 'select', options: ['Addition (+)', 'Subtraction (-)', 'Multiplication (×)', 'Division (÷)'] },
+                    { id: 'num1', label: 'First Number', type: 'number', default: 145 },
+                    { id: 'num2', label: 'Second Number', type: 'number', default: 28 }
+                ],
+                calculate: (vals) => {
+                    const op = vals.op;
+                    const a = parseFloat(vals.num1);
+                    const b = parseFloat(vals.num2);
+                    let ans = 0;
+                    let steps = [];
+
+                    if (op.includes('Addition')) {
+                        ans = a + b;
+                        steps.push(`Align numbers by place value (ones, tens, hundreds).`);
+                        steps.push(`Add the ones column: ${(a%10)} + ${(b%10)} = ${a+b}.`);
+                        steps.push(`Combine all place values to get the sum.`);
+                    } else if (op.includes('Subtraction')) {
+                        ans = a - b;
+                        steps.push(`Align numbers by place value.`);
+                        steps.push(`Subtract the second number from the first.`);
+                        if (a < b) steps.push(`Note: Result is negative because ${a} < ${b}.`);
+                    } else if (op.includes('Multiplication')) {
+                        ans = a * b;
+                        steps.push(`Multiply ${a} by each digit of ${b} from right to left.`);
+                        steps.push(`Add partial products together.`);
+                    } else {
+                        if (b === 0) return { ans: 'Error: Division by zero', steps: ['Cannot divide by zero!'] };
+                        ans = (a / b).toFixed(4);
+                        steps.push(`Divide ${a} by ${b}.`);
+                        steps.push(`Quotient is ${Math.floor(a/b)} with remainder ${a % b}.`);
+                    }
+                    return { ans, steps };
+                }
+            },
+            {
+                id: 'fractions',
+                title: 'Fractions & Decimals',
+                grade: '4th - 7th Grade',
+                gradeCat: '4-6',
+                icon: '🍕',
+                desc: 'Add, subtract, and simplify fractions, or convert fractions to decimals.',
+                formula: 'Fraction Addition: \\(\\frac{a}{b} + \\frac{c}{d} = \\frac{ad+bc}{bd}\\)',
+                inputs: [
+                    { id: 'op', label: 'Operation', type: 'select', options: ['Add Fractions', 'Multiply Fractions', 'Convert Fraction to Decimal'] },
+                    { id: 'n1', label: 'Numerator 1', type: 'number', default: 3 },
+                    { id: 'd1', label: 'Denominator 1', type: 'number', default: 4 },
+                    { id: 'n2', label: 'Numerator 2 / Multiplier', type: 'number', default: 1 },
+                    { id: 'd2', label: 'Denominator 2 (if applicable)', type: 'number', default: 2 }
+                ],
+                calculate: (vals) => {
+                    const op = vals.op;
+                    const n1 = parseInt(vals.n1), d1 = parseInt(vals.d1);
+                    const n2 = parseInt(vals.n2), d2 = parseInt(vals.d2);
+                    let ans = '', steps = [];
+
+                    if (d1 === 0 || (op.includes('Fractions') && op.includes('Add') && d2 === 0)) return { ans: 'Invalid Denominator', steps: ['Denominator cannot be zero.'] };
+
+                    if (op.includes('Add Fractions')) {
+                        const commonD = d1 * d2;
+                        const newN1 = n1 * d2;
+                        const newN2 = n2 * d1;
+                        const sumN = newN1 + newN2;
+                        steps.push(`Find a common denominator: ${d1} × ${d2} = ${commonD}.`);
+                        steps.push(`Convert fractions: ${n1}/${d1} becomes ${newN1}/${commonD} and ${n2}/${d2} becomes ${newN2}/${commonD}.`);
+                        steps.push(`Add numerators: ${newN1} + ${newN2} = ${sumN}.`);
+                        ans = `${sumN} / ${commonD}`;
+                    } else if (op.includes('Multiply Fractions')) {
+                        const top = n1 * n2;
+                        const bot = d1 * d2;
+                        steps.push(`Multiply numerators straight across: ${n1} × ${n2} = ${top}.`);
+                        steps.push(`Multiply denominators straight across: ${d1} × ${d2} = ${bot}.`);
+                        ans = `${top} / ${bot}`;
+                    } else {
+                        const dec = (n1 / d1).toFixed(4);
+                        steps.push(`Divide numerator by denominator: ${n1} ÷ ${d1} = ${dec}.`);
+                        ans = `${dec}`;
+                    }
+                    return { ans, steps };
+                }
+            },
+            {
+                id: 'percentages',
+                title: 'Percentages & Discounts',
+                grade: '5th - 8th Grade',
+                gradeCat: '5-8',
+                icon: '💯',
+                desc: 'Calculate percentage of a number, percentage increase/decrease, and sale discounts.',
+                formula: '\\(\\text{Percentage} = \\frac{\\text{Part}}{\\text{Whole}} \\times 100\\)',
+                inputs: [
+                    { id: 'mode', label: 'Calculation Type', type: 'select', options: ['Percentage of a Number', 'Percentage Increase / Decrease', 'Find Discount Price'] },
+                    { id: 'val1', label: 'Value / Original Price', type: 'number', default: 200 },
+                    { id: 'val2', label: 'Percentage (%)', type: 'number', default: 15 }
+                ],
+                calculate: (vals) => {
+                    const mode = vals.mode;
+                    const v1 = parseFloat(vals.val1);
+                    const v2 = parseFloat(vals.val2);
+                    let ans = '', steps = [];
+
+                    if (mode.includes('Percentage of a Number')) {
+                        ans = (v1 * (v2 / 100)).toFixed(2);
+                        steps.push(`Convert percentage to decimal: ${v2}% = ${v2 / 100}.`);
+                        steps.push(`Multiply by the number: ${v1} × ${v2 / 100} = ${ans}.`);
+                    } else if (mode.includes('Increase')) {
+                        const inc = v1 * (v2 / 100);
+                        ans = (v1 + inc).toFixed(2);
+                        steps.push(`Calculate ${v2}% of ${v1}: ${inc}.`);
+                        steps.push(`Add to original value: ${v1} + ${inc} = ${ans}.`);
+                    } else {
+                        const disc = v1 * (v2 / 100);
+                        ans = (v1 - disc).toFixed(2);
+                        steps.push(`Calculate discount amount: ${v1} × (${v2} / 100) = ${disc}.`);
+                        steps.push(`Subtract discount from original price: ${v1} - ${disc} = ${ans}.`);
+                    }
+                    return { ans, steps };
+                }
+            },
+            {
+                id: 'ratio',
+                title: 'Ratio & Proportion',
+                grade: '6th - 8th Grade',
+                gradeCat: '7-8',
+                icon: '⚖️',
+                desc: 'Solve proportions using cross-multiplication ( \\( \\frac{a}{b} = \\frac{c}{x} \\) ).',
+                formula: 'If \\(\\frac{a}{b} = \\frac{c}{x}\\), then \\(x = \\frac{b \\times c}{a}\\)',
+                inputs: [
+                    { id: 'a', label: 'A (Ratio 1 numerator)', type: 'number', default: 2 },
+                    { id: 'b', label: 'B (Ratio 1 denominator)', type: 'number', default: 3 },
+                    { id: 'c', label: 'C (Ratio 2 numerator)', type: 'number', default: 10 }
+                ],
+                calculate: (vals) => {
+                    const a = parseFloat(vals.a);
+                    const b = parseFloat(vals.b);
+                    const c = parseFloat(vals.c);
+                    if (a === 0) return { ans: 'Error', steps: ['A cannot be zero in proportion \\(\\frac{a}{b} = \\frac{c}{x}\\).'] };
+                    const x = (b * c) / a;
+                    let steps = [
+                        `Set up proportion: ${a} / ${b} = ${c} / x`,
+                        `Cross multiply: ${a} × x = ${b} × ${c}`,
+                        `Simplify right side: ${a}x = ${b * c}`,
+                        `Divide by ${a}: x = ${b * c} / ${a} = ${x}`
+                    ];
+                    return { ans: `x = ${x}`, steps };
+                }
+            },
+            {
+                id: 'algebra',
+                title: 'Algebra: Linear Equations',
+                grade: '7th - 9th Grade',
+                gradeCat: '7-8',
+                icon: '📐',
+                desc: 'Solve simple linear equations in the form \\(ax + b = c\\).',
+                formula: 'Isolate \\(x\\) by subtracting \\(b\\) and dividing by \\(a\\).',
+                inputs: [
+                    { id: 'a', label: 'Coefficient a (in ax + b = c)', type: 'number', default: 3 },
+                    { id: 'b', label: 'Constant b', type: 'number', default: 5 },
+                    { id: 'c', label: 'Result c', type: 'number', default: 20 }
+                ],
+                calculate: (vals) => {
+                    const a = parseFloat(vals.a);
+                    const b = parseFloat(vals.b);
+                    const c = parseFloat(vals.c);
+                    if (a === 0) return { ans: 'Invalid Equation', steps: ['Coefficient \\(a\\) cannot be zero for a linear \\(ax+b=c\\) equation.'] };
+                    const x = (c - b) / a;
+                    let steps = [
+                        `Given equation: ${a}x + ${b} = ${c}`,
+                        `Subtract ${b} from both sides: ${a}x = ${c} - ${b} => ${a}x = ${c - b}`,
+                        `Divide both sides by ${a}: x = ${c - b} / ${a}`,
+                        `Final Solution: x = ${x}`
+                    ];
+                    return { ans: `x = ${x}`, steps };
+                }
+            },
+            {
+                id: 'quadratic',
+                title: 'Quadratic Solver',
+                grade: '9th - 10th Grade',
+                gradeCat: '9-10',
+                icon: '📈',
+                desc: 'Find roots of quadratic equations \\(ax^2 + bx + c = 0\\) using the Quadratic Formula.',
+                formula: '\\(x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}\\)',
+                inputs: [
+                    { id: 'a', label: 'Coefficient a', type: 'number', default: 1 },
+                    { id: 'b', label: 'Coefficient b', type: 'number', default: -5 },
+                    { id: 'c', label: 'Constant c', type: 'number', default: 6 }
+                ],
+                calculate: (vals) => {
+                    const a = parseFloat(vals.a);
+                    const b = parseFloat(vals.b);
+                    const c = parseFloat(vals.c);
+                    if (a === 0) return { ans: 'Not Quadratic', steps: ['a cannot be zero; this would be a linear equation.'] };
+                    
+                    const discriminant = (b * b) - (4 * a * c);
+                    let steps = [
+                        `Quadratic equation: ${a}x² + (${b})x + (${c}) = 0`,
+                        `Calculate Discriminant (Δ = b² - 4ac): (${b})² - 4(${a})(${c}) = ${discriminant}`
+                    ];
+
+                    if (discriminant < 0) {
+                        const realPart = (-b / (2 * a)).toFixed(2);
+                        const imagPart = (Math.sqrt(-discriminant) / (2 * a)).toFixed(2);
+                        return { ans: `x = ${realPart} ± ${imagPart}i (Complex Roots)`, steps: [...steps, `Discriminant is negative, roots are complex numbers.`] };
+                    } else if (discriminant === 0) {
+                        const x = -b / (2 * a);
+                        return { ans: `x = ${x} (Repeated Root)`, steps: [...steps, `Discriminant is 0, exactly one real root: x = -b / 2a = ${x}.`] };
+                    } else {
+                        const x1 = ((-b + Math.sqrt(discriminant)) / (2 * a)).toFixed(2);
+                        const x2 = ((-b - Math.sqrt(discriminant)) / (2 * a)).toFixed(2);
+                        return { ans: `x₁ = ${x1}, x₂ = ${x2}`, steps: [...steps, `Two distinct real roots: x = (-(${b}) ± √${discriminant}) / (2(${a}))`, `x₁ = ${x1}, x₂ = ${x2}`] };
+                    }
+                }
+            },
+            {
+                id: 'geometry',
+                title: 'Geometry & Pythagorean',
+                grade: '6th - 10th Grade',
+                gradeCat: '7-8',
+                icon: '🔺',
+                desc: 'Calculate area, perimeter, volume, or find missing triangle sides using Pythagorean Theorem.',
+                formula: 'Pythagorean Theorem: \\(a^2 + b^2 = c^2\\)',
+                inputs: [
+                    { id: 'shape', label: 'Calculation Type', type: 'select', options: ['Pythagorean Theorem (Find Hypotenuse c)', 'Rectangle Area & Perimeter', 'Circle Area & Circumference'] },
+                    { id: 'p1', label: 'Side a / Length / Radius', type: 'number', default: 3 },
+                    { id: 'p2', label: 'Side b / Width (if applicable)', type: 'number', default: 4 }
+                ],
+                calculate: (vals) => {
+                    const shape = vals.shape;
+                    const v1 = parseFloat(vals.p1);
+                    const v2 = parseFloat(vals.p2);
+                    let ans = '', steps = [];
+
+                    if (shape.includes('Pythagorean')) {
+                        const c = Math.sqrt((v1 * v1) + (v2 * v2)).toFixed(4);
+                        steps.push(`Formula: a² + b² = c²`);
+                        steps.push(`Substitute values: ${v1}² + ${v2}² = ${v1*v1} + ${v2*v2} = ${(v1*v1)+(v2*v2)}`);
+                        steps.push(`Take square root: c = √${(v1*v1)+(v2*v2)} = ${c}`);
+                        ans = `Hypotenuse c = ${c}`;
+                    } else if (shape.includes('Rectangle')) {
+                        const area = v1 * v2;
+                        const perim = 2 * (v1 + v2);
+                        steps.push(`Area = Length × Width = ${v1} × ${v2} = ${area}`);
+                        steps.push(`Perimeter = 2 × (Length + Width) = 2 × (${v1} + ${v2}) = ${perim}`);
+                        ans = `Area = ${area}, Perimeter = ${perim}`;
+                    } else {
+                        const area = (Math.PI * v1 * v1).toFixed(3);
+                        const circ = (2 * Math.PI * v1).toFixed(3);
+                        steps.push(`Area = πr² = π × ${v1}² = ${area}`);
+                        steps.push(`Circumference = 2πr = 2 × π × ${v1} = ${circ}`);
+                        ans = `Area = ${area}, Circumf. = ${circ}`;
+                    }
+                    return { ans, steps };
+                }
+            },
+            {
+                id: 'statistics',
+                title: 'Statistics: Mean, Median, Mode',
+                grade: '6th - 9th Grade',
+                gradeCat: '7-8',
+                icon: '📊',
+                desc: 'Analyze a dataset of numbers to find Mean, Median, Mode, and Range.',
+                formula: '\\(\\text{Mean} = \\frac{\\text{Sum of values}}{\\text{Total count}}\\(',
+                inputs: [
+                    { id: 'dataset', label: 'Enter numbers (comma separated)', type: 'text', default: '12, 15, 12, 18, 20, 22' }
+                ],
+                calculate: (vals) => {
+                    const raw = vals.dataset;
+                    const arr = raw.split(',').map(n => parseFloat(n.trim())).filter(n => !isNaN(n));
+                    if (arr.length === 0) return { ans: 'Invalid Dataset', steps: ['Please provide valid numbers separated by commas.'] };
+
+                    arr.sort((a, b) => a - b);
+                    const sum = arr.reduce((acc, curr) => acc + curr, 0);
+                    const mean = (sum / arr.length).toFixed(2);
+                    
+                    let median = 0;
+                    const mid = Math.floor(arr.length / 2);
+                    if (arr.length % 2 === 0) {
+                        median = ((arr[mid - 1] + arr[mid]) / 2).toFixed(2);
+                    } else {
+                        median = arr[mid];
+                    }
+
+                    // Mode
+                    const counts = {};
+                    let maxFreq = 0;
+                    let modes = [];
+                    arr.forEach(num => {
+                        counts[num] = (counts[num] || 0) + 1;
+                        if (counts[num] > maxFreq) maxFreq = counts[num];
+                    });
+                    for (let num in counts) {
+                        if (counts[num] === maxFreq) modes.push(num);
+                    }
+                    const modeStr = maxFreq === 1 ? 'No single mode' : modes.join(', ');
+
+                    let steps = [
+                        `Sorted dataset: ${arr.join(', ')}`,
+                        `Count (n) = ${arr.length}, Sum = ${sum}`,
+                        `Mean = Sum / n = ${sum} / ${arr.length} = ${mean}`,
+                        `Median (middle value) = ${median}`,
+                        `Mode (most frequent) = ${modeStr}`
+                    ];
+                    return { ans: `Mean: ${mean} | Median: ${median} | Mode: ${modeStr}`, steps };
+                }
+            },
+            {
+                id: 'exponents',
+                title: 'Exponents & Radicals',
+                grade: '7th - 10th Grade',
+                gradeCat: '7-8',
+                icon: '⚡',
+                desc: 'Calculate powers, roots, and apply laws of exponents ( \\(a^m \\times a^n = a^{m+n}\\) ).',
+                formula: '\\(a^n = a \\times a \\times \\dots \\times a\\) (\\(n\\) times)',
+                inputs: [
+                    { id: 'op', label: 'Operation', type: 'select', options: ['Calculate Power (a^b)', 'Square Root (√a)', 'Cube Root (∛a)'] },
+                    { id: 'val1', label: 'Base Number a', type: 'number', default: 5 },
+                    { id: 'val2', label: 'Exponent b (if power)', type: 'number', default: 3 }
+                ],
+                calculate: (vals) => {
+                    const op = vals.op;
+                    const v1 = parseFloat(vals.val1);
+                    const v2 = parseFloat(vals.val2);
+                    let ans = '', steps = [];
+
+                    if (op.includes('Power')) {
+                        ans = Math.pow(v1, v2);
+                        steps.push(`Multiply base ${v1} by itself ${v2} times.`);
+                        steps.push(`${v1}^${v2} = ${ans}`);
+                    } else if (op.includes('Square Root')) {
+                        if (v1 < 0) return { ans: 'Imaginary Number', steps: ['Cannot take real square root of negative number.'] };
+                        ans = Math.sqrt(v1).toFixed(4);
+                        steps.push(`Find number which multiplied by itself gives ${v1}.`);
+                        steps.push(`√${v1} = ${ans}`);
+                    } else {
+                        ans = Math.cbrt(v1).toFixed(4);
+                        steps.push(`Find number cubed that equals ${v1}.`);
+                        steps.push(`∛${v1} = ${ans}`);
+                    }
+                    return { ans, steps };
+                }
+            }
+        ];
+
+        // Quiz Question Bank by Grade Categories
+        const quizBank = {
+            '1-3': [
+                { q: "What is 45 + 38?", options: ["73", "83", "93", "82"], correct: 1, explanation: "40 + 30 = 70. 5 + 8 = 13. 70 + 13 = 83." },
+                { q: "What is 9 × 7?", options: ["56", "63", "72", "64"], correct: 1, explanation: "Multiplication tables: 9 times 7 equals 63." },
+                { q: "What is 72 ÷ 8?", options: ["7", "8", "9", "6"], correct: 2, explanation: "Since 9 × 8 = 72, 72 divided by 8 is 9." },
+                { q: "If you have 1/2 of a pizza and eat half of it, what fraction is left?", options: ["1/4", "1/3", "3/4", "1/8"], correct: 0, explanation: "Half of 1/2 is 1/4." },
+                { q: "What is the perimeter of a square with side length 5 cm?", options: ["20 cm", "25 cm", "15 cm", "10 cm"], correct: 0, explanation: "Perimeter = 4 × side = 4 × 5 = 20 cm." }
+            ],
+            '4-6': [
+                { q: "Calculate 15% of 200.", options: ["20", "25", "30", "35"], correct: 2, explanation: "15/100 × 200 = 0.15 × 200 = 30." },
+                { q: "Simplify the fraction 24/36 to its lowest terms.", options: ["2/3", "3/4", "4/5", "5/6"], correct: 0, explanation: "Divide numerator and denominator by 12: 24÷12 / 36÷12 = 2/3." },
+                { q: "What is the area of a circle with radius 7 cm? (Use π ≈ 22/7)", options: ["154 cm²", "44 cm²", "88 cm²", "100 cm²"], correct: 0, explanation: "Area = πr² = (22/7) × 7 × 7 = 154 cm²." },
+                { q: "Find the mean of the dataset: 10, 15, 20, 25, 30", options: ["18", "20", "22", "25"], correct: 1, explanation: "Sum = 100. Count = 5. Mean = 100 / 5 = 20." },
+                { q: "Solve for x: 3x - 4 = 11", options: ["x = 3", "x = 4", "x = 5", "x = 6"], correct: 2, explanation: "Add 4 to both sides: 3x = 15, then x = 5." }
+            ],
+            '7-8': [
+                { q: "What is the hypotenuse of a right triangle with legs 6 and 8?", options: ["9", "10", "12", "14"], correct: 1, explanation: "6² + 8² = 36 + 64 = 100. √100 = 10." },
+                { q: "Solve the proportion: 4 / 5 = x / 20", options: ["x = 12", "x = 15", "x = 16", "x = 18"], correct: 2, explanation: "Cross multiply: 5x = 4 × 20 = 80 => x = 16." },
+                { q: "What is (-4)³?", options: ["-64", "64", "-12", "12"], correct: 0, explanation: "(-4) × (-4) × (-4) = 16 × (-4) = -64." },
+                { q: "If the price of a $80 jacket is discounted by 25%, what is the sale price?", options: ["$55", "$60", "$65", "$70"], correct: 1, explanation: "Discount = 25% of 80 = $20. Sale price = 80 - 20 = $60." },
+                { q: "Expand and simplify: (x + 3)(x + 2)", options: ["x² + 5x + 6", "x² + 6x + 5", "x² + 5x + 5", "x² + 6x + 6"], correct: 0, explanation: "FOIL method: x² + 2x + 3x + 6 = x² + 5x + 6." }
+            ],
+            '9-10': [
+                { q: "Find the roots of the quadratic equation x² - 5x + 6 = 0", options: ["x = 1, 6", "x = 2, 3", "x = -2, -3", "x = -1, 6"], correct: 1, explanation: "Factors as (x - 2)(x - 3) = 0, so x = 2 and x = 3." },
+                { q: "What is the discriminant of 2x² - 4x + 2 = 0?", options: ["4", "0", "-4", "16"], correct: 1, explanation: "Δ = b² - 4ac = (-4)² - 4(2)(2) = 16 - 16 = 0." },
+                { q: "Simplify expression: \\( \\frac{x^5}{x^2} \\)", options: ["x³", "x⁷", "x¹⁰", "x²"], correct: 0, explanation: "Exponent rule: \\(x^a / x^b = x^{a-b}\\), so \\(5 - 2 = 3\\)." },
+                { q: "What is the sum of interior angles of a pentagon (5 sides)?", options: ["360°", "540°", "720°", "1080°"], correct: 1, explanation: "Formula: (n - 2) × 180° = (5 - 2) × 180° = 540°." },
+                { q: "If log₁₀(x) = 3, what is x?", options: ["30", "300", "1000", "333"], correct: 2, explanation: "By definition of logarithms, 10³ = 1000." }
+            ]
+        };
+
+        // Current Application State
+        let currentTopic = null;
+        let quizState = { category: null, questions: [], index: 0, score: 0 };
+
+        // Initialize App on Load
+        window.onload = function() {
+            renderTopics(mathTopics);
+        };
+
+        // Navigation Mode Switcher
+        function switchMode(mode) {
+            const solverView = document.getElementById('view-solver');
+            const practiceView = document.getElementById('view-practice');
+            const navSolver = document.getElementById('nav-solver');
+            const navPractice = document.getElementById('nav-practice');
+
+            if (mode === 'solver') {
+                solverView.classList.remove('hidden');
+                practiceView.classList.add('hidden');
+                navSolver.className = "px-4 py-2 rounded-lg bg-white text-indigo-700 shadow-sm transition-all";
+                navPractice.className = "px-4 py-2 rounded-lg text-indigo-100 hover:text-white transition-all";
+            } else {
+                solverView.classList.add('hidden');
+                practiceView.classList.remove('hidden');
+                navPractice.className = "px-4 py-2 rounded-lg bg-white text-indigo-700 shadow-sm transition-all";
+                navSolver.className = "px-4 py-2 rounded-lg text-indigo-100 hover:text-white transition-all";
+                resetQuiz();
+            }
+        }
+
+        // Filter Topics by Grade
+        function filterGrade(cat) {
+            const btns = document.querySelectorAll('.grade-btn');
+            btns.forEach(b => {
+                b.className = "grade-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all";
+            });
+            event.target.className = "grade-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white transition-all shadow-sm";
+
+            let label = "Showing All Grades (1st - 10th)";
+            let filtered = mathTopics;
+            if (cat !== 'all') {
+                filtered = mathTopics.filter(t => t.gradeCat === cat);
+                label = `Showing Topics for ${event.target.innerText}`;
+            }
+            document.getElementById('active-grade-label').innerText = label;
+            renderTopics(filtered);
+        }
+
+        // Render Topic Cards
+        function renderTopics(topics) {
+            const grid = document.getElementById('topics-grid');
+            grid.innerHTML = '';
+            topics.forEach(t => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-3xl shadow-sm border border-slate-200 hover:border-indigo-500/50 hover:shadow-md transition-all flex flex-col justify-between group cursor-pointer";
+                card.onclick = () => openCalculator(t.id);
+                card.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-3xl p-3 bg-indigo-50 rounded-2xl group-hover:scale-110 transition-transform">${t.icon}</span>
+                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/80 px-3 py-1 rounded-full">${t.grade}</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-slate-900 group-hover:text-indigo-600 transition-colors">${t.title}</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">${t.desc}</p>
+                    </div>
+                    <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-indigo-600">
+                        <span>Open Calculator & Guide</span>
+                        <span class="group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Open Interactive Calculator Modal
+        function openCalculator(id) {
+            currentTopic = mathTopics.find(t => t.id === id);
+            if (!currentTopic) return;
+
+            document.getElementById('modal-icon').innerText = currentTopic.icon;
+            document.getElementById('modal-title').innerText = currentTopic.title;
+            document.getElementById('modal-grade').innerText = currentTopic.grade;
+            document.getElementById('modal-formula-text').innerText = currentTopic.formula;
+            document.getElementById('modal-result-container').classList.add('hidden');
+
+            const container = document.getElementById('modal-inputs');
+            container.innerHTML = '';
+
+            currentTopic.inputs.forEach(inp => {
+                const div = document.createElement('div');
+                div.className = "space-y-1.5";
+                let inputHtml = '';
+                if (inp.type === 'select') {
+                    inputHtml = `<select id="input-${inp.id}" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        ${inp.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+                    </select>`;
+                } else {
+                    inputHtml = `<input id="input-${inp.id}" type="${inp.type}" value="${inp.default}" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500">`;
+                }
+                div.innerHTML = `<label class="block text-xs font-bold uppercase tracking-wider text-slate-500">${inp.label}</label>${inputHtml}`;
+                container.appendChild(div);
+            });
+
+            document.getElementById('calculator-modal').classList.remove('hidden');
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('calculator-modal').classList.add('hidden');
+            currentTopic = null;
+        }
+
+        // Calculate Result and Steps
+        function calculateResult() {
+            if (!currentTopic) return;
+            const vals = {};
+            currentTopic.inputs.forEach(inp => {
+                const el = document.getElementById(`input-${inp.id}`);
+                vals[inp.id] = el.value;
+            });
+
+            const res = currentTopic.calculate(vals);
+            
+            document.getElementById('modal-final-answer').innerText = res.ans;
+            const stepsBox = document.getElementById('modal-steps');
+            stepsBox.innerHTML = '';
+            res.steps.forEach((step, idx) => {
+                const p = document.createElement('div');
+                p.className = "flex items-start space-x-2 text-xs font-medium";
+                p.innerHTML = `<span class="bg-indigo-100 text-indigo-700 font-bold px-2 py-0.5 rounded-md">Step ${idx+1}</span><span>${step}</span>`;
+                stepsBox.appendChild(p);
+            });
+
+            document.getElementById('modal-result-container').classList.remove('hidden');
+        }
+
+        // Quiz Logic
+        function startQuiz(cat) {
+            quizState.category = cat;
+            quizState.questions = [...quizBank[cat]].sort(() => 0.5 - Math.random());
+            quizState.index = 0;
+            quizState.score = 0;
+
+            document.getElementById('quiz-setup').classList.add('hidden');
+            document.getElementById('quiz-active').classList.remove('hidden');
+            document.getElementById('quiz-results').classList.add('hidden');
+            renderQuizQuestion();
+        }
+
+        function renderQuizQuestion() {
+            const q = quizState.questions[quizState.index];
+            document.getElementById('quiz-progress').innerText = `Question ${quizState.index + 1} of ${quizState.questions.length}`;
+            document.getElementById('quiz-score').innerText = `Score: ${quizState.score}`;
+            document.getElementById('quiz-question-title').innerText = `Question ${quizState.index + 1}`;
+            document.getElementById('quiz-question-text').innerText = q.q;
+
+            const opts = document.getElementById('quiz-options');
+            opts.innerHTML = '';
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "p-3.5 bg-white border-2 border-slate-200 hover:border-indigo-600 rounded-2xl text-sm font-bold text-slate-700 transition-all text-left flex items-center justify-between group";
+                btn.innerHTML = `<span>${opt}</span><span class="w-6 h-6 rounded-full bg-slate-100 group-hover:bg-indigo-600 group-hover:text-white flex items-center justify-center text-xs transition-colors">${String.fromCharCode(65+idx)}</span>`;
+                btn.onclick = () => selectQuizOption(idx, btn);
+                opts.appendChild(btn);
+            });
+
+            document.getElementById('quiz-feedback').classList.add('hidden');
+            document.getElementById('quiz-next-btn').classList.add('hidden');
+        }
+
+        function selectQuizOption(selectedIdx, btnElement) {
+            const q = quizState.questions[quizState.index];
+            const allOpts = document.getElementById('quiz-options').children;
+            
+            // Disable all options after selection
+            for (let btn of allOpts) {
+                btn.disabled = true;
+                btn.classList.add('opacity-75');
+            }
+
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.classList.remove('hidden');
+
+            if (selectedIdx === q.correct) {
+                btnElement.className = "p-3.5 bg-emerald-50 border-2 border-emerald-500 rounded-2xl text-sm font-bold text-emerald-900 text-left flex items-center justify-between shadow-sm";
+                quizState.score += 10;
+                feedback.className = "p-4 rounded-xl text-sm font-semibold bg-emerald-50 border border-emerald-200 text-emerald-800";
+                feedback.innerHTML = `<strong>Correct! 🎉</strong> ${q.explanation}`;
+            } else {
+                btnElement.className = "p-3.5 bg-rose-50 border-2 border-rose-500 rounded-2xl text-sm font-bold text-rose-900 text-left flex items-center justify-between shadow-sm";
+                allOpts[q.correct].className = "p-3.5 bg-emerald-50 border-2 border-emerald-500 rounded-2xl text-sm font-bold text-emerald-900 text-left flex items-center justify-between shadow-sm";
+                feedback.className = "p-4 rounded-xl text-sm font-semibold bg-rose-50 border border-rose-200 text-rose-800";
+                feedback.innerHTML = `<strong>Incorrect.</strong> ${q.explanation}`;
+            }
+
+            document.getElementById('quiz-score').innerText = `Score: ${quizState.score}`;
+            document.getElementById('quiz-next-btn').classList.remove('hidden');
+        }
+
+        function nextQuizQuestion() {
+            quizState.index++;
+            if (quizState.index < quizState.questions.length) {
+                renderQuizQuestion();
+            } else {
+                document.getElementById('quiz-active').classList.add('hidden');
+                document.getElementById('quiz-results').classList.remove('hidden');
+                const maxScore = quizState.questions.length * 10;
+                document.getElementById('quiz-final-score').innerText = `You scored ${quizState.score} out of ${maxScore} points!`;
+            }
+        }
+
+        function resetQuiz() {
+            document.getElementById('quiz-setup').classList.remove('hidden');
+            document.getElementById('quiz-active').classList.add('hidden');
+            document.getElementById('quiz-results').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
