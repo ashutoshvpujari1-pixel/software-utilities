@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Search Microsoft Excel formulas, examples, and keyboard shortcuts in one practical reference guide.">
+<meta property="og:title" content="Excel Formulas & Keyboard Shortcuts Guide">
+<meta property="og:description" content="A searchable reference for Excel functions, formulas, examples, and keyboard shortcuts.">
+<title>Excel Formulas & Shortcuts Guide</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+
+<style>
+:root{--green:#08784e;--green2:#075c3d;--pale:#e9f7ef;--ink:#172b3a;--muted:#607184;--line:#d9e5ec;--bg:#f4f7f9;--white:#fff;--blue:#eaf4ff;--orange:#fff4e5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI",Arial,sans-serif}
+header{background:linear-gradient(120deg,#064c35,#08784e 60%,#0b9060);color:white;padding:24px clamp(16px,4vw,54px)}
+.head{max-width:1500px;margin:auto;display:flex;align-items:center;gap:18px}.logo{font-size:42px;background:#fff;color:var(--green);font-weight:900;border-radius:12px;padding:8px 14px;box-shadow:0 5px 18px #003c2b66}
+h1{font-size:clamp(25px,3.3vw,42px);line-height:1.1;margin:0 0 8px}.subtitle{margin:0;color:#e0fff0;font-size:16px}
+nav{background:white;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;display:flex;gap:8px;padding:10px clamp(12px,3vw,36px);overflow-x:auto}
+nav button{white-space:nowrap;border:1px solid var(--line);background:white;border-radius:9px;padding:10px 15px;font-weight:700;color:#19405a;cursor:pointer}
+nav button.active,nav button:hover{background:var(--green);color:white;border-color:var(--green)}
+main{max-width:1500px;margin:22px auto;padding:0 18px;display:grid;grid-template-columns:240px minmax(0,1fr) 280px;gap:18px}
+.panel{background:white;border:1px solid var(--line);border-radius:13px;overflow:hidden;margin-bottom:16px}
+.panel h2{font-size:17px;margin:0;padding:12px 14px;background:#e8f6ee;color:var(--green2)}
+.categories{padding:8px}.categories button{width:100%;text-align:left;padding:9px 10px;margin:2px 0;border:0;border-radius:7px;background:white;cursor:pointer;color:#244055}.categories button:hover,.categories button.active{background:#dff4e8;color:#006640;font-weight:700}
+.tip{padding:14px;background:var(--blue);border:1px solid #c6e2ff;border-radius:12px;color:#19466b}
+.content{min-width:0}.searchbar{display:flex;gap:8px;margin-bottom:14px}.searchbar input,.searchbar select{min-width:0;width:100%;border:1px solid #c7d6df;border-radius:9px;padding:13px 14px;font:inherit;background:white}.searchbar button,.primary{background:var(--green);color:white;border:0;border-radius:9px;padding:12px 17px;font-weight:700;cursor:pointer}
+.intro{background:linear-gradient(100deg,#e8f4ff,#fff);border:1px solid #cfe2f4;border-radius:12px;padding:15px;margin-bottom:14px}.intro strong{color:#075da1;font-size:19px}
+.controls{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0}.count{color:var(--muted);font-size:14px}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:10px;background:white}table{width:100%;border-collapse:collapse;min-width:720px}th{background:#08784e;color:white;text-align:left;padding:12px;font-size:14px;position:sticky;top:0}td{padding:10px 12px;border-bottom:1px solid #e1eaf0;vertical-align:top;font-size:14px}tbody tr:nth-child(even){background:#f7fafc}td code,.code{font-family:Consolas,monospace;background:#edf5ff;border:1px solid #d7e7fa;padding:3px 5px;border-radius:5px;white-space:normal;overflow-wrap:anywhere;color:#123f79}
+.smallbtn{border:1px solid #c9d8e1;background:white;border-radius:6px;padding:5px 8px;cursor:pointer}.smallbtn:hover{background:#eaf7ef}
+.shortcut-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.shortcut{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fff}.shortcut kbd{display:inline-block;background:#edf1f5;border:1px solid #cbd5df;border-bottom-width:3px;border-radius:5px;padding:3px 7px;font:600 13px Consolas,monospace;margin-bottom:6px}
+.right h2{background:#f0eaff;color:#5032a1}.right .panel:nth-child(2) h2{background:#fff0dc;color:#a64b00}.right table{min-width:0}.right th,.right td{padding:7px;font-size:13px}.right .tip{background:var(--orange);border-color:#f4d7a9;color:#74400b}
+.section{display:none}.section.active{display:block}.empty{padding:28px;text-align:center;color:var(--muted)}
+footer{background:#064c35;color:#e7fff4;text-align:center;padding:18px;margin-top:28px}
+@media(max-width:1100px){main{grid-template-columns:220px minmax(0,1fr)}.right{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:14px}.right .panel{margin:0}}
+@media(max-width:700px){.head{align-items:flex-start}.logo{font-size:30px}.head{gap:12px}main{display:block;margin-top:14px}.left,.right{margin-bottom:16px}.right{display:block}.right .panel{margin-bottom:14px}.shortcut-grid{grid-template-columns:1fr}.searchbar{flex-wrap:wrap}.searchbar button{width:100%}}
+</style>
+</head>
+<body>
+<header>
+<div class="head"><div class="logo">X</div><div><h1>Excel Formulas &amp; Shortcuts Guide</h1><p class="subtitle">Find formulas faster • Learn examples • Work smarter in Excel</p>
+<p class="subtitle"><b>Important Note:</b> This list is based on best of our knowledge. Kindly cross-check for correctness at your end also..</p>
+</div>
+</div>
+</header>
+<nav>
+<button class="active" data-view="formulas">ƒx Formula Library</button>
+<button data-view="shortcuts">⌨ Keyboard Shortcuts</button>
+<button data-view="examples">✦ Formula Examples</button>
+<button data-view="tips">✓ Tips &amp; Help</button>
+</nav>
+<main>
+<aside class="left">
+<div class="panel"><h2>Formula Categories</h2><div class="categories" id="categories"></div></div>
+<div class="tip"><strong>💡 Quick tip</strong><br>Search by function name, what it does, or a formula such as <code>SUMIF</code>. Click “Copy” to copy a formula template.</div>
+</aside>
+<section class="content">
+<div class="searchbar"><input id="search" placeholder="Search formulas, descriptions, examples or shortcuts…" aria-label="Search"><select id="categorySelect" aria-label="Filter category"><option value="All">All categories</option></select><button id="clear">Clear</button></div>
+<div class="intro"><strong id="viewTitle">Excel Formula Library</strong><div id="viewDesc">Browse common and advanced functions with syntax, descriptions, and examples.</div></div>
+<div class="controls"><span class="count" id="count"></span><label><input type="checkbox" id="favoritesOnly"> ★ Favorites only</label></div>
+<div id="formulaView" class="section active"><div class="tablewrap"><table><thead><tr><th>Function</th><th>Category</th><th>What it does</th><th>Syntax / example</th><th></th></tr></thead><tbody id="formulaRows"></tbody></table></div></div>
+<div id="shortcutView" class="section"><div class="shortcut-grid" id="shortcutGrid"></div></div>
+<div id="exampleView" class="section"><div id="exampleList"></div></div>
+<div id="tipsView" class="section"><div class="panel"><h2>Useful Excel tips</h2><div style="padding:16px">
+<p><b>1. Start formulas with =</b><br>Example: <code>=SUM(B2:B20)</code></p>
+<p><b>2. Use absolute references</b><br><code>$A$1</code> keeps both row and column fixed when copying a formula. Press <kbd>F4</kbd> while editing a reference to cycle reference types (Windows desktop).</p>
+<p><b>3. Handle errors</b><br><code>=IFERROR(A2/B2,0)</code> returns 0 if the calculation causes an error.</p>
+<p><b>4. Convert data into a Table</b><br>Use <kbd>Ctrl</kbd> + <kbd>T</kbd> (Windows) to make a structured table that expands with your data.</p>
+<p><b>5. Version compatibility</b><br>Functions such as XLOOKUP, FILTER, SORT, UNIQUE, LET and LAMBDA are available in newer Microsoft 365 / Excel versions. Older editions may not support them.</p>
+<p><b>6. Locale differences</b><br>Some Excel installations use semicolons instead of commas between function arguments, depending on regional settings.</p>
+<p><b>7. Shortcuts can vary</b><br>Listed shortcuts primarily target Excel for Windows desktop. Excel for Mac, Excel for the web, and different keyboard layouts may behave differently.</p>
+</div></div></div>
+</section>
+<aside class="right">
+<div class="panel"><h2>⌨ Popular Shortcuts</h2><div style="padding:8px"><table><thead><tr><th>Shortcut (Windows)</th><th>Action</th></tr></thead><tbody id="popularShortcuts"></tbody></table></div></div>
+<div class="panel"><h2>⚡ Quick productivity tips</h2><div style="padding:14px;font-size:14px">
+<p>✓ <kbd>Alt</kbd> + <kbd>=</kbd> — AutoSum</p><p>✓ <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>L</kbd> — Toggle filters</p><p>✓ <kbd>Ctrl</kbd> + <kbd>1</kbd> — Format Cells</p><p>✓ <kbd>Ctrl</kbd> + <kbd>`</kbd> — Show/hide formulas</p><p>✓ <kbd>Ctrl</kbd> + <kbd>;</kbd> — Insert current date</p><p>✓ <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>;</kbd> — Insert current time</p><p>✓ <kbd>F2</kbd> — Edit active cell</p>
+</div></div>
+</aside>
+</main>
+<footer>Excel Formulas &amp; Shortcuts Guide · Independent educational reference · Always verify functions in your Excel version</footer>
+<script>
+const formulas = [
+["SUM","Math & Trigonometry","Adds numbers.","=SUM(A1:A10)"],
+["PRODUCT","Math & Trigonometry","Multiplies numbers.","=PRODUCT(A1:A5)"],
+["SUMIF","Math & Trigonometry","Adds cells meeting one condition.","=SUMIF(A2:A20,\"East\",B2:B20)"],
+["SUMIFS","Math & Trigonometry","Adds cells meeting multiple conditions.","=SUMIFS(C2:C20,A2:A20,\"East\",B2:B20,\">100\")"],
+["SUBTOTAL","Math & Trigonometry","Calculates a subtotal; can ignore filtered rows.","=SUBTOTAL(9,B2:B20)"],
+["AGGREGATE","Math & Trigonometry","Aggregates values with options to ignore errors or hidden rows.","=AGGREGATE(9,6,B2:B20)"],
+["ROUND","Math & Trigonometry","Rounds to a chosen number of digits.","=ROUND(A1,2)"],
+["ROUNDUP","Math & Trigonometry","Rounds away from zero.","=ROUNDUP(A1,0)"],
+["ROUNDDOWN","Math & Trigonometry","Rounds toward zero.","=ROUNDDOWN(A1,0)"],
+["MROUND","Math & Trigonometry","Rounds to a specified multiple.","=MROUND(A1,5)"],
+["INT","Math & Trigonometry","Rounds down to an integer.","=INT(A1)"],
+["TRUNC","Math & Trigonometry","Truncates a number to a given precision.","=TRUNC(A1,2)"],
+["ABS","Math & Trigonometry","Returns the absolute value.","=ABS(A1)"],
+["MOD","Math & Trigonometry","Returns the remainder after division.","=MOD(A1,7)"],
+["QUOTIENT","Math & Trigonometry","Returns the integer portion of division.","=QUOTIENT(A1,B1)"],
+["POWER","Math & Trigonometry","Raises a number to a power.","=POWER(A1,3)"],
+["SQRT","Math & Trigonometry","Returns the square root.","=SQRT(A1)"],
+["EXP","Math & Trigonometry","Returns e raised to a power.","=EXP(A1)"],
+["LN","Math & Trigonometry","Returns the natural logarithm.","=LN(A1)"],
+["LOG","Math & Trigonometry","Returns a logarithm to a chosen base.","=LOG(A1,10)"],
+["LOG10","Math & Trigonometry","Returns base-10 logarithm.","=LOG10(A1)"],
+["PI","Math & Trigonometry","Returns pi.","=PI()"],
+["RAND","Math & Trigonometry","Returns a random decimal from 0 to 1.","=RAND()"],
+["RANDBETWEEN","Math & Trigonometry","Returns a random integer in a range.","=RANDBETWEEN(1,100)"],
+["CEILING.MATH","Math & Trigonometry","Rounds up to a multiple.","=CEILING.MATH(A1,5)"],
+["FLOOR.MATH","Math & Trigonometry","Rounds down to a multiple.","=FLOOR.MATH(A1,5)"],
+["SUMPRODUCT","Math & Trigonometry","Multiplies corresponding arrays and sums results.","=SUMPRODUCT(B2:B10,C2:C10)"],
+["SEQUENCE","Math & Trigonometry","Generates a sequence of numbers (newer Excel).","=SEQUENCE(10)"],
+["ABS","Math & Trigonometry","Returns a number without its sign.","=ABS(-25)"],
+["AVERAGE","Statistical","Returns the arithmetic mean.","=AVERAGE(B2:B20)"],
+["AVERAGEIF","Statistical","Averages values matching one condition.","=AVERAGEIF(A2:A20,\"East\",B2:B20)"],
+["AVERAGEIFS","Statistical","Averages values matching multiple conditions.","=AVERAGEIFS(C2:C20,A2:A20,\"East\",B2:B20,\">0\")"],
+["COUNT","Statistical","Counts cells containing numbers.","=COUNT(A1:A20)"],
+["COUNTA","Statistical","Counts non-empty cells.","=COUNTA(A1:A20)"],
+["COUNTBLANK","Statistical","Counts blank cells.","=COUNTBLANK(A1:A20)"],
+["COUNTIF","Statistical","Counts cells matching one condition.","=COUNTIF(A2:A20,\"Paid\")"],
+["COUNTIFS","Statistical","Counts cells matching multiple conditions.","=COUNTIFS(A:A,\"East\",B:B,\">100\")"],
+["MAX","Statistical","Returns the largest value.","=MAX(B2:B20)"],
+["MIN","Statistical","Returns the smallest value.","=MIN(B2:B20)"],
+["MEDIAN","Statistical","Returns the middle value.","=MEDIAN(B2:B20)"],
+["MODE.SNGL","Statistical","Returns the most frequent value.","=MODE.SNGL(B2:B20)"],
+["LARGE","Statistical","Returns the k-th largest value.","=LARGE(B2:B20,2)"],
+["SMALL","Statistical","Returns the k-th smallest value.","=SMALL(B2:B20,3)"],
+["RANK.EQ","Statistical","Returns a number's rank in a list.","=RANK.EQ(B2,$B$2:$B$20)"],
+["STDEV.S","Statistical","Estimates standard deviation for a sample.","=STDEV.S(B2:B20)"],
+["STDEV.P","Statistical","Calculates standard deviation for a population.","=STDEV.P(B2:B20)"],
+["VAR.S","Statistical","Estimates sample variance.","=VAR.S(B2:B20)"],
+["VAR.P","Statistical","Calculates population variance.","=VAR.P(B2:B20)"],
+["PERCENTILE.INC","Statistical","Returns a percentile value.","=PERCENTILE.INC(B2:B20,0.9)"],
+["QUARTILE.INC","Statistical","Returns a quartile.","=QUARTILE.INC(B2:B20,3)"],
+["CORREL","Statistical","Returns correlation between two datasets.","=CORREL(A2:A20,B2:B20)"],
+["FORECAST.LINEAR","Statistical","Predicts a value using linear regression.","=FORECAST.LINEAR(E2,B2:B20,A2:A20)"],
+["IF","Logical","Returns one value if true and another if false.","=IF(B2>=50,\"Pass\",\"Fail\")"],
+["IFS","Logical","Tests multiple conditions in order.","=IFS(A2>=90,\"A\",A2>=75,\"B\",TRUE,\"C\")"],
+["AND","Logical","Returns TRUE if every condition is true.","=AND(A2>0,B2<100)"],
+["OR","Logical","Returns TRUE if any condition is true.","=OR(A2=\"Yes\",B2=\"Yes\")"],
+["NOT","Logical","Reverses TRUE/FALSE.","=NOT(A2=\"Closed\")"],
+["IFERROR","Logical","Returns a fallback value if a formula errors.","=IFERROR(A2/B2,0)"],
+["IFNA","Logical","Handles #N/A errors specifically.","=IFNA(XLOOKUP(E2,A:A,B:B),\"Not found\")"],
+["SWITCH","Logical","Matches an expression against values.","=SWITCH(A2,1,\"Low\",2,\"Medium\",\"Other\")"],
+["TRUE","Logical","Returns the logical value TRUE.","=TRUE()"],
+["FALSE","Logical","Returns the logical value FALSE.","=FALSE()"],
+["XOR","Logical","Returns TRUE for an odd number of TRUE arguments.","=XOR(A2>0,B2>0)"],
+["NOT","Logical","Reverses a logical value.","=NOT(A2>0)"],
+["CONCAT","Text","Combines text from multiple cells or strings.","=CONCAT(A2,\" \",B2)"],
+["CONCATENATE","Text","Joins text strings; legacy function.","=CONCATENATE(A2,\" \",B2)"],
+["TEXTJOIN","Text","Joins text with a delimiter; can ignore blanks.","=TEXTJOIN(\", \",TRUE,A2:A10)"],
+["LEFT","Text","Returns characters from the left side.","=LEFT(A2,3)"],
+["RIGHT","Text","Returns characters from the right side.","=RIGHT(A2,4)"],
+["MID","Text","Returns characters from a specified position.","=MID(A2,2,5)"],
+["LEN","Text","Counts characters including spaces.","=LEN(A2)"],
+["TRIM","Text","Removes extra ordinary spaces.","=TRIM(A2)"],
+["CLEAN","Text","Removes many non-printing characters.","=CLEAN(A2)"],
+["UPPER","Text","Converts text to uppercase.","=UPPER(A2)"],
+["LOWER","Text","Converts text to lowercase.","=LOWER(A2)"],
+["PROPER","Text","Capitalizes the first letter of each word.","=PROPER(A2)"],
+["FIND","Text","Finds text case-sensitively.","=FIND(\"x\",A2)"],
+["SEARCH","Text","Finds text without case sensitivity; supports wildcards.","=SEARCH(\"excel\",A2)"],
+["SUBSTITUTE","Text","Replaces matching text.","=SUBSTITUTE(A2,\"old\",\"new\")"],
+["REPLACE","Text","Replaces characters by position.","=REPLACE(A2,1,3,\"New\")"],
+["TEXT","Text","Formats a value as text.","=TEXT(A2,\"dd-mmm-yyyy\")"],
+["VALUE","Text","Converts numeric text to a number.","=VALUE(A2)"],
+["NUMBERVALUE","Text","Converts text to a number with explicit separators.","=NUMBERVALUE(A2)"],
+["EXACT","Text","Compares two strings, case-sensitively.","=EXACT(A2,B2)"],
+["REPT","Text","Repeats text a specified number of times.","=REPT(\"*\",5)"],
+["TEXTBEFORE","Text","Returns text before a delimiter (newer Excel).","=TEXTBEFORE(A2,\"-\")"],
+["TEXTAFTER","Text","Returns text after a delimiter (newer Excel).","=TEXTAFTER(A2,\"-\")"],
+["TEXTSPLIT","Text","Splits text into rows or columns (newer Excel).","=TEXTSPLIT(A2,\",\")"],
+["CHAR","Text","Returns a character for a character code.","=CHAR(65)"],
+["CODE","Text","Returns the numeric code of the first character.","=CODE(A2)"],
+["UNICHAR","Text","Returns a Unicode character.","=UNICHAR(9733)"],
+["UNICODE","Text","Returns the Unicode number of the first character.","=UNICODE(A2)"],
+["DATE","Date & Time","Builds a date from year, month, and day.","=DATE(2026,10,10)"],
+["TODAY","Date & Time","Returns the current date.","=TODAY()"],
+["NOW","Date & Time","Returns current date and time.","=NOW()"],
+["TIME","Date & Time","Builds a time from hour, minute, second.","=TIME(14,30,0)"],
+["YEAR","Date & Time","Returns the year component.","=YEAR(A2)"],
+["MONTH","Date & Time","Returns the month number.","=MONTH(A2)"],
+["DAY","Date & Time","Returns the day of the month.","=DAY(A2)"],
+["HOUR","Date & Time","Returns the hour component.","=HOUR(A2)"],
+["MINUTE","Date & Time","Returns the minute component.","=MINUTE(A2)"],
+["SECOND","Date & Time","Returns the seconds component.","=SECOND(A2)"],
+["WEEKDAY","Date & Time","Returns the weekday number.","=WEEKDAY(A2,2)"],
+["WEEKNUM","Date & Time","Returns the week number of a date.","=WEEKNUM(A2,2)"],
+["ISOWEEKNUM","Date & Time","Returns the ISO week number.","=ISOWEEKNUM(A2)"],
+["EDATE","Date & Time","Shifts a date by whole months.","=EDATE(A2,3)"],
+["EOMONTH","Date & Time","Returns the last day of a shifted month.","=EOMONTH(A2,0)"],
+["DATEDIF","Date & Time","Returns elapsed days, months, or years.","=DATEDIF(A2,B2,\"y\")"],
+["DAYS","Date & Time","Returns days between two dates.","=DAYS(B2,A2)"],
+["NETWORKDAYS","Date & Time","Counts workdays excluding weekends and holidays.","=NETWORKDAYS(A2,B2,H2:H10)"],
+["NETWORKDAYS.INTL","Date & Time","Counts workdays with configurable weekends.","=NETWORKDAYS.INTL(A2,B2,1,H2:H10)"],
+["WORKDAY","Date & Time","Returns a date a number of workdays away.","=WORKDAY(A2,10,H2:H10)"],
+["WORKDAY.INTL","Date & Time","Calculates workday date with custom weekends.","=WORKDAY.INTL(A2,10,1,H2:H10)"],
+["YEARFRAC","Date & Time","Returns the fraction of a year between dates.","=YEARFRAC(A2,B2)"],
+["XLOOKUP","Lookup & Reference","Looks up a value and returns a corresponding result.","=XLOOKUP(E2,A2:A20,B2:B20,\"Not found\")"],
+["VLOOKUP","Lookup & Reference","Looks vertically in the first table column.","=VLOOKUP(E2,A2:C20,3,FALSE)"],
+["HLOOKUP","Lookup & Reference","Looks horizontally across the first row.","=HLOOKUP(B1,A1:G5,3,FALSE)"],
+["LOOKUP","Lookup & Reference","Looks up a value in a row or column.","=LOOKUP(E2,A2:A20,B2:B20)"],
+["INDEX","Lookup & Reference","Returns a value at a row/column position.","=INDEX(B2:D20,3,2)"],
+["MATCH","Lookup & Reference","Returns the position of a matching value.","=MATCH(E2,A2:A20,0)"],
+["XMATCH","Lookup & Reference","Modern position lookup with flexible matching.","=XMATCH(E2,A2:A20)"],
+["CHOOSE","Lookup & Reference","Selects a value by index number.","=CHOOSE(2,\"Red\",\"Blue\",\"Green\")"],
+["CHOOSECOLS","Lookup & Reference","Returns selected columns from an array.","=CHOOSECOLS(A1:F20,1,3,6)"],
+["CHOOSEROWS","Lookup & Reference","Returns selected rows from an array.","=CHOOSEROWS(A1:F20,1,3,5)"],
+["FILTER","Lookup & Reference","Filters an array using criteria (newer Excel).","=FILTER(A2:C20,C2:C20=\"Open\")"],
+["SORT","Lookup & Reference","Sorts an array (newer Excel).","=SORT(A2:C20,2,1)"],
+["SORTBY","Lookup & Reference","Sorts an array based on another range.","=SORTBY(A2:C20,C2:C20,-1)"],
+["UNIQUE","Lookup & Reference","Returns distinct values (newer Excel).","=UNIQUE(A2:A100)"],
+["TRANSPOSE","Lookup & Reference","Switches rows and columns.","=TRANSPOSE(A1:C3)"],
+["TAKE","Lookup & Reference","Returns a specified number of rows or columns.","=TAKE(A2:C20,5)"],
+["DROP","Lookup & Reference","Excludes rows or columns from an array.","=DROP(A2:C20,1)"],
+["VSTACK","Lookup & Reference","Stacks arrays vertically (newer Excel).","=VSTACK(A2:C10,A12:C20)"],
+["HSTACK","Lookup & Reference","Stacks arrays horizontally (newer Excel).","=HSTACK(A2:A10,C2:C10)"],
+["INDIRECT","Lookup & Reference","Creates a reference from text.","=INDIRECT(\"A\"&B2)"],
+["ADDRESS","Lookup & Reference","Returns a cell address as text.","=ADDRESS(3,2)"],
+["ROW","Lookup & Reference","Returns a row number.","=ROW(A5)"],
+["COLUMN","Lookup & Reference","Returns a column number.","=COLUMN(C5)"],
+["ROWS","Lookup & Reference","Counts rows in a reference or array.","=ROWS(A1:C10)"],
+["COLUMNS","Lookup & Reference","Counts columns in a reference or array.","=COLUMNS(A1:C10)"],
+["OFFSET","Lookup & Reference","Returns a reference offset from a starting reference.","=OFFSET(A1,2,1)"],
+["HYPERLINK","Lookup & Reference","Creates a clickable link.","=HYPERLINK(\"https://example.com\",\"Open site\")"],
+["FORMULATEXT","Lookup & Reference","Returns a formula as text.","=FORMULATEXT(B2)"],
+["ISBLANK","Information","Tests whether a cell is blank.","=ISBLANK(A2)"],
+["ISNUMBER","Information","Tests whether a value is numeric.","=ISNUMBER(A2)"],
+["ISTEXT","Information","Tests whether a value is text.","=ISTEXT(A2)"],
+["ISERROR","Information","Tests for any error value.","=ISERROR(A2)"],
+["ISERR","Information","Tests for errors except #N/A.","=ISERR(A2)"],
+["ISNA","Information","Tests for the #N/A error.","=ISNA(A2)"],
+["ISLOGICAL","Information","Tests whether a value is TRUE or FALSE.","=ISLOGICAL(A2)"],
+["ISFORMULA","Information","Tests whether a cell contains a formula.","=ISFORMULA(A2)"],
+["TYPE","Information","Returns a number indicating the value type.","=TYPE(A2)"],
+["CELL","Information","Returns information about a cell.","=CELL(\"address\",A2)"],
+["NA","Information","Returns the #N/A error value.","=NA()"],
+["PMT","Financial","Calculates a periodic loan payment.","=PMT(8%/12,60,-500000)"],
+["PV","Financial","Returns present value of an investment.","=PV(8%/12,60,-10000)"],
+["FV","Financial","Returns future value of an investment.","=FV(7%/12,120,-5000)"],
+["RATE","Financial","Calculates interest rate per period.","=RATE(60,-10000,500000)"],
+["NPER","Financial","Calculates number of periods.","=NPER(8%/12,-10000,500000)"],
+["NPV","Financial","Returns net present value of periodic cash flows.","=NPV(10%,B2:B10)+B1"],
+["XNPV","Financial","Returns NPV for dated cash flows.","=XNPV(10%,B2:B10,A2:A10)"],
+["IRR","Financial","Returns internal rate of return.","=IRR(B2:B10)"],
+["XIRR","Financial","Returns IRR for dated cash flows.","=XIRR(B2:B10,A2:A10)"],
+["SLN","Financial","Calculates straight-line depreciation.","=SLN(100000,10000,5)"],
+["DB","Financial","Calculates fixed-declining balance depreciation.","=DB(100000,10000,5,1)"],
+["DAYS360","Financial","Counts days between dates using a 360-day year.","=DAYS360(A2,B2)"],
+["DGET","Database","Extracts one record matching criteria.","=DGET(A1:D20,\"Sales\",F1:G2)"],
+["DSUM","Database","Adds database records matching criteria.","=DSUM(A1:D20,\"Sales\",F1:G2)"],
+["DAVERAGE","Database","Averages matching database records.","=DAVERAGE(A1:D20,\"Sales\",F1:G2)"],
+["DCOUNT","Database","Counts numeric fields in matching records.","=DCOUNT(A1:D20,\"Sales\",F1:G2)"],
+["DCOUNTA","Database","Counts non-empty fields in matching records.","=DCOUNTA(A1:D20,\"Name\",F1:G2)"],
+["DMAX","Database","Returns maximum matching database value.","=DMAX(A1:D20,\"Sales\",F1:G2)"],
+["DMIN","Database","Returns minimum matching database value.","=DMIN(A1:D20,\"Sales\",F1:G2)"],
+["CONVERT","Engineering","Converts a measurement between units.","=CONVERT(10,\"mi\",\"km\")"],
+["DEC2BIN","Engineering","Converts decimal to binary.","=DEC2BIN(10)"],
+["BIN2DEC","Engineering","Converts binary to decimal.","=BIN2DEC(\"1010\")"],
+["DEC2HEX","Engineering","Converts decimal to hexadecimal.","=DEC2HEX(255)"],
+["HEX2DEC","Engineering","Converts hexadecimal to decimal.","=HEX2DEC(\"FF\")"],
+["COMPLEX","Engineering","Creates a complex number.","=COMPLEX(3,4)"],
+["DELTA","Engineering","Tests whether two values are equal.","=DELTA(A2,B2)"],
+["ERF","Engineering","Returns the error function.","=ERF(A2)"],
+["WEBSERVICE","Web","Returns data from a web service where supported.","=WEBSERVICE(\"https://example.com\")"],
+["ENCODEURL","Web","Encodes text for a URL where supported.","=ENCODEURL(A2)"],
+["LET","Logical","Assigns names to calculation results inside a formula.","=LET(x,A2*B2,x+10)"],
+["LAMBDA","Logical","Creates a reusable custom function expression.","=LAMBDA(x,x*2)(A2)"],
+["BYROW","Lookup & Reference","Applies a LAMBDA to each row.","=BYROW(A2:C10,LAMBDA(r,SUM(r)))"],
+["BYCOL","Lookup & Reference","Applies a LAMBDA to each column.","=BYCOL(A2:C10,LAMBDA(c,MAX(c)))"],
+["MAP","Lookup & Reference","Maps a LAMBDA over array values.","=MAP(A2:A10,LAMBDA(x,x*2))"],
+["REDUCE","Lookup & Reference","Accumulates an array into one result.","=REDUCE(0,A2:A10,LAMBDA(a,b,a+b))"],
+["SCAN","Lookup & Reference","Returns intermediate accumulated results.","=SCAN(0,A2:A10,LAMBDA(a,b,a+b))"],
+["MAKEARRAY","Lookup & Reference","Builds an array using a LAMBDA.","=MAKEARRAY(3,3,LAMBDA(r,c,r*c))"]
+];
+const shortcuts = [
+["Ctrl + C","Copy selected cells or content"],["Ctrl + X","Cut selected cells or content"],["Ctrl + V","Paste"],["Ctrl + Z","Undo"],["Ctrl + Y","Redo or repeat"],["Ctrl + S","Save workbook"],["Ctrl + P","Print"],["Ctrl + F","Find"],["Ctrl + H","Find and Replace"],["Ctrl + A","Select current region / all"],["Ctrl + B","Bold"],["Ctrl + I","Italic"],["Ctrl + U","Underline"],["Ctrl + 1","Open Format Cells"],["Ctrl + T","Create a table"],["Ctrl + Shift + L","Toggle filters"],["Alt + =","AutoSum"],["F2","Edit active cell"],["F4","Cycle reference types while editing a formula; repeat last action in some contexts"],["Ctrl + ;","Insert current date"],["Ctrl + Shift + ;","Insert current time"],["Ctrl + `","Show or hide formulas"],["Ctrl + Arrow","Move to edge of current data region"],["Ctrl + Shift + Arrow","Select to edge of data region"],["Ctrl + Home","Go to beginning of worksheet"],["Ctrl + End","Go to last used cell"],["Ctrl + Page Up","Move to previous worksheet"],["Ctrl + Page Down","Move to next worksheet"],["Shift + Space","Select row"],["Ctrl + Space","Select column"],["Ctrl + D","Fill down"],["Ctrl + R","Fill right"],["Ctrl + K","Insert hyperlink"],["Ctrl + Shift + $","Apply currency format"],["Ctrl + Shift + %","Apply percentage format"],["Ctrl + Shift + #","Apply date format"],["Ctrl + Shift + !","Apply number format"],["Ctrl + Shift + ~","Apply General format"],["Ctrl + 9","Hide selected rows"],["Ctrl + Shift + 9","Unhide rows"],["Ctrl + 0","Hide selected columns"],["Ctrl + Shift + 0","Unhide columns (may be restricted by Windows settings)"],["Alt + Enter","Start a new line within a cell"],["Esc","Cancel cell entry or close a dialog"],["Enter","Complete entry and move down"],["Tab","Complete entry and move right"],["Ctrl + N","New workbook"],["Ctrl + O","Open workbook"],["Ctrl + W","Close workbook"],["Ctrl + Shift + +","Insert cells, rows, or columns"],["Ctrl + -","Delete cells, rows, or columns"],["Alt + F1","Create embedded chart"],["F7","Spelling check"],["Ctrl + E","Flash Fill"],["Ctrl + Shift + U","Expand or collapse formula bar"],["Ctrl + [","Select direct precedent cells"],["Ctrl + ]","Select direct dependent cells"]
+];
+const cats=["Math & Trigonometry","Statistical","Logical","Text","Date & Time","Lookup & Reference","Financial","Information","Database","Engineering","Web"];
+let currentView="formulas", selectedCategory="All", favorites=new Set();
+const $=id=>document.getElementById(id);
+const categories=["All",...new Set(formulas.map(f=>f[1]))];
+$("categories").innerHTML=categories.map(c=>`<button data-cat="${c}">${c==="All"?"▦": "›"} &nbsp; ${c==="All"?"All formulas":c}</button>`).join("");
+$("categorySelect").innerHTML=categories.map(c=>`<option value="${c}">${c==="All"?"All categories":c}</option>`).join("");
+function setCategory(c){selectedCategory=c;$("categorySelect").value=c;document.querySelectorAll("[data-cat]").forEach(b=>b.classList.toggle("active",b.dataset.cat===c));renderFormulas()}
+$("categories").addEventListener("click",e=>{const b=e.target.closest("[data-cat]");if(b)setCategory(b.dataset.cat)});
+$("categorySelect").addEventListener("change",e=>setCategory(e.target.value));
+function filteredFormulas(){let q=$("search").value.trim().toLowerCase();return formulas.filter(f=>(selectedCategory==="All"||f[1]===selectedCategory)&&(!q||f.join(" ").toLowerCase().includes(q))&&(!$("favoritesOnly").checked||favorites.has(f[0])))}
+function renderFormulas(){let rows=filteredFormulas();$("count").textContent=`Showing ${rows.length} formula entries · ${formulas.length} entries in this guide`;$("formulaRows").innerHTML=rows.map(f=>`<tr><td><b>${f[0]}</b>${favorites.has(f[0])?' ★':''}</td><td>${f[1]}</td><td>${f[2]}</td><td><code>${f[3]}</code></td><td><button class="smallbtn" data-copy="${encodeURIComponent(f[3])}">Copy</button> <button class="smallbtn" data-fav="${f[0]}">${favorites.has(f[0])?'★':'☆'}</button></td></tr>`).join("")||`<tr><td colspan="5" class="empty">No matching formulas. Try another search.</td></tr>`}
+function renderShortcuts(){let q=$("search").value.toLowerCase();let rows=shortcuts.filter(s=>s.join(" ").toLowerCase().includes(q));$("count").textContent=`Showing ${rows.length} keyboard shortcuts`;$("shortcutGrid").innerHTML=rows.map(s=>`<div class="shortcut"><kbd>${s[0]}</kbd><div>${s[1]}</div><button class="smallbtn" data-copy="${encodeURIComponent(s[0]+' — '+s[1])}">Copy shortcut</button></div>`).join("")||'<div class="empty">No matching shortcuts.</div>'}
+function renderExamples(){let q=$("search").value.toLowerCase();let rows=formulas.filter(f=>f[3]&&(!q||f.join(" ").toLowerCase().includes(q)));$("count").textContent=`${rows.length} copy-ready formula examples`;$("exampleList").innerHTML=rows.map(f=>`<div class="panel"><h2>${f[0]} · ${f[1]}</h2><div style="padding:14px"><p>${f[2]}</p><p><code>${f[3]}</code></p><button class="primary" data-copy="${encodeURIComponent(f[3])}">Copy formula</button></div></div>`).join("")}
+function render(){if(currentView==="formulas")renderFormulas();if(currentView==="shortcuts")renderShortcuts();if(currentView==="examples")renderExamples();if(currentView==="tips"){$("count").textContent="Quick reference and compatibility notes"}}
+function changeView(v){currentView=v;document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===v));["formulaView","shortcutView","exampleView","tipsView"].forEach(id=>$(id).classList.remove("active"));({formulas:"formulaView",shortcuts:"shortcutView",examples:"exampleView",tips:"tipsView"}[v]&&$(({formulas:"formulaView",shortcuts:"shortcutView",examples:"exampleView",tips:"tipsView"}[v])).classList.add("active"));$("viewTitle").textContent=({formulas:"Excel Formula Library",shortcuts:"Excel Keyboard Shortcuts",examples:"Copy-ready Formula Examples",tips:"Tips & Compatibility"}[v]);$("viewDesc").textContent=({formulas:"Browse functions by category, search examples, and copy a formula template.",shortcuts:"Common Excel for Windows desktop shortcuts. Some shortcuts vary by platform and version.",examples:"Explore practical formulas. Adjust cell references and criteria to match your worksheet.",tips:"Practical advice for using formulas and shortcuts effectively."}[v]);$("favoritesOnly").style.display=v==="formulas"?"inline":"none";render()}
+document.querySelector("nav").addEventListener("click",e=>{const b=e.target.closest("[data-view]");if(b)changeView(b.dataset.view)});
+$("search").addEventListener("input",render);$("favoritesOnly").addEventListener("change",render);
+$("clear").addEventListener("click",()=>{$("search").value="";$("favoritesOnly").checked=false;setCategory("All");render()});
+document.addEventListener("click",async e=>{const c=e.target.closest("[data-copy]");if(c){let val=decodeURIComponent(c.dataset.copy);try{await navigator.clipboard.writeText(val);c.textContent="Copied!";setTimeout(()=>{c.textContent=c.dataset.fav?"★":"Copy"},1200)}catch{window.prompt("Copy this text:",val)}}const f=e.target.closest("[data-fav]");if(f){favorites.has(f.dataset.fav)?favorites.delete(f.dataset.fav):favorites.add(f.dataset.fav);render()}});
+$("popularShortcuts").innerHTML=shortcuts.slice(0,18).map(s=>`<tr><td><b>${s[0]}</b></td><td>${s[1]}</td></tr>`).join("");
+$("categories").querySelector('[data-cat="All"]').classList.add("active");
+render();
+</script>
+</body>
+</html>
