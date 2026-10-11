@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Classical Photo Background Studio</title>
+
+<meta name="description"
+content="Create beautiful classical and royal photo compositions with 100+ elegant backgrounds. Upload your photo, choose a background, customize it and download, copy, share or email.">
+
+<meta name="keywords"
+content="classical photo background, royal photo editor, vintage photo background, palace background, photo frame, photo background changer">
+
+<meta property="og:title" content="Classical Photo Background Studio">
+<meta property="og:description" content="Create elegant classical photo compositions with 100+ beautiful backgrounds.">
+<meta property="og:type" content="website">
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-334DZV34L8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-334DZV34L8');
+</script>
+
+
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at top left,#fff8e7,#ead9b8 45%,#c5aa7a);
+    color:#332818;
+}
+
+header{
+    background:
+        linear-gradient(135deg,#24170d,#59401f,#24170d);
+    color:#fff;
+    padding:22px;
+    text-align:center;
+    border-bottom:4px solid #d5af55;
+    box-shadow:0 5px 20px rgba(0,0,0,.35);
+}
+
+header h1{
+    margin:0;
+    font-family:Georgia,serif;
+    font-size:clamp(28px,5vw,46px);
+    letter-spacing:1px;
+}
+
+header p{
+    margin:8px 0 0;
+    color:#f7df9c;
+    font-size:16px;
+}
+
+.container{
+    width:min(1500px,96%);
+    margin:20px auto;
+}
+
+.layout{
+    display:grid;
+    grid-template-columns:320px 1fr 330px;
+    gap:18px;
+}
+
+.panel{
+    background:rgba(255,255,255,.94);
+    border:1px solid #d6bd8a;
+    border-radius:18px;
+    padding:18px;
+    box-shadow:0 10px 30px rgba(75,49,15,.18);
+}
+
+.panel h2{
+    font-family:Georgia,serif;
+    margin:0 0 15px;
+    color:#533b1a;
+}
+
+.upload-box{
+    border:2px dashed #b18a43;
+    border-radius:15px;
+    padding:20px;
+    text-align:center;
+    background:#fffaf0;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.upload-box:hover{
+    background:#f7edda;
+    transform:translateY(-2px);
+}
+
+.upload-box input{
+    display:none;
+}
+
+.upload-icon{
+    font-size:40px;
+    display:block;
+    margin-bottom:8px;
+}
+
+.control{
+    margin:17px 0;
+}
+
+.control label{
+    display:flex;
+    justify-content:space-between;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+input[type=range]{
+    width:100%;
+    accent-color:#8b6324;
+}
+
+select,
+input[type=text]{
+    width:100%;
+    padding:11px;
+    border:1px solid #cdb98e;
+    border-radius:9px;
+    background:#fffdf8;
+    color:#382713;
+}
+
+.buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+}
+
+button{
+    border:0;
+    border-radius:10px;
+    padding:12px 13px;
+    cursor:pointer;
+    font-weight:bold;
+    background:linear-gradient(135deg,#76501d,#b78635);
+    color:white;
+    transition:.2s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 14px rgba(72,42,8,.25);
+}
+
+button.secondary{
+    background:#eee2c8;
+    color:#4a3417;
+}
+
+button.full{
+    width:100%;
+    margin-top:10px;
+}
+
+.canvas-area{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:700px;
+    background:
+        repeating-linear-gradient(
+            45deg,
+            #e6d6b8,
+            #e6d6b8 10px,
+            #ddc9a6 10px,
+            #ddc9a6 20px
+        );
+    border-radius:18px;
+    padding:25px;
+    overflow:hidden;
+}
+
+#previewCanvas{
+    max-width:100%;
+    max-height:700px;
+    width:auto;
+    height:auto;
+    border-radius:5px;
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
+    background:white;
+}
+
+.search{
+    margin-bottom:12px;
+}
+
+.category-buttons{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-bottom:14px;
+}
+
+.category-buttons button{
+    padding:8px 10px;
+    font-size:12px;
+    background:#eadcc1;
+    color:#533b1a;
+}
+
+.category-buttons button.active{
+    background:#7d5720;
+    color:#fff;
+}
+
+.background-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    max-height:650px;
+    overflow-y:auto;
+    padding-right:4px;
+}
+
+.bg-card{
+    cursor:pointer;
+    border:3px solid transparent;
+    border-radius:11px;
+    overflow:hidden;
+    background:#eee;
+    transition:.2s;
+}
+
+.bg-card:hover{
+    transform:scale(1.03);
+}
+
+.bg-card.active{
+    border-color:#d09c38;
+    box-shadow:0 0 0 2px #6b4919;
+}
+
+.bg-thumb{
+    width:100%;
+    aspect-ratio:4/3;
+    display:block;
+}
+
+.bg-name{
+    padding:6px;
+    background:white;
+    text-align:center;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.info{
+    background:#fff8e7;
+    border-left:4px solid #ad7d28;
+    padding:12px;
+    border-radius:8px;
+    font-size:13px;
+    line-height:1.5;
+    margin-top:12px;
+}
+
+footer{
+    text-align:center;
+    padding:25px;
+    color:#65491f;
+    font-size:13px;
+}
+
+.status{
+    min-height:22px;
+    text-align:center;
+    font-size:13px;
+    margin-top:10px;
+    color:#65491f;
+}
+
+@media(max-width:1100px){
+    .layout{
+        grid-template-columns:280px 1fr;
+    }
+
+    .right-panel{
+        grid-column:1/-1;
+    }
+
+    .background-grid{
+        grid-template-columns:repeat(5,1fr);
+        max-height:400px;
+    }
+}
+
+@media(max-width:700px){
+    .layout{
+        grid-template-columns:1fr;
+    }
+
+    .canvas-area{
+        min-height:450px;
+    }
+
+    .background-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🏛️ Classical Photo Background Studio</h1>
+    <p>Transform your photo with beautiful classical, royal and vintage backgrounds</p>
+</header>
+
+<div class="container">
+
+<div class="layout">
+
+<!-- LEFT PANEL -->
+
+<div class="panel">
+
+<h2>📷 Your Photo</h2>
+
+<label class="upload-box">
+    <span class="upload-icon">📸</span>
+    <strong>Upload Your Photo</strong>
+    <br>
+    <small>JPG / PNG / WEBP</small>
+    <input type="file" id="photoInput" accept="image/*">
+</label>
+
+<div class="control">
+<label>
+    <span>Photo Size</span>
+    <span id="sizeValue">65%</span>
+</label>
+<input type="range" id="photoSize" min="20" max="100" value="65">
+</div>
+
+<div class="control">
+<label>
+    <span>Horizontal</span>
+    <span id="xValue">50%</span>
+</label>
+<input type="range" id="photoX" min="0" max="100" value="50">
+</div>
+
+<div class="control">
+<label>
+    <span>Vertical</span>
+    <span id="yValue">50%</span>
+</label>
+<input type="range" id="photoY" min="0" max="100" value="50">
+</div>
+
+<div class="control">
+<label>
+    <span>Rotation</span>
+    <span id="rotationValue">0°</span>
+</label>
+<input type="range" id="rotation" min="-30" max="30" value="0">
+</div>
+
+<div class="control">
+
+<label>Photo Shape</label>
+
+<select id="photoShape">
+    <option value="rectangle">Classic Rectangle</option>
+    <option value="rounded">Rounded</option>
+    <option value="circle">Circle</option>
+    <option value="oval">Oval Portrait</option>
+</select>
+
+</div>
+
+<div class="control">
+
+<label>Photo Border</label>
+
+<select id="borderStyle">
+    <option value="gold">Royal Gold</option>
+    <option value="white">Classic White</option>
+    <option value="black">Black</option>
+    <option value="none">No Border</option>
+</select>
+
+</div>
+
+<div class="control">
+
+<label>Photo Opacity</label>
+
+<input type="range" id="opacity" min="20" max="100" value="100">
+
+</div>
+
+<button class="secondary full" onclick="resetPhoto()">↺ Reset Photo</button>
+
+</div>
+
+
+<!-- CENTER -->
+
+<div class="canvas-area">
+
+<canvas id="previewCanvas" width="1000" height="750"></canvas>
+
+</div>
+
+
+<!-- RIGHT PANEL -->
+
+<div class="panel right-panel">
+
+<h2>🏛️ Classical Backgrounds</h2>
+
+<input
+    type="text"
+    id="searchBackground"
+    class="search"
+    placeholder="🔍 Search classical backgrounds..."
+>
+
+<div class="category-buttons" id="categories"></div>
+
+<div class="background-grid" id="backgroundGrid"></div>
+
+<div class="info">
+<strong>Tip:</strong>
+Choose a classical background and then adjust the photo size,
+position, rotation and shape using the controls.
+</div>
+
+<div class="buttons" style="margin-top:15px">
+
+<button onclick="downloadImage()">⬇ Download</button>
+
+<button onclick="copyImage()">📋 Copy</button>
+
+<button onclick="shareImage()">📤 Share</button>
+
+<button onclick="emailImage()">✉ Email</button>
+
+</div>
+
+<div class="status" id="status"></div>
+
+</div>
+
+</div>
+</div>
+
+<footer>
+    Classical Photo Background Studio • Create • Customize • Download • Share
+</footer>
+
+
+<script>
+
+/* =========================================================
+   APPLICATION STATE
+========================================================= */
+
+const canvas = document.getElementById("previewCanvas");
+const ctx = canvas.getContext("2d");
+
+let uploadedImage = null;
+
+let currentBackground = 0;
+
+let settings = {
+    size:65,
+    x:50,
+    y:50,
+    rotation:0,
+    shape:"rectangle",
+    border:"gold",
+    opacity:100
+};
+
+
+/* =========================================================
+   CLASSICAL BACKGROUND CATALOG
+========================================================= */
+
+const backgroundDefinitions = [
+
+/* ROYAL */
+
+["Royal Palace","Royal","royal palace marble columns golden"],
+["Golden Palace","Royal","gold palace classical"],
+["Royal Ballroom","Royal","royal ballroom chandelier"],
+["King's Hall","Royal","king hall classical"],
+["Queen's Palace","Royal","queen palace elegant"],
+["Imperial Hall","Royal","imperial hall gold"],
+["Royal Corridor","Royal","royal corridor columns"],
+["Golden Throne Room","Royal","golden throne room"],
+["Royal Castle","Royal","classical castle"],
+["Grand Palace","Royal","grand palace architecture"],
+
+/* RENAISSANCE */
+
+["Renaissance Hall","Renaissance","renaissance architecture"],
+["Renaissance Gallery","Renaissance","renaissance art gallery"],
+["Classic Portrait Room","Renaissance","classic portrait room"],
+["Old Master Studio","Renaissance","old master painting studio"],
+["Italian Villa","Renaissance","italian renaissance villa"],
+["Venetian Palace","Renaissance","venetian palace"],
+["Florentine Hall","Renaissance","florence renaissance"],
+["Renaissance Courtyard","Renaissance","renaissance courtyard"],
+["Classic Art Room","Renaissance","classic art room"],
+["Renaissance Library","Renaissance","renaissance library"],
+
+/* VINTAGE */
+
+["Vintage Mansion","Vintage","vintage mansion"],
+["Victorian Room","Vintage","victorian room"],
+["Antique Drawing Room","Vintage","antique drawing room"],
+["Vintage Ballroom","Vintage","vintage ballroom"],
+["Old European Room","Vintage","old european interior"],
+["Classic 1920s Room","Vintage","1920s vintage"],
+["Sepia Studio","Vintage","sepia vintage studio"],
+["Antique Hotel","Vintage","antique hotel"],
+["Vintage Café","Vintage","vintage cafe"],
+["Old Photograph Studio","Vintage","old photography studio"],
+
+/* LIBRARY */
+
+["Grand Library","Library","grand classical library"],
+["Royal Library","Library","royal library"],
+["Old Book Library","Library","old books library"],
+["Victorian Library","Library","victorian library"],
+["Scholar's Library","Library","scholar library"],
+["Dark Wood Library","Library","dark wood library"],
+["European Library","Library","european library"],
+["Classic Reading Room","Library","classic reading room"],
+["Ancient Library","Library","ancient library"],
+["Golden Book Hall","Library","golden library"],
+
+/* GARDEN */
+
+["Royal Garden","Garden","royal classical garden"],
+["English Garden","Garden","english classical garden"],
+["French Garden","Garden","french palace garden"],
+["Italian Garden","Garden","italian villa garden"],
+["Rose Garden","Garden","classical rose garden"],
+["Palace Courtyard","Garden","palace courtyard garden"],
+["Fountain Garden","Garden","classical fountain"],
+["Marble Garden","Garden","marble statue garden"],
+["Secret Garden","Garden","classical secret garden"],
+["Castle Garden","Garden","castle garden"],
+
+/* TEMPLE */
+
+["Classical Temple","Temple","greek classical temple"],
+["Roman Temple","Temple","roman temple"],
+["Greek Columns","Temple","greek columns"],
+["Ancient Courtyard","Temple","ancient courtyard"],
+["Marble Temple","Temple","marble temple"],
+["Roman Forum","Temple","roman forum"],
+["Ancient Palace","Temple","ancient palace"],
+["Classical Monument","Temple","classical monument"],
+["Ancient Stone Hall","Temple","ancient stone hall"],
+["Greek Garden","Temple","greek garden"],
+
+/* MARBLE */
+
+["White Marble Hall","Marble","white marble hall"],
+["Black Marble Hall","Marble","black marble hall"],
+["Golden Marble Room","Marble","gold marble room"],
+["Marble Staircase","Marble","marble staircase"],
+["Marble Palace","Marble","marble palace"],
+["Marble Gallery","Marble","marble gallery"],
+["Classic Marble Room","Marble","classic marble"],
+["Italian Marble Hall","Marble","italian marble"],
+["Royal Marble Floor","Marble","royal marble"],
+["Luxury Marble Room","Marble","luxury marble"],
+
+/* PARCHMENT */
+
+["Old Parchment","Parchment","old parchment"],
+["Ancient Manuscript","Parchment","ancient manuscript"],
+["Historic Document","Parchment","historic document"],
+["Old Map","Parchment","old map"],
+["Explorer Map","Parchment","antique map"],
+["Medieval Manuscript","Parchment","medieval manuscript"],
+["Vintage Paper","Parchment","vintage paper"],
+["Old Letter","Parchment","old letter"],
+["Classic Scroll","Parchment","ancient scroll"],
+["Historic Canvas","Parchment","historic canvas"],
+
+/* STUDIO */
+
+["Classic Portrait Studio","Studio","classic portrait studio"],
+["Royal Portrait Studio","Studio","royal portrait studio"],
+["Golden Studio","Studio","golden studio"],
+["Vintage Portrait Studio","Studio","vintage studio"],
+["Dark Portrait Studio","Studio","dark studio"],
+["Luxury Portrait Studio","Studio","luxury portrait"],
+["Classic Photography Room","Studio","classic photography"],
+["European Portrait Room","Studio","european portrait"],
+["Old Hollywood Studio","Studio","old hollywood studio"],
+["Art Portrait Studio","Studio","art portrait studio"]
+
+];
+
+
+/* =========================================================
+   CREATE BACKGROUND ART
+========================================================= */
+
+function backgroundSVG(index){
+
+    const def = backgroundDefinitions[index];
+
+    const name = def[0];
+    const category = def[1];
+
+    const palettes = {
+
+        Royal:["#1e1208","#6e4b20","#d7b45a","#fff1bd"],
+        Renaissance:["#332319","#81583a","#c59a5b","#f0d7a4"],
+        Vintage:["#39291e","#80664a","#bda37e","#ead8b9"],
+        Library:["#17120e","#49301e","#79562e","#c19b57"],
+        Garden:["#1d3021","#48623c","#9d7c43","#e6d6a5"],
+        Temple:["#3b342a","#77705d","#b9a77d","#eee4cb"],
+        Marble:["#292929","#77726a","#c8c1b4","#f8f4e9"],
+        Parchment:["#55452f","#9c8255","#d3b97c","#f5e4bd"],
+        Studio:["#181414","#44302a","#85603a","#d3b267"]
+
+    };
+
+    const p = palettes[category];
+
+    const motifs = [
+
+        `
+        <rect width="1000" height="750" fill="url(#bg)"/>
+        <rect x="55" y="50" width="890" height="650"
+              rx="25" fill="none" stroke="${p[2]}" stroke-width="18"/>
+        <rect x="75" y="70" width="850" height="610"
+              rx="20" fill="none" stroke="${p[3]}" stroke-width="3"/>
+        <path d="M120 650 Q160 180 210 650
+                 M790 650 Q840 180 880 650"
+              fill="none" stroke="${p[2]}" stroke-width="40"/>
+        <path d="M100 620 Q500 420 900 620"
+              fill="none" stroke="${p[3]}" stroke-width="8"/>
+        `,
+
+        `
+        <rect width="1000" height="750" fill="url(#bg)"/>
+        <ellipse cx="500" cy="690" rx="400" ry="70"
+                 fill="${p[1]}" opacity=".8"/>
+        <g fill="${p[2]}">
+            <rect x="130" y="130" width="55" height="520"/>
+            <rect x="815" y="130" width="55" height="520"/>
+        </g>
+        <g fill="${p[3]}" opacity=".8">
+            <ellipse cx="157" cy="120" rx="85" ry="25"/>
+            <ellipse cx="842" cy="120" rx="85" ry="25"/>
+        </g>
+        <path d="M90 140 Q500 20 910 140"
+              fill="none" stroke="${p[2]}" stroke-width="25"/>
+        <path d="M170 170 Q500 80 830 170"
+              fill="none" stroke="${p[3]}" stroke-width="6"/>
+        `,
+
+        `
+        <rect width="1000" height="750" fill="url(#bg)"/>
+        <circle cx="500" cy="380" r="290"
+                fill="${p[1]}" opacity=".65"/>
+        <circle cx="500" cy="380" r="220"
+                fill="none" stroke="${p[2]}" stroke-width="15"/>
+        <circle cx="500" cy="380" r="185"
+                fill="none" stroke="${p[3]}" stroke-width="4"/>
+        <g fill="${p[2]}">
+          <circle cx="500" cy="85" r="25"/>
+          <circle cx="795" cy="380" r="25"/>
+          <circle cx="500" cy="675" r="25"/>
+          <circle cx="205" cy="380" r="25"/>
+        </g>
+        `,
+
+        `
+        <rect width="1000" height="750" fill="url(#bg)"/>
+        <path d="M0 600 Q250 400 500 600 T1000 600 V750 H0Z"
+              fill="${p[1]}"/>
+        <g fill="${p[2]}" opacity=".9">
+            <circle cx="150" cy="520" r="70"/>
+            <circle cx="300" cy="470" r="90"/>
+            <circle cx="700" cy="470" r="90"/>
+            <circle cx="850" cy="520" r="70"/>
+        </g>
+        <path d="M300 600 Q500 350 700 600"
+              fill="none" stroke="${p[3]}" stroke-width="14"/>
+        <circle cx="500" cy="390" r="65"
+                fill="${p[2]}"/>
+        `,
+
+        `
+        <rect width="1000" height="750" fill="url(#bg)"/>
+        <path d="M90 670 L90 180 Q500 20 910 180 L910 670"
+              fill="none" stroke="${p[2]}" stroke-width="25"/>
+        <path d="M150 670 L150 220 Q500 80 850 220 L850 670"
+              fill="none" stroke="${p[3]}" stroke-width="7"/>
+        <g stroke="${p[2]}" stroke-width="16">
+            <line x1="230" y1="630" x2="230" y2="260"/>
+            <line x1="385" y1="630" x2="385" y2="205"/>
+            <line x1="615" y1="630" x2="615" y2="205"/>
+            <line x1="770" y1="630" x2="770" y2="260"/>
+        </g>
+        `
+
+    ];
+
+    const motif = motifs[index % motifs.length];
+
+    const texture = category === "Parchment"
+        ? `
+        <filter id="noise">
+          <feTurbulence type="fractalNoise"
+                        baseFrequency=".025"
+                        numOctaves="3"
+                        seed="${index+4}"/>
+          <feColorMatrix type="saturate" values="0"/>
+          <feComponentTransfer>
+            <feFuncA type="table"
+                     tableValues="0 .18"/>
+          </feComponentTransfer>
+        </filter>
+        <rect width="1000" height="750"
+              filter="url(#noise)"
+              opacity=".5"/>
+        `
+        : "";
+
+    return `
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="1000"
+         height="750"
+         viewBox="0 0 1000 750">
+
+        <defs>
+
+            <linearGradient id="bg"
+                x1="0" y1="0" x2="1" y2="1">
+
+                <stop offset="0%" stop-color="${p[0]}"/>
+                <stop offset="45%" stop-color="${p[1]}"/>
+                <stop offset="100%" stop-color="${p[0]}"/>
+
+            </linearGradient>
+
+            <radialGradient id="light">
+
+                <stop offset="0%" stop-color="${p[3]}"
+                      stop-opacity=".25"/>
+
+                <stop offset="100%" stop-color="${p[0]}"
+                      stop-opacity=".15"/>
+
+            </radialGradient>
+
+        </defs>
+
+        ${motif}
+
+        <rect width="1000" height="750"
+              fill="url(#light)"/>
+
+        ${texture}
+
+        <text x="500"
+              y="720"
+              text-anchor="middle"
+              font-family="Georgia"
+              font-size="18"
+              fill="${p[3]}"
+              opacity=".55">
+              ${name}
+        </text>
+
+    </svg>
+    `;
+}
+
+
+/* =========================================================
+   PRELOAD BACKGROUNDS
+========================================================= */
+
+const backgrounds = [];
+
+backgroundDefinitions.forEach((item,index)=>{
+
+    const img = new Image();
+
+    const svg = backgroundSVG(index);
+
+    img.src =
+        "data:image/svg+xml;charset=utf-8," +
+        encodeURIComponent(svg);
+
+    backgrounds.push({
+        name:item[0],
+        category:item[1],
+        keywords:item[2],
+        image:img
+    });
+
+});
+
+
+/* =========================================================
+   BACKGROUND UI
+========================================================= */
+
+const grid = document.getElementById("backgroundGrid");
+const categoryContainer = document.getElementById("categories");
+
+const categories = [
+    "All",
+    ...new Set(backgroundDefinitions.map(x=>x[1]))
+];
+
+let selectedCategory = "All";
+
+categories.forEach(category=>{
+
+    const btn = document.createElement("button");
+
+    btn.textContent = category;
+
+    if(category==="All"){
+        btn.classList.add("active");
+    }
+
+    btn.onclick = ()=>{
+
+        selectedCategory = category;
+
+        document.querySelectorAll(".category-buttons button")
+            .forEach(x=>x.classList.remove("active"));
+
+        btn.classList.add("active");
+
+        renderBackgrounds();
+
+    };
+
+    categoryContainer.appendChild(btn);
+
+});
+
+
+function renderBackgrounds(){
+
+    grid.innerHTML = "";
+
+    const search =
+        document.getElementById("searchBackground")
+        .value
+        .toLowerCase();
+
+    backgrounds.forEach((bg,index)=>{
+
+        if(selectedCategory !== "All" &&
+           bg.category !== selectedCategory){
+            return;
+        }
+
+        const text =
+            (bg.name+" "+bg.category+" "+bg.keywords)
+            .toLowerCase();
+
+        if(search && !text.includes(search)){
+            return;
+        }
+
+        const card = document.createElement("div");
+
+        card.className =
+            "bg-card " +
+            (index===currentBackground ? "active":"");
+
+        card.innerHTML = `
+
+            <img class="bg-thumb"
+                 src="${bg.image.src}"
+                 alt="${bg.name}">
+
+            <div class="bg-name">
+                ${bg.name}
+            </div>
+
+        `;
+
+        card.onclick = ()=>{
+
+            currentBackground = index;
+
+            document.querySelectorAll(".bg-card")
+                .forEach(x=>x.classList.remove("active"));
+
+            card.classList.add("active");
+
+            draw();
+
+        };
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+document
+.getElementById("searchBackground")
+.addEventListener("input",renderBackgrounds);
+
+
+/* =========================================================
+   UPLOAD PHOTO
+========================================================= */
+
+document
+.getElementById("photoInput")
+.addEventListener("change",function(e){
+
+    const file = e.target.files[0];
+
+    if(!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(event){
+
+        uploadedImage = new Image();
+
+        uploadedImage.onload = function(){
+
+            resetPhoto();
+
+            draw();
+
+            setStatus("Photo uploaded successfully.");
+
+        };
+
+        uploadedImage.src = event.target.result;
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+const controls = {
+
+    photoSize:document.getElementById("photoSize"),
+    photoX:document.getElementById("photoX"),
+    photoY:document.getElementById("photoY"),
+    rotation:document.getElementById("rotation"),
+    photoShape:document.getElementById("photoShape"),
+    borderStyle:document.getElementById("borderStyle"),
+    opacity:document.getElementById("opacity")
+
+};
+
+
+controls.photoSize.oninput = function(){
+
+    settings.size = +this.value;
+
+    document.getElementById("sizeValue")
+        .textContent = this.value+"%";
+
+    draw();
+};
+
+
+controls.photoX.oninput = function(){
+
+    settings.x = +this.value;
+
+    document.getElementById("xValue")
+        .textContent = this.value+"%";
+
+    draw();
+};
+
+
+controls.photoY.oninput = function(){
+
+    settings.y = +this.value;
+
+    document.getElementById("yValue")
+        .textContent = this.value+"%";
+
+    draw();
+};
+
+
+controls.rotation.oninput = function(){
+
+    settings.rotation = +this.value;
+
+    document.getElementById("rotationValue")
+        .textContent = this.value+"°";
+
+    draw();
+};
+
+
+controls.photoShape.onchange = function(){
+
+    settings.shape = this.value;
+
+    draw();
+
+};
+
+
+controls.borderStyle.onchange = function(){
+
+    settings.border = this.value;
+
+    draw();
+
+};
+
+
+controls.opacity.oninput = function(){
+
+    settings.opacity = +this.value;
+
+    draw();
+
+};
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetPhoto(){
+
+    settings = {
+        size:65,
+        x:50,
+        y:50,
+        rotation:0,
+        shape:"rectangle",
+        border:"gold",
+        opacity:100
+    };
+
+    controls.photoSize.value=65;
+    controls.photoX.value=50;
+    controls.photoY.value=50;
+    controls.rotation.value=0;
+    controls.photoShape.value="rectangle";
+    controls.borderStyle.value="gold";
+    controls.opacity.value=100;
+
+    document.getElementById("sizeValue").textContent="65%";
+    document.getElementById("xValue").textContent="50%";
+    document.getElementById("yValue").textContent="50%";
+    document.getElementById("rotationValue").textContent="0°";
+
+    draw();
+}
+
+
+/* =========================================================
+   DRAW CANVAS
+========================================================= */
+
+function draw(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    const bg = backgrounds[currentBackground];
+
+    if(bg && bg.image.complete){
+
+        ctx.drawImage(
+            bg.image,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+    }else{
+
+        ctx.fillStyle="#ddd";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    }
+
+    if(!uploadedImage){
+
+        drawPlaceholder();
+
+        return;
+
+    }
+
+    const baseSize =
+        Math.min(canvas.width,canvas.height);
+
+    const photoWidth =
+        baseSize * settings.size / 100;
+
+    const ratio =
+        uploadedImage.width /
+        uploadedImage.height;
+
+    const photoHeight =
+        photoWidth / ratio;
+
+    const centerX =
+        canvas.width * settings.x / 100;
+
+    const centerY =
+        canvas.height * settings.y / 100;
+
+    ctx.save();
+
+    ctx.translate(centerX,centerY);
+
+    ctx.rotate(
+        settings.rotation * Math.PI / 180
+    );
+
+    ctx.globalAlpha =
+        settings.opacity / 100;
+
+
+    /* SHADOW */
+
+    ctx.shadowColor =
+        "rgba(0,0,0,.45)";
+
+    ctx.shadowBlur=25;
+    ctx.shadowOffsetX=8;
+    ctx.shadowOffsetY=10;
+
+
+    /* CLIPPING */
+
+    if(settings.shape==="circle"){
+
+        const radius =
+            Math.min(photoWidth,photoHeight)/2;
+
+        ctx.beginPath();
+
+        ctx.arc(
+            0,
+            0,
+            radius,
+            0,
+            Math.PI*2
+        );
+
+        ctx.closePath();
+
+        ctx.clip();
+
+        ctx.drawImage(
+            uploadedImage,
+            -photoWidth/2,
+            -photoHeight/2,
+            photoWidth,
+            photoHeight
+        );
+
+    }
+
+    else if(settings.shape==="oval"){
+
+        ctx.beginPath();
+
+        ctx.ellipse(
+            0,
+            0,
+            photoWidth/2,
+            photoHeight/2,
+            0,
+            0,
+            Math.PI*2
+        );
+
+        ctx.closePath();
+
+        ctx.clip();
+
+        ctx.drawImage(
+            uploadedImage,
+            -photoWidth/2,
+            -photoHeight/2,
+            photoWidth,
+            photoHeight
+        );
+
+    }
+
+    else if(settings.shape==="rounded"){
+
+        roundedRect(
+            ctx,
+            -photoWidth/2,
+            -photoHeight/2,
+            photoWidth,
+            photoHeight,
+            35
+        );
+
+        ctx.clip();
+
+        ctx.drawImage(
+            uploadedImage,
+            -photoWidth/2,
+            -photoHeight/2,
+            photoWidth,
+            photoHeight
+        );
+
+    }
+
+    else{
+
+        ctx.drawImage(
+            uploadedImage,
+            -photoWidth/2,
+            -photoHeight/2,
+            photoWidth,
+            photoHeight
+        );
+
+    }
+
+
+    ctx.restore();
+
+
+    /* BORDER */
+
+    if(settings.border!=="none"){
+
+        ctx.save();
+
+        ctx.translate(centerX,centerY);
+
+        ctx.rotate(
+            settings.rotation*Math.PI/180
+        );
+
+        ctx.globalAlpha=1;
+
+        ctx.lineWidth=14;
+
+        if(settings.border==="gold")
+            ctx.strokeStyle="#e0b94f";
+
+        if(settings.border==="white")
+            ctx.strokeStyle="#ffffff";
+
+        if(settings.border==="black")
+            ctx.strokeStyle="#17110b";
+
+
+        if(settings.shape==="circle"){
+
+            const radius =
+                Math.min(photoWidth,photoHeight)/2;
+
+            ctx.beginPath();
+
+            ctx.arc(
+                0,
+                0,
+                radius,
+                0,
+                Math.PI*2
+            );
+
+            ctx.stroke();
+
+        }
+
+        else if(settings.shape==="oval"){
+
+            ctx.beginPath();
+
+            ctx.ellipse(
+                0,
+                0,
+                photoWidth/2,
+                photoHeight/2,
+                0,
+                0,
+                Math.PI*2
+            );
+
+            ctx.stroke();
+
+        }
+
+        else if(settings.shape==="rounded"){
+
+            roundedRect(
+                ctx,
+                -photoWidth/2,
+                -photoHeight/2,
+                photoWidth,
+                photoHeight,
+                35
+            );
+
+            ctx.stroke();
+
+        }
+
+        else{
+
+            ctx.strokeRect(
+                -photoWidth/2,
+                -photoHeight/2,
+                photoWidth,
+                photoHeight
+            );
+
+        }
+
+        ctx.restore();
+
+    }
+
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+
+function drawPlaceholder(){
+
+    ctx.save();
+
+    ctx.fillStyle="rgba(255,248,225,.85)";
+
+    ctx.fillRect(
+        180,
+        260,
+        640,
+        230
+    );
+
+    ctx.strokeStyle="#9b7331";
+    ctx.lineWidth=3;
+
+    ctx.strokeRect(
+        180,
+        260,
+        640,
+        230
+    );
+
+    ctx.fillStyle="#5a401d";
+
+    ctx.textAlign="center";
+
+    ctx.font="bold 32px Georgia";
+
+    ctx.fillText(
+        "Upload Your Photo",
+        500,
+        350
+    );
+
+    ctx.font="20px Arial";
+
+    ctx.fillText(
+        "Choose a classical background",
+        500,
+        395
+    );
+
+    ctx.font="16px Arial";
+
+    ctx.fillText(
+        "Your photo will appear here",
+        500,
+        430
+    );
+
+    ctx.restore();
+
+}
+
+
+/* =========================================================
+   ROUNDED RECT
+========================================================= */
+
+function roundedRect(
+    context,
+    x,
+    y,
+    width,
+    height,
+    radius
+){
+
+    context.beginPath();
+
+    context.moveTo(
+        x+radius,
+        y
+    );
+
+    context.lineTo(
+        x+width-radius,
+        y
+    );
+
+    context.quadraticCurveTo(
+        x+width,
+        y,
+        x+width,
+        y+radius
+    );
+
+    context.lineTo(
+        x+width,
+        y+height-radius
+    );
+
+    context.quadraticCurveTo(
+        x+width,
+        y+height,
+        x+width-radius,
+        y+height
+    );
+
+    context.lineTo(
+        x+radius,
+        y+height
+    );
+
+    context.quadraticCurveTo(
+        x,
+        y+height,
+        x,
+        y+height-radius
+    );
+
+    context.lineTo(
+        x,
+        y+radius
+    );
+
+    context.quadraticCurveTo(
+        x,
+        y,
+        x+radius,
+        y
+    );
+
+    context.closePath();
+
+}
+
+
+/* =========================================================
+   DOWNLOAD
+========================================================= */
+
+function downloadImage(){
+
+    if(!uploadedImage){
+
+        setStatus("Please upload a photo first.");
+
+        return;
+
+    }
+
+    canvas.toBlob(function(blob){
+
+        const url =
+            URL.createObjectURL(blob);
+
+        const a =
+            document.createElement("a");
+
+        a.href=url;
+
+        a.download =
+            "classical-photo-" +
+            Date.now() +
+            ".png";
+
+        document.body.appendChild(a);
+
+        a.click();
+
+        a.remove();
+
+        URL.revokeObjectURL(url);
+
+        setStatus("Image downloaded successfully.");
+
+    },"image/png");
+
+}
+
+
+/* =========================================================
+   COPY IMAGE
+========================================================= */
+
+async function copyImage(){
+
+    if(!uploadedImage){
+
+        setStatus("Please upload a photo first.");
+
+        return;
+
+    }
+
+    if(!navigator.clipboard ||
+       !window.ClipboardItem){
+
+        setStatus(
+            "Image copying is not supported by this browser."
+        );
+
+        return;
+
+    }
+
+    canvas.toBlob(async function(blob){
+
+        try{
+
+            await navigator.clipboard.write([
+                new ClipboardItem({
+                    "image/png":blob
+                })
+            ]);
+
+            setStatus(
+                "Image copied to clipboard."
+            );
+
+        }catch(error){
+
+            setStatus(
+                "Unable to copy image."
+            );
+
+        }
+
+    },"image/png");
+
+}
+
+
+/* =========================================================
+   SHARE
+========================================================= */
+
+async function shareImage(){
+
+    if(!uploadedImage){
+
+        setStatus("Please upload a photo first.");
+
+        return;
+
+    }
+
+    canvas.toBlob(async function(blob){
+
+        const file =
+            new File(
+                [blob],
+                "classical-photo.png",
+                {type:"image/png"}
+            );
+
+        try{
+
+            if(
+                navigator.share &&
+                navigator.canShare &&
+                navigator.canShare({files:[file]})
+            ){
+
+                await navigator.share({
+                    title:"My Classical Photo",
+                    text:"Created using Classical Photo Background Studio.",
+                    files:[file]
+                });
+
+                setStatus("Image shared successfully.");
+
+            }else{
+
+                downloadImage();
+
+                setStatus(
+                    "Sharing is unavailable. Image downloaded instead."
+                );
+
+            }
+
+        }catch(error){
+
+            if(error.name!=="AbortError"){
+                setStatus("Sharing was not completed.");
+            }
+
+        }
+
+    },"image/png");
+
+}
+
+
+/* =========================================================
+   EMAIL
+========================================================= */
+
+function emailImage(){
+
+    if(!uploadedImage){
+
+        setStatus("Please upload a photo first.");
+
+        return;
+
+    }
+
+    /*
+       Browsers cannot silently attach a generated
+       file to a normal mailto link.
+
+       Therefore download the image first and
+       open the user's email application.
+    */
+
+    downloadImage();
+
+    const subject =
+        encodeURIComponent(
+            "My Classical Photo"
+        );
+
+    const body =
+        encodeURIComponent(
+            "Hello,\n\n" +
+            "I created this classical photo using " +
+            "Classical Photo Background Studio.\n\n" +
+            "Please attach the downloaded PNG image to this email.\n\n" +
+            "Regards"
+        );
+
+    setTimeout(function(){
+
+        window.location.href =
+            "mailto:?subject="+
+            subject+
+            "&body="+
+            body;
+
+    },500);
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+function setStatus(message){
+
+    document.getElementById("status")
+        .textContent=message;
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+renderBackgrounds();
+
+setTimeout(draw,300);
+
+</script>
+
+</body>
+</html>

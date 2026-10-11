@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Animation Studio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0f172a',
+                        cardBg: '#1e293b',
+                        accent: '#6366f1',
+                        accentHover: '#4f46e5'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #090d16;
+            color: #f8fafc;
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-btn {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+        }
+        .glow-btn:hover {
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.7);
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col overflow-x-hidden selection:bg-indigo-500 selection:text-white">
+
+    <header class="w-full border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                <i class="fa-solid fa-wand-magic-sparkles text-white text-lg"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-lg text-slate-100 tracking-tight">Photo Animator <span class="text-xs bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded-full border border-indigo-500/30 font-medium ml-2">Pro</span></h1>
+                <p class="text-xs text-slate-400">Bring static images to life with cinematic motion</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button id="fullscreenBtn" class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-medium transition flex items-center space-x-2 border border-slate-700" title="Toggle Fullscreen">
+                <i class="fa-solid fa-expand text-xs"></i>
+                <span class="hidden sm:inline">Fullscreen</span>
+            </button>
+            <button id="downloadBtn" class="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white text-sm font-medium transition flex items-center space-x-2 glow-btn">
+                <i class="fa-solid fa-download text-xs"></i>
+                <span>Export Snapshot</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <section class="lg:col-span-4 flex flex-col space-y-6">
+            
+            <!-- Upload Panel -->
+            <div class="glass-panel rounded-2xl p-5 shadow-xl">
+                <h2 class="text-sm font-semibold text-slate-200 uppercase tracking-wider mb-3 flex items-center space-x-2">
+                    <i class="fa-solid fa-image text-indigo-400"></i>
+                    <span>1. Source Photo</span>
+                </h2>
+                <div id="dropZone" class="border-2 border-dashed border-slate-700 hover:border-indigo-500 rounded-xl p-6 text-center cursor-pointer transition bg-slate-900/40 relative group">
+                    <input type="file" id="fileInput" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                    <div class="flex flex-col items-center justify-center space-y-2">
+                        <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
+                        </div>
+                        <p class="text-sm font-medium text-slate-300">Drop your photo here, or <span class="text-indigo-400 underline">browse</span></p>
+                        <p class="text-xs text-slate-500">Supports JPG, PNG, WEBP</p>
+                    </div>
+                </div>
+                <!-- Quick samples -->
+                <div class="mt-4">
+                    <p class="text-xs text-slate-400 mb-2 font-medium">Or try with sample photos:</p>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button onclick="loadSample('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800')" class="rounded-lg overflow-hiden h-16 border border-slate-700 hover:border-indigo-500 transition group relative">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=200" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Sample Beach">
+                            <span class="absolute inset-0 bg-black/30 flex items-end p-1 text-[10px] text-white font-medium">Ocean</span>
+                        </button>
+                        <button onclick="loadSample('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800')" class="rounded-lg overflow-hiden h-16 border border-slate-700 hover:border-indigo-500 transition group relative">
+                            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=200" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Sample Mountains">
+                            <span class="absolute inset-0 bg-black/30 flex items-end p-1 text-[10px] text-white font-medium">Peaks</span>
+                        </button>
+                        <button onclick="loadSample('https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800')" class="rounded-lg overflow-hiden h-16 border border-slate-700 hover:border-indigo-500 transition group relative">
+                            <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=200" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Sample City">
+                            <span class="absolute inset-0 bg-black/30 flex items-end p-1 text-[10px] text-white font-medium">Cyber</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Effect Selection Panel -->
+            <div class="glass-panel rounded-2xl p-5 shadow-xl">
+                <h2 class="text-sm font-semibold text-slate-200 uppercase tracking-wider mb-3 flex items-center space-x-2">
+                    <i class="fa-solid fa-masks-theater text-indigo-400"></i>
+                    <span>2. Animation Style</span>
+                </h2>
+                <div class="grid grid-cols-1 gap-2.5" id="effectList">
+                    <label class="effect-card flex items-center p-3 rounded-xl bg-slate-900/60 border border-indigo-500/50 cursor-pointer transition hover:bg-slate-800/80">
+                        <input type="radio" name="effect" value="kenburns" checked class="hidden peer">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center mr-3 peer-checked:bg-indigo-600 peer-checked:text-white transition">
+                            <i class="fa-solid fa-camera-retro"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-semibold text-slate-200">Ken Burns Cinematic</div>
+                            <div class="text-xs text-slate-400">Smooth zoom and panning movement</div>
+                        </div>
+                        <div class="w-4 h-4 rounded-full border border-slate-600 peer-checked:border-indigo-500 peer-checked:bg-indigo-500 flex items-center justify-center">
+                            <div class="w-1.5 h-1.5 rounded-full bg-white scale-0 peer-checked:scale-100 transition"></div>
+                        </div>
+                    </label>
+
+                    <label class="effect-card flex items-center p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 cursor-pointer transition hover:bg-slate-800/80">
+                        <input type="radio" name="effect" value="ripple" class="hidden peer">
+                        <div class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center mr-3 peer-checked:bg-sky-600 peer-checked:text-white transition">
+                            <i class="fa-solid fa-water"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-semibold text-slate-200">Ocean Ripple</div>
+                            <div class="text-xs text-slate-400">Interactive wave & liquid distortion</div>
+                        </div>
+                        <div class="w-4 h-4 rounded-full border border-slate-600 peer-checked:border-indigo-500 peer-checked:bg-indigo-500 flex items-center justify-center">
+                            <div class="w-1.5 h-1.5 rounded-full bg-white scale-0 peer-checked:scale-100 transition"></div>
+                        </div>
+                    </label>
+
+                    <label class="effect-card flex items-center p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 cursor-pointer transition hover:bg-slate-800/80">
+                        <input type="radio" name="effect" value="hologram" class="hidden peer">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center mr-3 peer-checked:bg-emerald-600 peer-checked:text-white transition">
+                            <i class="fa-solid fa-cube"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-semibold text-slate-200">3D Hologram Tilt</div>
+                            <div class="text-xs text-slate-400">Interactive perspective & scanlines</div>
+                        </div>
+                        <div class="w-4 h-4 rounded-full border border-slate-600 peer-checked:border-indigo-500 peer-checked:bg-indigo-500 flex items-center justify-center">
+                            <div class="w-1.5 h-1.5 rounded-full bg-white scale-0 peer-checked:scale-100 transition"></div>
+                        </div>
+                    </label>
+
+                    <label class="effect-card flex items-center p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 cursor-pointer transition hover:bg-slate-800/80">
+                        <input type="radio" name="effect" value="glitch" class="hidden peer">
+                        <div class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center mr-3 peer-checked:bg-rose-600 peer-checked:text-white transition">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-semibold text-slate-200">Cyberpunk Glitch</div>
+                            <div class="text-xs text-slate-400">RGB split and digital jitter artifacts</div>
+                        </div>
+                        <div class="w-4 h-4 rounded-full border border-slate-600 peer-checked:border-indigo-500 peer-checked:bg-indigo-500 flex items-center justify-center">
+                            <div class="w-1.5 h-1.5 rounded-full bg-white scale-0 peer-checked:scale-100 transition"></div>
+                        </div>
+                    </label>
+
+                    <label class="effect-card flex items-center p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 cursor-pointer transition hover:bg-slate-800/80">
+                        <input type="radio" name="effect" value="particles" class="hidden peer">
+                        <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center mr-3 peer-checked:bg-amber-600 peer-checked:text-white transition">
+                            <i class="fa-solid fa-wand-magic"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-semibold text-slate-200">Magic Dust Particles</div>
+                            <div class="text-xs text-slate-400">Glowing floating sparkles overlay</div>
+                        </div>
+                        <div class="w-4 h-4 rounded-full border border-slate-600 peer-checked:border-indigo-500 peer-checked:bg-indigo-500 flex items-center justify-center">
+                            <div class="w-1.5 h-1.5 rounded-full bg-white scale-0 peer-checked:scale-100 transition"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Customization Controls Panel -->
+            <div class="glass-panel rounded-2xl p-5 shadow-xl space-y-4">
+                <h2 class="text-sm font-semibold text-slate-200 uppercase tracking-wider flex items-center space-x-2">
+                    <i class="fa-solid fa-sliders text-indigo-400"></i>
+                    <span>3. Customization</span>
+                </h2>
+
+                <div>
+                    <div class="flex justify-between text-xs text-slate-300 mb-1.5">
+                        <span>Animation Speed</span>
+                        <span id="speedVal" class="font-mono text-indigo-400">1.0x</span>
+                    </div>
+                    <input type="range" id="speedRange" min="0.2" max="3.0" step="0.1" value="1.0" class="w-full accent-indigo-500 bg-slate-800 rounded-lg appearance-none h-2 cursor-pointer">
+                </div>
+
+                <div>
+                    <div class="flex justify-between text-xs text-slate-300 mb-1.5">
+                        <span>Effect Intensity</span>
+                        <span id="intensityVal" class="font-mono text-indigo-400">50%</span>
+                    </div>
+                    <input type="range" id="intensityRange" min="10" max="100" step="1" value="50" class="w-full accent-indigo-500 bg-slate-800 rounded-lg appearance-none h-2 cursor-pointer">
+                </div>
+
+                <div>
+                    <div class="flex justify-between text-xs text-slate-300 mb-1.5">
+                        <span>Particle Density</span>
+                        <span id="densityVal" class="font-mono text-indigo-400">Med</span>
+                    </div>
+                    <input type="range" id="densityRange" min="20" max="200" step="10" value="80" class="w-full accent-indigo-500 bg-slate-800 rounded-lg appearance-none h-2 cursor-pointer">
+                </div>
+
+                <div class="pt-2 flex space-x-3">
+                    <button id="playPauseBtn" class="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-semibold transition border border-slate-700 flex items-center justify-center space-x-2">
+                        <i id="playPauseIcon" class="fa-solid fa-pause text-xs"></i>
+                        <span id="playPauseText">Pause</span>
+                    </button>
+                    <button id="resetBtn" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 text-sm font-semibold transition border border-slate-700 flex items-center justify-center" title="Reset parameters">
+                        <i class="fa-solid fa-rotate-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="lg:col-span-8 flex flex-col space-y-4">
+            
+            <div class="glass-panel rounded-2xl p-4 md:p-6 shadow-2xl relative flex flex-col items-center justify-center min-h-[500px] md:min-h-[600px] overflow-hidden group">
+                
+                <!-- Status badge / Watermark -->
+                <div class="absolute top-6 left-6 z-20 flex items-center space-x-2 bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-slate-700/80 text-xs text-slate-300">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span id="activeStatusLabel" class="font-medium">Ken Burns Cinematic Active</span>
+                </div>
+
+                <!-- Canvas Container -->
+                <div id="canvasContainer" class="relative w-full h-full flex items-center justify-center rounded-xl overflow-hidden bg-black/40 shadow-inner max-h-[70vh]">
+                    <canvas id="animCanvas" class="max-w-full max-h-[65vh] object-contain rounded-lg transition-transform duration-75"></canvas>
+                    
+                    <!-- Overlay message when loading or waiting for image -->
+                    <div id="placeholderOverlay" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/80 backdrop-blur-sm transition-opacity duration-300">
+                        <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mb-4 animate-bounce">
+                            <i class="fa-solid fa-image text-2xl"></i>
+                        </div>
+                        <h3 class="text-base font-semibold text-slate-200">No Image Loaded</h3>
+                        <p class="text-xs text-slate-400 mt-1 max-w-xs text-center">Upload your photo or choose a sample image from the left panel to begin animating.</p>
+                    </div>
+                </div>
+
+                <!-- Bottom Quick Action Toolbar on Canvas -->
+                <div class="absolute bottom-6 z-20 flex items-center space-x-2 bg-slate-900/80 backdrop-blur-md px-4 py-2 rounded-xl border border-slate-700/80 shadow-lg opacity-90 group-hover:opacity-100 transition">
+                    <button onclick="triggerAction('zoomIn')" class="p-2 text-slate-300 hover:text-white transition rounded-lg hover:bg-slate-800" title="Zoom In">
+                        <i class="fa-solid fa-magnifying-glass-plus text-sm"></i>
+                    </button>
+                    <button onclick="triggerAction('zoomOut')" class="p-2 text-slate-300 hover:text-white transition rounded-lg hover:bg-slate-800" title="Zoom Out">
+                        <i class="fa-solid fa-magnifying-glass-minus text-sm"></i>
+                    </button>
+                    <div class="w-px h-4 bg-slate-700 mx-1"></div>
+                    <button onclick="triggerAction('recenter')" class="p-2 text-slate-300 hover:text-white transition rounded-lg hover:bg-slate-800" title="Recenter View">
+                        <i class="fa-solid fa-compress text-sm"></i>
+                    </button>
+                    <div class="w-px h-4 bg-slate-700 mx-1"></div>
+                    <span id="canvasDimLabel" class="text-xs font-mono text-slate-400">1920 x 1080</span>
+                </div>
+
+            </div>
+
+            <!-- Pro Tip Banner -->
+            <div class="glass-panel rounded-xl p-4 flex items-start space-x-3 text-xs text-slate-300 border border-indigo-500/20 bg-indigo-950/10">
+                <i class="fa-solid fa-circle-info text-indigo-400 mt-0.5 text-sm"></i>
+                <div>
+                    <span class="font-semibold text-slate-200">Interactive Preview Tip:</span> Move your cursor over the canvas when using the <strong class="text-indigo-300">3D Hologram</strong> or <strong class="text-indigo-300">Ocean Ripple</strong> effects to interact directly with the wave distortion and tilt angles!
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        // DOM Elements
+        const fileInput = document.getElementById('fileInput');
+        const dropZone = document.getElementById('dropZone');
+        const animCanvas = document.getElementById('animCanvas');
+        const ctx = animCanvas.getContext('2d');
+        const placeholderOverlay = document.getElementById('placeholderOverlay');
+        const speedRange = document.getElementById('speedRange');
+        const speedVal = document.getElementById('speedVal');
+        const intensityRange = document.getElementById('intensityRange');
+        const intensityVal = document.getElementById('intensityVal');
+        const densityRange = document.getElementById('densityRange');
+        const densityVal = document.getElementById('densityVal');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const playPauseIcon = document.getElementById('playPauseIcon');
+        const playPauseText = document.getElementById('playPauseText');
+        const resetBtn = document.getElementById('resetBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const activeStatusLabel = document.getElementById('activeStatusLabel');
+        const canvasDimLabel = document.getElementById('canvasDimLabel');
+        const effectCards = document.querySelectorAll('.effect-card');
+
+        // State variables
+        let img = new Image();
+        let isImageLoaded = false;
+        let currentEffect = 'kenburns';
+        let isPlaying = true;
+        let animationId = null;
+        let startTime = Date.now();
+        let mouseX = 0, mouseY = 0;
+        let targetTiltX = 0, targetTiltY = 0;
+        let currentTiltX = 0, currentTiltY = 0;
+        
+        // Particles array
+        let particles = [];
+
+        // Effect titles mapping
+        const effectNames = {
+            'kenburns': 'Ken Burns Cinematic Active',
+            'ripple': 'Ocean Ripple Distortion Active',
+            'hologram': '3D Hologram Tilt Active',
+            'glitch': 'Cyberpunk Glitch Active',
+            'particles': 'Magic Dust Particles Active'
+        };
+
+        // Initialize sample image on startup
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSample('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800');
+            setupEventListeners();
+        });
+
+        function loadSample(url) {
+            img = new Image();
+            img.crossOrigin = "anonymous";
+            img.onload = function() {
+                isImageLoaded = true;
+                placeholderOverlay.style.opacity = '0';
+                setTimeout(() => placeholderOverlay.style.display = 'none', 300);
+                initCanvasSize();
+                initParticles();
+                if (!animationId) animate();
+            };
+            img.src = url;
+        }
+
+        // File upload handling
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    img = new Image();
+                    img.onload = function() {
+                        isImageLoaded = true;
+                        placeholderOverlay.style.opacity = '0';
+                        setTimeout(() => placeholderOverlay.style.display = 'none', 300);
+                        initCanvasSize();
+                        initParticles();
+                        if (!animationId) animate();
+                    };
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Drag and drop support
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-indigo-500', 'bg-slate-900/80');
+        });
+        dropZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-indigo-500', 'bg-slate-900/80');
+        });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-indigo-500', 'bg-slate-900/80');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    img = new Image();
+                    img.onload = function() {
+                        isImageLoaded = true;
+                        placeholderOverlay.style.opacity = '0';
+                        setTimeout(() => placeholderOverlay.style.display = 'none', 300);
+                        initCanvasSize();
+                        initParticles();
+                        if (!animationId) animate();
+                    };
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function initCanvasSize() {
+            if (!img.width) return;
+            // Set max bounds
+            const maxWidth = 1200;
+            const maxHeight = 800;
+            let w = img.width;
+            let h = img.height;
+
+            if (w > maxWidth) {
+                h = (maxWidth / w) * h;
+                w = maxWidth;
+            }
+            if (h > maxHeight) {
+                w = (maxHeight / h) * w;
+                h = maxHeight;
+            }
+
+            animCanvas.width = Math.floor(w);
+            animCanvas.height = Math.floor(h);
+            canvasDimLabel.textContent = `${animCanvas.width} x ${animCanvas.height}`;
+        }
+
+        // Setup Event Listeners for Controls
+        function setupEventListeners() {
+            // Effect selection radio buttons
+            const radios = document.querySelectorAll('input[name="effect"]');
+            radios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    currentEffect = e.target.value;
+                    activeStatusLabel.textContent = effectNames[currentEffect];
+                    // Update border highlights on cards
+                    effectCards.forEach(card => {
+                        card.classList.remove('border-indigo-500', 'bg-indigo-950/20');
+                        card.classList.add('border-slate-700/60', 'bg-slate-900/60');
+                    });
+                    const parentCard = e.target.closest('.effect-card');
+                    parentCard.classList.remove('border-slate-700/60', 'bg-slate-900/60');
+                    parentCard.classList.add('border-indigo-500', 'bg-indigo-950/20');
+                });
+            });
+
+            // Sliders update
+            speedRange.addEventListener('input', (e) => {
+                speedVal.textContent = parseFloat(e.target.value).toFixed(1) + 'x';
+            });
+            intensityRange.addEventListener('input', (e) => {
+                intensityVal.textContent = e.target.value + '%';
+            });
+            densityRange.addEventListener('input', (e) => {
+                densityVal.textContent = e.target.value < 60 ? 'Low' : e.target.value < 140 ? 'Med' : 'High';
+                initParticles();
+            });
+
+            // Play / Pause button
+            playPauseBtn.addEventListener('click', () => {
+                isPlaying = !isPlaying;
+                if (isPlaying) {
+                    playPauseIcon.className = "fa-solid fa-pause text-xs";
+                    playPauseText.textContent = "Pause";
+                    animate();
+                } else {
+                    playPauseIcon.className = "fa-solid fa-play text-xs";
+                    playPauseText.textContent = "Play";
+                    if (animationId) cancelAnimationFrame(animationId);
+                }
+            });
+
+            // Reset button
+            resetBtn.addEventListener('click', () => {
+                speedRange.value = 1.0;
+                speedVal.textContent = "1.0x";
+                intensityRange.value = 50;
+                intensityVal.textContent = "50%";
+                densityRange.value = 80;
+                densityVal.textContent = "Med";
+                startTime = Date.now();
+                initParticles();
+            });
+
+            // Mouse interaction for canvas
+            animCanvas.addEventListener('mousemove', (e) => {
+                const rect = animCanvas.getBoundingClientRect();
+                mouseX = (e.clientX - rect.left) / rect.width;
+                mouseY = (e.clientY - rect.top) / rect.height;
+                targetTiltX = (mouseX - 0.5) * 25;
+                targetTiltY = (0.5 - mouseY) * 25;
+            });
+
+            animCanvas.addEventListener('mouseleave', () => {
+                targetTiltX = 0;
+                targetTiltY = 0;
+            });
+
+            // Fullscreen button
+            fullscreenBtn.addEventListener('click', () => {
+                const container = document.getElementById('canvasContainer');
+                if (!document.fullscreenElement) {
+                    container.requestFullscreen().catch(err => {
+                        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                    });
+                } else {
+                    document.exitFullscreen();
+                }
+            });
+
+            // Export / Download button
+            downloadBtn.addEventListener('click', () => {
+                if (!isImageLoaded) return;
+                const link = document.createElement('a');
+                link.download = `animated-photo-${currentEffect}-${Date.now()}.png`;
+                link.href = animCanvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+
+        // Particle system for Magic Particles / Overlay
+        function initParticles() {
+            particles = [];
+            const count = parseInt(densityRange.value);
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * animCanvas.width,
+                    y: Math.random() * animCanvas.height,
+                    size: Math.random() * 3 + 1,
+                    speedX: (Math.random() - 0.5) * 0.8,
+                    speedY: -Math.random() * 1.5 - 0.5,
+                    opacity: Math.random() * 0.8 + 0.2,
+                    pulseSpeed: Math.random() * 0.05 + 0.01,
+                    angle: Math.random() * Math.PI * 2
+                });
+            }
+        }
+
+        function updateAndDrawParticles(intensity, speed) {
+            particles.forEach(p => {
+                p.x += p.speedX * speed;
+                p.y += p.speedY * speed;
+                p.angle += p.pulseSpeed * speed;
+
+                // Wrap around edges
+                if (p.y < 0) {
+                    p.y = animCanvas.height + 10;
+                    p.x = Math.random() * animCanvas.width;
+                }
+                if (p.x < 0) p.x = animCanvas.width;
+                if (p.x > animCanvas.width) p.x = 0;
+
+                const currentAlpha = (Math.sin(p.angle) * 0.3 + 0.7) * (intensity / 100) * p.opacity;
+                
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size * (intensity / 50), 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 223, 128, ${currentAlpha})`;
+                ctx.shadowColor = 'rgba(255, 200, 50, 0.8)';
+                ctx.shadowBlur = 8;
+                ctx.fill();
+                ctx.restore();
+            });
+        }
+
+        // Main Animation Loop
+        function animate() {
+            if (!isPlaying || !isImageLoaded) return;
+
+            const now = Date.now();
+            const elapsed = (now - startTime) / 1000;
+            const speed = parseFloat(speedRange.value);
+            const intensity = parseInt(intensityRange.value);
+
+            ctx.clearRect(0, 0, animCanvas.width, animCanvas.height);
+
+            // Smooth tilt interpolation
+            currentTiltX += (targetTiltX - currentTiltX) * 0.1;
+            currentTiltY += (targetTiltY - currentTiltY) * 0.1;
+
+            ctx.save();
+
+            if (currentEffect === 'kenburns') {
+                // Cinematic Pan & Zoom
+                const t = (elapsed * speed * 0.15) % (2 * Math.PI);
+                const scale = 1.0 + (Math.sin(t) * 0.1 + 0.1) * (intensity / 50);
+                const transX = Math.cos(t * 0.7) * 30 * (intensity / 50);
+                const transY = Math.sin(t * 0.5) * 20 * (intensity / 50);
+
+                ctx.translate(animCanvas.width / 2 + transX, animCanvas.height / 2 + transY);
+                ctx.scale(scale, scale);
+                ctx.drawImage(img, -animCanvas.width / 2, -animCanvas.height / 2, animCanvas.width, animCanvas.height);
+
+            } else if (currentEffect === 'ripple') {
+                // Ocean Ripple / Wave Distortion effect using strip rendering
+                ctx.drawImage(img, 0, 0, animCanvas.width, animCanvas.height);
+                
+                const waveFreq = 0.02 * (intensity / 50);
+                const waveAmp = 4 * (intensity / 50) * speedRange.value;
+                const timeFactor = elapsed * speed * 3;
+
+                // Draw subtle water reflection overlay lines
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+                ctx.lineWidth = 1.5;
+                for (let y = 20; y < animCanvas.height; y += 30) {
+                    ctx.beginPath();
+                    for (let x = 0; x < animCanvas.width; x += 10) {
+                        const offsetY = Math.sin(x * waveFreq + timeFactor + (currentTiltX * 0.1)) * waveAmp;
+                        if (x === 0) ctx.moveTo(x, y + offsetY);
+                        else ctx.lineTo(x, y + offsetY);
+                    }
+                    ctx.stroke();
+                }
+
+            } else if (currentEffect === 'hologram') {
+                // 3D Hologram Tilt & Scanlines
+                ctx.translate(animCanvas.width / 2, animCanvas.height / 2);
+                
+                // Apply rotation based on mouse or auto wave
+                const autoWave = Math.sin(elapsed * speed * 2) * 5;
+                const tiltX = (currentTiltX !== 0 ? currentTiltX : autoWave);
+                const tiltY = currentTiltY;
+
+                ctx.transform(1, tiltY * 0.005, tiltX * 0.005, 1, 0, 0);
+                ctx.drawImage(img, -animCanvas.width / 2, -animCanvas.height / 2, animCanvas.width, animCanvas.height);
+
+                // Hologram glowing cyan tint & scanlines
+                ctx.fillStyle = 'rgba(0, 240, 255, 0.08)';
+                ctx.fillRect(-animCanvas.width / 2, -animCanvas.height / 2, animCanvas.width, animCanvas.height);
+
+                // Scanline moving down
+                const scanLineY = ((elapsed * 150 * speed) % animCanvas.height) - (animCanvas.height / 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+                ctx.fillRect(-animCanvas.width / 2, scanLineY, animCanvas.width, 3);
+
+            } else if (currentEffect === 'glitch') {
+                // Cyberpunk Glitch
+                ctx.drawImage(img, 0, 0, animCanvas.width, animCanvas.height);
+
+                const glitchChance = (intensity / 100) * 0.2;
+                if (Math.random() < glitchChance) {
+                    const sliceY = Math.random() * animCanvas.height;
+                    const sliceH = Math.random() * 30 + 5;
+                    const offsetX = (Math.random() - 0.5) * 40 * (intensity / 50);
+
+                    try {
+                        const sliceData = ctx.getImageData(0, sliceY, animCanvas.width, sliceH);
+                        ctx.putImageData(sliceData, offsetX, sliceY);
+                    } catch (e) {
+                        // Handle potential cross-origin or boundary constraints gracefully
+                    }
+
+                    // RGB split aesthetic flash
+                    ctx.fillStyle = 'rgba(255, 0, 80, 0.12)';
+                    ctx.fillRect(0, sliceY, animCanvas.width, sliceH);
+                }
+
+                // CRT Scanlines overlay
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+                for (let y = 0; y < animCanvas.height; y += 4) {
+                    ctx.fillRect(0, y, animCanvas.width, 1.5);
+                }
+
+            } else if (currentEffect === 'particles') {
+                // Base Image + Magic Dust Particles
+                ctx.drawImage(img, 0, 0, animCanvas.width, animCanvas.height);
+                updateAndDrawParticles(intensity, speed);
+            }
+
+            ctx.restore();
+
+            // Always update particles for other modes if intensity is high or requested
+            if (currentEffect !== 'particles' && intensity > 70) {
+                updateAndDrawParticles(intensity * 0.5, speed);
+            }
+
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // Quick toolbar actions
+        function triggerAction(action) {
+            if (!isImageLoaded) return;
+            if (action === 'zoomIn') {
+                const w = animCanvas.width * 1.1;
+                const h = animCanvas.height * 1.1;
+                animCanvas.width = w;
+                animCanvas.height = h;
+            } else if (action === 'zoomOut') {
+                const w = animCanvas.width * 0.9;
+                const h = animCanvas.height * 0.9;
+                animCanvas.width = w;
+                animCanvas.height = h;
+            } else if (action === 'recenter') {
+                initCanvasSize();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Turn your photo into 20 creative art styles and sketch effects. Upload, preview and download your favorite looks directly in your browser.">
+<meta property="og:title" content="PhotoArt Studio - 20 Photo & Sketch Effects">
+<meta property="og:description" content="Transform a photo with 20 creative styles, from pencil sketch and comic art to vintage and neon.">
+<title>PhotoArt Studio | 20 Photo & Sketch Effects</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--ink:#182033;--muted:#68728a;--primary:#6558e8;--line:#e5e8f1;--shadow:0 12px 32px #25305b12}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:linear-gradient(135deg,#f7f8ff,#eef3ff 55%,#fbf0ff);color:var(--ink)}
+header{padding:26px 18px 34px;background:radial-gradient(circle at 80% 10%,#a8a0ff88,transparent 32%),linear-gradient(120deg,#211d56,#6558e8 60%,#b45ce6);color:#fff;text-align:center}
+header .eyebrow{font-size:.78rem;letter-spacing:2px;text-transform:uppercase;opacity:.85;font-weight:700}h1{font-size:clamp(2rem,5vw,3.2rem);margin:10px 0}header p{max-width:760px;margin:0 auto;color:#efedff;line-height:1.6}
+main{max-width:1320px;margin:-18px auto 0;padding:0 18px 36px}.panel{background:var(--card);border:1px solid #ffffffa8;border-radius:22px;padding:22px;box-shadow:var(--shadow)}
+.upload-panel{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center}.dropzone{border:2px dashed #b9b4f8;background:#f8f7ff;border-radius:17px;padding:25px;text-align:center;cursor:pointer;transition:.2s}.dropzone:hover,.dropzone.drag{background:#f0eeff;border-color:var(--primary);transform:translateY(-1px)}.upload-icon{font-size:2.4rem}.dropzone h2{font-size:1.2rem;margin:8px 0}.dropzone p{color:var(--muted);margin:6px 0 15px;font-size:.94rem}
+button,.button{border:0;border-radius:11px;padding:12px 17px;background:var(--primary);color:#fff;font-weight:700;font-size:.94rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;transition:transform .15s,opacity .15s}button:hover,.button:hover{transform:translateY(-1px);opacity:.93}button:disabled{opacity:.45;cursor:not-allowed;transform:none}.secondary{background:#eceaff;color:#4d43c2}.darkbtn{background:#24243c}.control-note{font-size:.84rem;color:var(--muted);line-height:1.5}
+.preview-box{display:flex;align-items:center;justify-content:center;min-height:180px;border-radius:15px;background:repeating-conic-gradient(#f1f2f7 0% 25%,#fafaff 0% 50%) 50%/20px 20px;overflow:hidden}.preview-box img{max-width:100%;max-height:250px;object-fit:contain;display:block}.preview-placeholder{color:#8790a6;text-align:center;padding:24px}
+.section-heading{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap;margin:30px 2px 15px}.section-heading h2{margin:0;font-size:1.55rem}.section-heading p{margin:5px 0 0;color:var(--muted);font-size:.93rem}.status{font-size:.9rem;color:var(--muted);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.style-card{background:#fff;border:1px solid var(--line);border-radius:17px;overflow:hidden;box-shadow:0 5px 18px #1d28500a;transition:transform .18s,box-shadow .18s}.style-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.canvas-wrap{aspect-ratio:4/3;background:#eceef5;display:flex;align-items:center;justify-content:center;overflow:hidden}.canvas-wrap canvas{display:block;width:100%;height:100%;object-fit:contain}.card-info{padding:13px}.card-title{font-weight:800;margin:0 0 5px}.card-desc{font-size:.81rem;color:var(--muted);min-height:32px;line-height:1.4;margin-bottom:11px}.card-actions{display:flex;gap:7px}.card-actions button{padding:9px 10px;font-size:.8rem;flex:1}.favorite{background:#fff0f4;color:#bd285b}.favorite.active{background:#ffe0ea;color:#a20c42}.empty{grid-column:1/-1;text-align:center;padding:45px 18px;border:1px dashed #c8cce0;border-radius:18px;color:var(--muted);background:#ffffff9c}.empty strong{display:block;color:var(--ink);font-size:1.08rem;margin-bottom:7px}.progress{height:7px;background:#e8e8f5;border-radius:99px;overflow:hidden;margin-top:14px;display:none}.progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,#6558e8,#c45be8);transition:width .2s}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.toolbar button{font-size:.85rem;padding:10px 13px}
+footer{text-align:center;padding:24px 18px 35px;color:var(--muted);font-size:.88rem}footer a{color:#5b50d6}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:700px){.upload-panel{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{padding:15px}.section-heading{align-items:start}}@media(max-width:420px){.grid{grid-template-columns:1fr}.card-desc{min-height:0}}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Upload · Transform · Download</div>
+  <h1>✨ PhotoArt Studio</h1>
+  <p>Turn one photo into 20 creative looks — pencil sketches, comic art, vintage tones, pop art and more. Your photo stays in your browser.</p>
+</header>
+<main>
+  <section class="panel upload-panel" aria-label="Upload a photo">
+    <div>
+      <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Choose or drop a photo">
+        <div class="upload-icon">🖼️</div>
+        <h2>Choose your photo</h2>
+        <p>Click to browse, or drag and drop an image here</p>
+        <button type="button" id="chooseBtn">Choose Photo</button>
+        <input type="file" id="fileInput" accept="image/*" hidden>
+      </div>
+      <p class="control-note">Best results: a clear, well-lit portrait or photo. Supports common browser image formats. Large images are automatically resized for smoother previews.</p>
+      <div class="toolbar">
+        <button id="generateBtn" disabled>✨ Generate 20 Styles</button>
+        <button id="clearBtn" class="secondary" disabled>Clear Photo</button>
+      </div>
+      <div class="progress" id="progress"><span id="progressBar"></span></div>
+      <p class="control-note" id="message" role="status">Upload a photo to get started.</p>
+    </div>
+    <div class="preview-box" id="sourcePreview"><div class="preview-placeholder">Your original photo preview will appear here.</div></div>
+  </section>
+
+  <div class="section-heading">
+    <div><h2>Your creative styles</h2><p>Choose a style, then download your favorite result.</p></div>
+    <div class="toolbar">
+      <button id="showAllBtn" class="secondary" disabled>Show All 20</button>
+      <button id="showFavBtn" class="secondary" disabled>♥ Favorites</button>
+      <button id="downloadAllBtn" class="darkbtn" disabled>Download All</button>
+    </div>
+  </div>
+  <div class="grid" id="results">
+    <div class="empty"><strong>Ready when you are</strong>Upload a photo and click “Generate 20 Styles” to see the transformations.</div>
+  </div>
+</main>
+<footer>
+  <div><strong>PhotoArt Studio</strong> · A free browser-based photo effects tool</div>
+  <p>Images are processed locally in your browser and are not uploaded to a server. Effects are artistic approximations, not professional hand-drawn artwork.</p>
+</footer>
+<script>
+(() => {
+'use strict';
+const $ = id => document.getElementById(id);
+const fileInput=$('fileInput'), dropzone=$('dropzone'), chooseBtn=$('chooseBtn'), generateBtn=$('generateBtn'), clearBtn=$('clearBtn');
+const results=$('results'), message=$('message'), sourcePreview=$('sourcePreview'), progress=$('progress'), progressBar=$('progressBar');
+let originalImage=null, originalName='photo', generated=[], favorites=new Set(), showFavorites=false, busy=false;
+const styles=[
+ {name:'Original',desc:'Clean, natural photo',type:'original'},
+ {name:'Black & White',desc:'Classic monochrome look',type:'bw'},
+ {name:'Sepia Vintage',desc:'Warm retro photograph',type:'sepia'},
+ {name:'Pencil Sketch',desc:'Graphite-style edge drawing',type:'pencil'},
+ {name:'Color Sketch',desc:'Colored pencil-inspired look',type:'colorsketch'},
+ {name:'Comic Book',desc:'Bold inked comic effect',type:'comic'},
+ {name:'Pop Art',desc:'Bright poster-like colors',type:'pop'},
+ {name:'Neon Glow',desc:'Electric colors and glow-like contrast',type:'neon'},
+ {name:'Vintage Film',desc:'Faded film with warm tones',type:'film'},
+ {name:'Dreamy Soft',desc:'Soft, bright, gentle finish',type:'dreamy'},
+ {name:'Noir Drama',desc:'Moody high-contrast black & white',type:'noir'},
+ {name:'Cool Blue',desc:'Crisp cool-toned color grade',type:'cool'},
+ {name:'Golden Hour',desc:'Warm, sunny color grade',type:'warm'},
+ {name:'Negative',desc:'Inverted photographic colors',type:'negative'},
+ {name:'Emboss Relief',desc:'Raised, sculpted edge effect',type:'emboss'},
+ {name:'Posterize',desc:'Graphic, simplified color levels',type:'poster'},
+ {name:'Pixel Art',desc:'Retro low-resolution mosaic',type:'pixel'},
+ {name:'Watercolor Look',desc:'Soft, blended painterly effect',type:'watercolor'},
+ {name:'Cross Process',desc:'Stylized high-color film effect',type:'cross'},
+ {name:'Matte Fade',desc:'Muted colors and lifted shadows',type:'matte'}
+];
+function setMessage(text){message.textContent=text}
+function setBusy(v){busy=v;generateBtn.disabled=v||!originalImage;chooseBtn.disabled=v;progress.style.display=v?'block':'none'}
+function loadFile(file){
+ if(!file)return;
+ if(!file.type.startsWith('image/')){setMessage('Please choose a valid image file.');return}
+ const reader=new FileReader();
+ reader.onload=()=>{const img=new Image();img.onload=()=>{
+   const max=1400,scale=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));
+   const c=document.createElement('canvas');c.width=Math.round(img.naturalWidth*scale);c.height=Math.round(img.naturalHeight*scale);
+   c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+   originalImage=c;originalName=(file.name||'photo').replace(/\.[^.]+$/,'').replace(/[^\w-]+/g,'_')||'photo';
+   sourcePreview.innerHTML='';const preview=document.createElement('img');preview.src=c.toDataURL('image/jpeg',.92);preview.alt='Uploaded photo preview';sourcePreview.appendChild(preview);
+   generateBtn.disabled=false;clearBtn.disabled=false;setMessage('Photo loaded. Click “Generate 20 Styles” to create your gallery.');renderEmpty('Click “Generate 20 Styles”','Your 20 photo effects will appear here.');
+ };img.onerror=()=>setMessage('The image could not be opened. Please try another file.');img.src=reader.result};
+ reader.onerror=()=>setMessage('Could not read that file. Please try again.');reader.readAsDataURL(file);
+}
+function renderEmpty(title,desc){results.innerHTML='';const e=document.createElement('div');e.className='empty';const s=document.createElement('strong');s.textContent=title;e.append(s,document.createTextNode(desc));results.appendChild(e)}
+chooseBtn.addEventListener('click',e=>{e.stopPropagation();fileInput.click()});
+dropzone.addEventListener('click',e=>{if(e.target!==chooseBtn)fileInput.click()});
+dropzone.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fileInput.click()}});
+fileInput.addEventListener('change',()=>loadFile(fileInput.files[0]));
+dropzone.addEventListener('dragover',e=>{e.preventDefault();dropzone.classList.add('drag')});
+dropzone.addEventListener('dragleave',()=>dropzone.classList.remove('drag'));
+dropzone.addEventListener('drop',e=>{e.preventDefault();dropzone.classList.remove('drag');loadFile(e.dataTransfer.files[0])});
+$('clearBtn').addEventListener('click',()=>{originalImage=null;generated=[];favorites.clear();fileInput.value='';sourcePreview.innerHTML='<div class="preview-placeholder">Your original photo preview will appear here.</div>';generateBtn.disabled=true;clearBtn.disabled=true;$('showAllBtn').disabled=true;$('showFavBtn').disabled=true;$('downloadAllBtn').disabled=true;renderEmpty('Ready when you are','Upload a photo and click “Generate 20 Styles” to see the transformations.');setMessage('Upload a photo to get started.')});
+$('showAllBtn').addEventListener('click',()=>{showFavorites=false;renderCards()});
+$('showFavBtn').addEventListener('click',()=>{showFavorites=true;renderCards()});
+$('downloadAllBtn').addEventListener('click',downloadAll);
+
+function clamp(v){return Math.max(0,Math.min(255,v))}
+function pixelEffect(data,type,w,h){
+ const d=data.data, original=new Uint8ClampedArray(d), lum=(r,g,b)=>.299*r+.587*g+.114*b;
+ if(type==='pixel'||type==='watercolor'){
+   const block=type==='pixel'?9:4;
+   for(let by=0;by<h;by+=block)for(let bx=0;bx<w;bx+=block){
+    let r=0,g=0,b=0,n=0;
+    for(let y=by;y<Math.min(h,by+block);y++)for(let x=bx;x<Math.min(w,bx+block);x++){let i=(y*w+x)*4;r+=original[i];g+=original[i+1];b+=original[i+2];n++}
+    if(!n)continue;r/=n;g/=n;b/=n;
+    if(type==='watercolor'){r=Math.round(r/18)*18;g=Math.round(g/18)*18;b=Math.round(b/18)*18}
+    for(let y=by;y<Math.min(h,by+block);y++)for(let x=bx;x<Math.min(w,bx+block);x++){let i=(y*w+x)*4;d[i]=r;d[i+1]=g;d[i+2]=b}
+   }return;
+ }
+ if(type==='pencil'||type==='colorsketch'){
+   // Edge magnitude plus grayscale inversion blend for a sketch-like result.
+   for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++){
+    const i=(y*w+x)*4;
+    const at=(xx,yy)=>lum(original[(yy*w+xx)*4],original[(yy*w+xx)*4+1],original[(yy*w+xx)*4+2]);
+    const gx=-at(x-1,y-1)+at(x+1,y-1)-2*at(x-1,y)+2*at(x+1,y)-at(x-1,y+1)+at(x+1,y+1);
+    const gy=-at(x-1,y-1)-2*at(x,y-1)-at(x+1,y-1)+at(x-1,y+1)+2*at(x,y+1)+at(x+1,y+1);
+    const edge=clamp(255-Math.sqrt(gx*gx+gy*gy)*1.7);
+    if(type==='pencil'){d[i]=d[i+1]=d[i+2]=edge}
+    else{d[i]=clamp(original[i]*.45+edge*.55);d[i+1]=clamp(original[i+1]*.45+edge*.55);d[i+2]=clamp(original[i+2]*.45+edge*.55)}
+   }return;
+ }
+ if(type==='emboss'){
+  for(let y=1;y<h;y++)for(let x=1;x<w;x++){let i=(y*w+x)*4,p=((y-1)*w+x-1)*4;d[i]=clamp(128+original[i]-original[p]);d[i+1]=clamp(128+original[i+1]-original[p+1]);d[i+2]=clamp(128+original[i+2]-original[p+2])}return;
+ }
+ for(let i=0;i<d.length;i+=4){
+  let r=original[i],g=original[i+1],b=original[i+2],l=lum(r,g,b);
+  switch(type){
+   case'bw':d[i]=d[i+1]=d[i+2]=l;break;
+   case'sepia':d[i]=clamp(r*.393+g*.769+b*.189);d[i+1]=clamp(r*.349+g*.686+b*.168);d[i+2]=clamp(r*.272+g*.534+b*.131);break;
+   case'negative':d[i]=255-r;d[i+1]=255-g;d[i+2]=255-b;break;
+   case'noir':{let v=clamp((l-128)*1.8+128);d[i]=d[i+1]=d[i+2]=v;break}
+   case'cool':d[i]=clamp(r*.88);d[i+1]=clamp(g*1.01);d[i+2]=clamp(b*1.2+8);break;
+   case'warm':d[i]=clamp(r*1.12+12);d[i+1]=clamp(g*1.02+4);d[i+2]=clamp(b*.82);break;
+   case'pop':d[i]=clamp(Math.round(r/64)*64);d[i+1]=clamp(Math.round(g/64)*64);d[i+2]=clamp(Math.round(b/64)*64);break;
+   case'poster':d[i]=clamp(Math.round(r/48)*48);d[i+1]=clamp(Math.round(g/48)*48);d[i+2]=clamp(Math.round(b/48)*48);break;
+   case'neon':d[i]=clamp((255-r)*.45+b*.8);d[i+1]=clamp((255-g)*.55+r*.65);d[i+2]=clamp((255-b)*.35+g*.75);break;
+   case'cross':d[i]=clamp(r*1.16+g*.08);d[i+1]=clamp(g*.92+b*.12);d[i+2]=clamp(b*1.2-r*.04);break;
+   case'matte':d[i]=clamp(28+r*.82);d[i+1]=clamp(28+g*.82);d[i+2]=clamp(28+b*.82);break;
+  }
+ }
+}
+function makeCanvas(style){
+ const w=originalImage.width,h=originalImage.height,c=document.createElement('canvas');c.width=w;c.height=h;
+ const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(originalImage,0,0);
+ if(['original','film','dreamy'].includes(style.type)){
+  if(style.type==='film'){ctx.filter='sepia(.3) saturate(.8) contrast(.92)';ctx.drawImage(c,0,0);ctx.fillStyle='#f3b56b18';ctx.fillRect(0,0,w,h);ctx.filter='none'}
+  if(style.type==='dreamy'){ctx.filter='brightness(1.12) saturate(.82) blur(.35px)';ctx.drawImage(c,0,0);ctx.filter='none';const g=ctx.createRadialGradient(w/2,h/2,Math.min(w,h)*.1,w/2,h/2,Math.max(w,h)*.72);g.addColorStop(0,'#ffffff00');g.addColorStop(1,'#fff7ff66');ctx.fillStyle=g;ctx.fillRect(0,0,w,h)}
+  return c;
+ }
+ const img=ctx.getImageData(0,0,w,h);pixelEffect(img,style.type,w,h);ctx.putImageData(img,0,0);
+ if(style.type==='comic'){
+   const edge=ctx.getImageData(0,0,w,h),d=edge.data;
+   for(let y=1;y<h-1;y+=1)for(let x=1;x<w-1;x+=1){let i=(y*w+x)*4;let v=Math.abs(d[i]-d[i+4])+Math.abs(d[i]-d[i+w*4]);if(v>75){d[i]=d[i+1]=d[i+2]=15}}
+   ctx.putImageData(edge,0,0);
+ }
+ if(style.type==='pencil'){ctx.globalAlpha=.13;ctx.fillStyle='#8a806e';ctx.fillRect(0,0,w,h);ctx.globalAlpha=1}
+ if(style.type==='watercolor'){ctx.globalAlpha=.12;ctx.fillStyle='#fff6e8';ctx.fillRect(0,0,w,h);ctx.globalAlpha=1}
+ return c;
+}
+async function generate(){
+ if(!originalImage||busy)return;setBusy(true);generated=[];favorites.clear();showFavorites=false;results.innerHTML='';setMessage('Creating your 20 artistic styles…');$('showAllBtn').disabled=true;$('showFavBtn').disabled=true;$('downloadAllBtn').disabled=true;
+ try{
+  for(let i=0;i<styles.length;i++){
+   const canvas=makeCanvas(styles[i]);generated.push({style:styles[i],canvas});
+   progressBar.style.width=Math.round((i+1)/styles.length*100)+'%';
+   setMessage(`Creating styles… ${i+1} of ${styles.length}`);
+   // Yield to the browser between effects so the progress display can update.
+   await new Promise(resolve=>setTimeout(resolve,10));
+  }
+  renderCards();$('showAllBtn').disabled=false;$('showFavBtn').disabled=false;$('downloadAllBtn').disabled=false;setMessage('Done! 20 styles created. Select ♥ to save favorites, or download any result.');
+ }catch(err){console.error(err);setMessage('Something went wrong while generating styles. Try a smaller photo.')}
+ finally{setBusy(false);progressBar.style.width='0%'}
+}
+generateBtn.addEventListener('click',generate);
+function renderCards(){
+ results.innerHTML='';const list=showFavorites?generated.filter(g=>favorites.has(g.style.type)):generated;
+ if(!list.length){renderEmpty(showFavorites?'No favorites yet':'No results','Click the heart on a style card to add it to Favorites.');return}
+ list.forEach(item=>{
+  const card=document.createElement('article');card.className='style-card';
+  const wrap=document.createElement('div');wrap.className='canvas-wrap';const display=document.createElement('canvas');display.width=item.canvas.width;display.height=item.canvas.height;display.getContext('2d').drawImage(item.canvas,0,0);wrap.appendChild(display);
+  const info=document.createElement('div');info.className='card-info';const title=document.createElement('div');title.className='card-title';title.textContent=item.style.name;
+  const desc=document.createElement('div');desc.className='card-desc';desc.textContent=item.style.desc;
+  const actions=document.createElement('div');actions.className='card-actions';const down=document.createElement('button');down.textContent='⬇ Download';down.addEventListener('click',()=>downloadCanvas(item.canvas,item.style.name));
+  const fav=document.createElement('button');fav.className='favorite'+(favorites.has(item.style.type)?' active':'');fav.textContent=favorites.has(item.style.type)?'♥ Saved':'♡ Favorite';fav.addEventListener('click',()=>{if(favorites.has(item.style.type))favorites.delete(item.style.type);else favorites.add(item.style.type);if(showFavorites)renderCards();else{fav.classList.toggle('active',favorites.has(item.style.type));fav.textContent=favorites.has(item.style.type)?'♥ Saved':'♡ Favorite'}});
+  actions.append(down,fav);info.append(title,desc,actions);card.append(wrap,info);results.appendChild(card);
+ });
+}
+function safeName(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+function downloadCanvas(canvas,styleName){
+ const a=document.createElement('a');a.download=`${originalName}-${safeName(styleName)}.png`;a.href=canvas.toDataURL('image/png');document.body.appendChild(a);a.click();a.remove();
+}
+function downloadAll(){
+ if(!generated.length)return;setMessage('Downloading all 20 styles. Your browser may ask you to allow multiple downloads.');
+ generated.forEach((item,i)=>setTimeout(()=>downloadCanvas(item.canvas,item.style.name),i*180));
+}
+})();
+</script>
+</body>
+</html>
