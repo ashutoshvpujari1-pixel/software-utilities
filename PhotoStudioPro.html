@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Photo Studio: crop, resize, filter, retouch, remove backgrounds, adjust colors, add text and stickers, and export photos.">
+<title>Photo Studio Pro — Online Photo Editor</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+<style>
+:root{--bg:#f3f6fb;--panel:#fff;--ink:#172033;--muted:#667085;--brand:#4f46e5;--brand2:#7c3aed;--line:#e3e8f2;--good:#087f5b;--shadow:0 12px 34px #24365b12}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(120deg,#171a45,#4f46e5 58%,#9333ea);color:white;padding:25px max(18px,calc((100% - 1240px)/2));}
+header h1{margin:0;font-size:clamp(24px,3vw,34px)}header p{margin:6px 0 0;color:#e8eaff}.wrap{max-width:1240px;margin:22px auto;padding:0 16px 40px}
+.topbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:16px}
+.upload{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn,button{border:0;border-radius:10px;padding:10px 14px;background:var(--brand);color:#fff;font-weight:650;cursor:pointer;transition:.15s;font:inherit}.btn:hover,button:hover{filter:brightness(1.07);transform:translateY(-1px)}button.secondary,.btn.secondary{background:#eef0ff;color:#3730a3}button.ghost{background:#f2f4f7;color:#344054}button.danger{background:#b42318}.btn input{display:none}
+.status{color:var(--muted);font-size:13px}.layout{display:grid;grid-template-columns:minmax(260px,340px) minmax(0,1fr);gap:18px;align-items:start}
+.panel,.stage{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.panel{padding:16px}.panel h2{font-size:17px;margin:0 0 12px}.toolgroup{border-bottom:1px solid var(--line);padding:0 0 15px;margin:0 0 15px}.toolgroup:last-child{border:0;margin:0;padding:0}
+.field{margin:11px 0}.field label{display:flex;justify-content:space-between;gap:10px;font-size:13px;font-weight:650;margin-bottom:5px}.field small{color:var(--muted);font-weight:400}input[type=range]{width:100%;accent-color:var(--brand)}input[type=text],input[type=number],select,textarea{width:100%;border:1px solid #cfd6e4;border-radius:8px;padding:9px 10px;background:white;color:var(--ink);font:inherit}input[type=color]{width:44px;height:34px;padding:2px;border:1px solid var(--line);border-radius:7px;background:white}input[type=checkbox]{accent-color:var(--brand)}.row{display:flex;gap:8px;align-items:center}.row>*{min-width:0;flex:1}.row button{flex:0 0 auto}.smallbtn{padding:7px 9px;font-size:13px}
+.stage{padding:14px;min-width:0}.stagehead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}.stagehead strong{font-size:16px}.canvaswrap{min-height:430px;display:flex;align-items:center;justify-content:center;overflow:auto;border-radius:12px;background-color:#f8fafc;background-image:linear-gradient(45deg,#e9edf5 25%,transparent 25%),linear-gradient(-45deg,#e9edf5 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e9edf5 75%),linear-gradient(-45deg,transparent 75%,#e9edf5 75%);background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0}
+canvas{display:block;max-width:100%;max-height:72vh;width:auto;height:auto;box-shadow:0 5px 20px #17203320;touch-action:manipulation}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}.actions button{flex:1 1 130px}.note{font-size:12px;color:var(--muted);margin:8px 0 0}.notice{background:#fffaeb;border:1px solid #fedf89;border-radius:10px;padding:10px 12px;color:#7a4d00;font-size:13px;margin-top:14px}.success{color:var(--good)}.pill{display:inline-block;background:#eef0ff;color:#3730a3;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:700}.hidden{display:none!important}
+.presetgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.presetgrid button{padding:8px 4px;font-size:12px;background:#f1f2ff;color:#3730a3}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin:20px 0}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.canvaswrap{min-height:300px}.panel{order:2}.stage{order:1}}
+</style>
+</head>
+<body>
+<header><h1>📸 Photo Studio Pro</h1><p>Crop, resize, enhance, retouch, replace backgrounds, add overlays and export your photo.</p></header>
+<main class="wrap">
+  <div class="topbar">
+    <div class="upload">
+      <label class="btn">Upload Photo <input id="fileInput" type="file" accept="image/*"></label>
+      <button class="secondary" id="resetBtn" type="button">Reset edits</button>
+      <span id="fileInfo" class="status">Upload a photo to begin. Your image is edited in this browser.</span>
+    </div>
+  </div>
+  <div class="layout">
+    <aside class="panel">
+      <section class="toolgroup">
+        <h2>1. Crop & Resize</h2>
+        <div class="row">
+          <div class="field"><label for="cropX">Crop X (%)</label><input id="cropX" type="number" min="0" max="95" value="0"></div>
+          <div class="field"><label for="cropY">Crop Y (%)</label><input id="cropY" type="number" min="0" max="95" value="0"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="cropW">Width (%)</label><input id="cropW" type="number" min="5" max="100" value="100"></div>
+          <div class="field"><label for="cropH">Height (%)</label><input id="cropH" type="number" min="5" max="100" value="100"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="outW">Output width (px)</label><input id="outW" type="number" min="1" max="8000" value="1200"></div>
+          <div class="field"><label for="outH">Output height (px)</label><input id="outH" type="number" min="1" max="8000" value="1200"></div>
+        </div>
+        <button class="secondary smallbtn" id="fitSize" type="button">Use original size</button>
+        <p class="note">Crop values are percentages of the original image. Output dimensions are limited to 8000 × 8000 pixels.</p>
+      </section>
+      <section class="toolgroup">
+        <h2>2. Filters & Presets</h2>
+        <div class="presetgrid">
+          <button data-preset="original">Original</button><button data-preset="vivid">Vivid</button><button data-preset="warm">Warm</button>
+          <button data-preset="bw">B&amp;W</button><button data-preset="vintage">Vintage</button><button data-preset="cool">Cool</button>
+        </div>
+        <div class="field"><label for="brightness">Brightness <span id="brightnessVal">100%</span></label><input id="brightness" type="range" min="0" max="200" value="100"></div>
+        <div class="field"><label for="contrast">Contrast <span id="contrastVal">100%</span></label><input id="contrast" type="range" min="0" max="200" value="100"></div>
+        <div class="field"><label for="saturation">Saturation <span id="saturationVal">100%</span></label><input id="saturation" type="range" min="0" max="200" value="100"></div>
+        <div class="field"><label for="warmth">Warmth <span id="warmthVal">0</span></label><input id="warmth" type="range" min="-50" max="50" value="0"></div>
+      </section>
+      <section class="toolgroup">
+        <h2>3. Face & Skin Retouch</h2>
+        <div class="field"><label for="soften">Softening <span id="softenVal">0</span></label><input id="soften" type="range" min="0" max="10" value="0"></div>
+        <div class="field"><label for="smooth">Skin glow <span id="smoothVal">0</span></label><input id="smooth" type="range" min="0" max="40" value="0"></div>
+        <p class="note">These are subtle whole-image softening/glow effects, not AI-aware skin or face retouching.</p>
+      </section>
+      <section class="toolgroup">
+        <h2>4. Background Removal & Replacement</h2>
+        <div class="field"><label for="bgColor">Replacement background</label><div class="row"><input id="bgColor" type="color" value="#ffffff"><select id="bgMode"><option value="none">Keep original</option><option value="key">Remove similar color</option><option value="solid">Use solid background</option></select></div></div>
+        <div class="field"><label for="tolerance">Color removal tolerance <span id="toleranceVal">35</span></label><input id="tolerance" type="range" min="5" max="120" value="35"></div>
+        <div class="field"><label for="keyColor">Color to remove</label><input id="keyColor" type="color" value="#ffffff"></div>
+        <p class="note">Color removal works best on plain backgrounds. It is color-key removal, not AI subject segmentation.</p>
+      </section>
+      <section class="toolgroup">
+        <h2>5. Text & Sticker Overlays</h2>
+        <div class="field"><label for="overlayText">Text to add</label><input id="overlayText" type="text" placeholder="Type a caption or name"></div>
+        <div class="row">
+          <div class="field"><label for="textColor">Text color</label><input id="textColor" type="color" value="#ffffff"></div>
+          <div class="field"><label for="textSize">Font size (px)</label><input id="textSize" type="number" min="10" max="300" value="48"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="textX">Text X (%)</label><input id="textX" type="number" min="0" max="100" value="5"></div>
+          <div class="field"><label for="textY">Text Y (%)</label><input id="textY" type="number" min="0" max="100" value="90"></div>
+        </div>
+        <div class="field"><label for="sticker">Sticker</label><select id="sticker"><option value="">No sticker</option><option>❤️</option><option>⭐</option><option>✨</option><option>🎉</option><option>🌸</option><option>😎</option><option>🔥</option><option>🎂</option><option>🏆</option><option>📍</option></select></div>
+        <div class="row"><div class="field"><label for="stickerX">Sticker X (%)</label><input id="stickerX" type="number" min="0" max="100" value="82"></div><div class="field"><label for="stickerY">Sticker Y (%)</label><input id="stickerY" type="number" min="0" max="100" value="15"></div></div>
+      </section>
+      <section class="toolgroup">
+        <h2>6. Face Search & Event Tagging</h2>
+        <div class="field"><label for="personTag">Person / face label</label><input id="personTag" type="text" placeholder="e.g. Family, Friend 1"></div>
+        <div class="field"><label for="eventTag">Event tag</label><input id="eventTag" type="text" placeholder="e.g. Birthday, Wedding, Trip"></div>
+        <button class="secondary smallbtn" id="detectFace" type="button">Try browser face detection</button>
+        <p id="faceStatus" class="note">Tags are saved as export metadata notes in this page; no online face-search service is connected.</p>
+        <p class="note">Face search across people/photos requires a dedicated, consent-based face-recognition service and a backend. This standalone page does not identify people.</p>
+      </section>
+    </aside>
+    <section class="stage">
+      <div class="stagehead"><strong>Output preview</strong><span id="dimensions" class="pill">No image loaded</span></div>
+      <div class="canvaswrap"><canvas id="canvas" width="900" height="600" aria-label="Edited photo preview"></canvas></div>
+      <div class="actions">
+        <button id="downloadPng" type="button">Download PNG</button>
+        <button id="downloadJpg" type="button">Download JPEG</button>
+        <button id="copyBtn" class="secondary" type="button">Copy image</button>
+        <button id="shareBtn" class="secondary" type="button">Share image</button>
+        <button id="emailBtn" class="secondary" type="button">Email photo</button>
+      </div>
+      <div class="notice">Privacy note: photo processing happens locally in your browser. The Share button depends on browser/device support. Email opens your email app; browsers do not allow a web page to silently attach a file, so download the photo and attach it manually.</div>
+      <p id="actionStatus" class="note" role="status" aria-live="polite"></p>
+    </section>
+  </div>
+  <div class="footer">Photo Studio Pro · Use photos you own or have permission to edit. Face tagging is not identity verification.</div>
+</main>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const canvas = $('canvas'), ctx = canvas.getContext('2d', {willReadFrequently:true});
+  const sourceCanvas = document.createElement('canvas');
+  const sourceCtx = sourceCanvas.getContext('2d', {willReadFrequently:true});
+  let imageLoaded = false, originalName = 'photo', renderQueued = false;
+  const controls = ['cropX','cropY','cropW','cropH','outW','outH','brightness','contrast','saturation','warmth','soften','smooth','bgColor','bgMode','tolerance','keyColor','overlayText','textColor','textSize','textX','textY','sticker','stickerX','stickerY','personTag','eventTag'];
+  const numeric = id => Number($(id).value) || 0;
+  const clamp = (v,min,max) => Math.max(min,Math.min(max,v));
+  const hexRgb = hex => ({r:parseInt(hex.slice(1,3),16),g:parseInt(hex.slice(3,5),16),b:parseInt(hex.slice(5,7),16)});
+  function setStatus(s){ $('actionStatus').textContent=s; }
+  function scheduleRender(){ if(!imageLoaded)return; if(renderQueued)return; renderQueued=true; requestAnimationFrame(()=>{renderQueued=false;render();}); }
+  function loadImage(file){
+    if(!file || !file.type.startsWith('image/')){setStatus('Please choose a valid image file.');return;}
+    const url=URL.createObjectURL(file), img=new Image();
+    img.onload=()=>{
+      sourceCanvas.width=img.naturalWidth; sourceCanvas.height=img.naturalHeight;
+      sourceCtx.clearRect(0,0,sourceCanvas.width,sourceCanvas.height); sourceCtx.drawImage(img,0,0);
+      URL.revokeObjectURL(url); imageLoaded=true; originalName=(file.name||'photo').replace(/\.[^.]+$/,'')||'photo';
+      $('fileInfo').textContent=`${file.name} · ${img.naturalWidth} × ${img.naturalHeight}px`;
+      $('outW').value=img.naturalWidth; $('outH').value=img.naturalHeight;
+      ['cropX','cropY'].forEach(id=>$(id).value=0); ['cropW','cropH'].forEach(id=>$(id).value=100);
+      render(); setStatus('Photo loaded. Changes are applied to the preview.');
+    };
+    img.onerror=()=>{URL.revokeObjectURL(url);setStatus('Could not open this image. Try a different file.');};
+    img.src=url;
+  }
+  function getCrop(){
+    const sw=sourceCanvas.width, sh=sourceCanvas.height;
+    const x=clamp(numeric('cropX'),0,99), y=clamp(numeric('cropY'),0,99);
+    const w=clamp(numeric('cropW'),1,100-x), h=clamp(numeric('cropH'),1,100-y);
+    return {x:Math.round(sw*x/100),y:Math.round(sh*y/100),w:Math.max(1,Math.round(sw*w/100)),h:Math.max(1,Math.round(sh*h/100))};
+  }
+  function render(){
+    if(!imageLoaded){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#667085';ctx.font='20px system-ui';ctx.textAlign='center';ctx.fillText('Upload a photo to start editing',canvas.width/2,canvas.height/2);return;}
+    const crop=getCrop(), ow=clamp(numeric('outW')||crop.w,1,8000), oh=clamp(numeric('outH')||crop.h,1,8000);
+    canvas.width=ow; canvas.height=oh;
+    const temp=document.createElement('canvas'); temp.width=ow;temp.height=oh;
+    const t=temp.getContext('2d',{willReadFrequently:true});
+    const mode=$('bgMode').value, bg=hexRgb($('bgColor').value);
+    if(mode==='solid'){t.fillStyle=$('bgColor').value;t.fillRect(0,0,ow,oh);}
+    t.filter=`brightness(${numeric('brightness')}%) contrast(${numeric('contrast')}%) saturate(${numeric('saturation')}%)`;
+    t.drawImage(sourceCanvas,crop.x,crop.y,crop.w,crop.h,0,0,ow,oh);t.filter='none';
+    const warmth=numeric('warmth'), soften=numeric('soften'), glow=numeric('smooth');
+    if(warmth!==0 || soften>0 || glow>0 || mode==='key'){
+      try{
+        let im=t.getImageData(0,0,ow,oh), d=im.data;
+        if(soften>0){
+          const blur=document.createElement('canvas');blur.width=ow;blur.height=oh;
+          const bc=blur.getContext('2d');bc.filter=`blur(${Math.max(.2,soften*.45)}px)`;bc.drawImage(temp,0,0);
+          const bd=bc.getImageData(0,0,ow,oh).data, amount=soften/30;
+          for(let i=0;i<d.length;i+=4){d[i]=d[i]*(1-amount)+bd[i]*amount;d[i+1]=d[i+1]*(1-amount)+bd[i+1]*amount;d[i+2]=d[i+2]*(1-amount)+bd[i+2]*amount;}
+        }
+        const key=hexRgb($('keyColor').value), tol=numeric('tolerance');
+        for(let i=0;i<d.length;i+=4){
+          d[i]=clamp(d[i]+warmth*.55+glow*.18,0,255);
+          d[i+1]=clamp(d[i+1]+warmth*.12+glow*.18,0,255);
+          d[i+2]=clamp(d[i+2]-warmth*.5+glow*.18,0,255);
+          if(mode==='key'){
+            const dist=Math.sqrt((d[i]-key.r)**2+(d[i+1]-key.g)**2+(d[i+2]-key.b)**2);
+            if(dist<tol*1.7){d[i+3]=0;}
+          }
+        }
+        t.putImageData(im,0,0);
+      }catch(e){console.warn('Some effects are unavailable for this image size.',e);}
+    }
+    // Preset tint overlays are applied after pixel adjustments.
+    const preset=canvas.dataset.preset||'original';
+    if(preset==='vintage'){t.fillStyle='rgba(180,115,45,.13)';t.fillRect(0,0,ow,oh);}
+    if(preset==='warm'){t.fillStyle='rgba(255,130,40,.08)';t.fillRect(0,0,ow,oh);}
+    if(preset==='cool'){t.fillStyle='rgba(45,115,255,.09)';t.fillRect(0,0,ow,oh);}
+    if(preset==='bw'){t.globalCompositeOperation='saturation';t.fillStyle='#888';t.fillRect(0,0,ow,oh);t.globalCompositeOperation='source-over';}
+    if(preset==='vivid'){t.globalAlpha=.12;t.drawImage(temp,0,0);t.globalAlpha=1;}
+    const text=$('overlayText').value;
+    if(text.trim()){
+      const size=clamp(numeric('textSize'),10,300)*ow/Math.max(ow,800);
+      t.font=`700 ${Math.max(10,size)}px system-ui, sans-serif`;t.textAlign='left';t.textBaseline='alphabetic';
+      const x=ow*clamp(numeric('textX'),0,100)/100, y=oh*clamp(numeric('textY'),0,100)/100;
+      t.lineWidth=Math.max(2,size*.08);t.strokeStyle='rgba(0,0,0,.65)';t.fillStyle=$('textColor').value;
+      t.strokeText(text,x,y);t.fillText(text,x,y);
+    }
+    const sticker=$('sticker').value;
+    if(sticker){const size=Math.max(22,Math.min(100,ow*.09));t.font=`${size}px system-ui`;t.textAlign='center';t.textBaseline='middle';t.fillText(sticker,ow*clamp(numeric('stickerX'),0,100)/100,oh*clamp(numeric('stickerY'),0,100)/100);}
+    ctx.clearRect(0,0,ow,oh);ctx.drawImage(temp,0,0);
+    $('dimensions').textContent=`${ow} × ${oh}px`;
+  }
+  function preset(name){
+    canvas.dataset.preset=name;
+    $('brightness').value= name==='vivid'?108:name==='vintage'?96:100;
+    $('contrast').value=name==='vivid'?118:name==='vintage'?92:100;
+    $('saturation').value=name==='bw'?0:name==='vivid'?145:name==='vintage'?75:100;
+    $('warmth').value=name==='warm'?22:name==='cool'?-18:name==='vintage'?14:0;
+    ['brightness','contrast','saturation','warmth'].forEach(updateRangeLabel);scheduleRender();
+  }
+  function updateRangeLabel(id){const el=$(id), target=$(id+'Val');if(target)target.textContent=(id==='warmth'?el.value:el.value+(id==='soften'||id==='smooth'?'':'%'));}
+  function blob(type='image/png',quality=.92){return new Promise(resolve=>canvas.toBlob(resolve,type,quality));}
+  async function download(type){
+    if(!imageLoaded){setStatus('Upload a photo first.');return;}
+    const mime=type==='jpeg'?'image/jpeg':'image/png', b=await blob(mime,.94);
+    if(!b){setStatus('Could not create the image file.');return;}
+    const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`${originalName}-edited.${type==='jpeg'?'jpg':'png'}`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+    setStatus(`Downloaded ${type.toUpperCase()} photo. Tags: ${$('personTag').value||'none'}; event: ${$('eventTag').value||'none'}.`);
+  }
+  $('fileInput').addEventListener('change',e=>loadImage(e.target.files[0]));
+  controls.forEach(id=>{const el=$(id);if(!el)return;el.addEventListener('input',()=>{if(['brightness','contrast','saturation','warmth','soften','smooth','tolerance'].includes(id))updateRangeLabel(id);scheduleRender();});el.addEventListener('change',scheduleRender);});
+  document.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>preset(b.dataset.preset)));
+  $('fitSize').addEventListener('click',()=>{if(imageLoaded){$('outW').value=sourceCanvas.width;$('outH').value=sourceCanvas.height;$('cropX').value=0;$('cropY').value=0;$('cropW').value=100;$('cropH').value=100;scheduleRender();}});
+  $('resetBtn').addEventListener('click',()=>{
+    if(!imageLoaded){setStatus('Upload a photo first.');return;}
+    const defaults={cropX:0,cropY:0,cropW:100,cropH:100,outW:sourceCanvas.width,outH:sourceCanvas.height,brightness:100,contrast:100,saturation:100,warmth:0,soften:0,smooth:0,bgMode:'none',tolerance:35,bgColor:'#ffffff',keyColor:'#ffffff',overlayText:'',textColor:'#ffffff',textSize:48,textX:5,textY:90,sticker:'',stickerX:82,stickerY:15,personTag:'',eventTag:''};
+    Object.entries(defaults).forEach(([k,v])=>$(k).value=v);canvas.dataset.preset='original';
+    ['brightness','contrast','saturation','warmth','soften','smooth','tolerance'].forEach(updateRangeLabel);scheduleRender();setStatus('Edits reset.');
+  });
+  $('downloadPng').addEventListener('click',()=>download('png'));
+  $('downloadJpg').addEventListener('click',()=>download('jpeg'));
+  $('copyBtn').addEventListener('click',async()=>{
+    if(!imageLoaded){setStatus('Upload a photo first.');return;}
+    try{const b=await blob('image/png');await navigator.clipboard.write([new ClipboardItem({'image/png':b})]);setStatus('Image copied to clipboard. If blocked, use Download PNG.');}
+    catch(e){setStatus('Copy is not supported here or permission was denied. Try HTTPS/localhost in a supported browser, or download the image.');}
+  });
+  $('shareBtn').addEventListener('click',async()=>{
+    if(!imageLoaded){setStatus('Upload a photo first.');return;}
+    try{const b=await blob('image/png'), f=new File([b],`${originalName}-edited.png`,{type:'image/png'});
+      if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'Edited photo',text:'Photo edited with Photo Studio Pro'});setStatus('Share sheet opened.');}
+      else if(navigator.share){await navigator.share({title:'Edited photo',text:'I edited this photo with Photo Studio Pro.'});setStatus('Share sheet opened. To share the image itself, download it first.');}
+      else setStatus('Image sharing is not supported in this browser. Download the image and share it from your device.');
+    }catch(e){if(e.name!=='AbortError')setStatus('Sharing did not complete. You can download the image and share it manually.');}
+  });
+  $('emailBtn').addEventListener('click',()=>{
+    if(!imageLoaded){setStatus('Upload a photo first.');return;}
+    const subject=encodeURIComponent('Edited photo');
+    const body=encodeURIComponent(`Please find the edited photo attached.\nPerson tag: ${$('personTag').value||'Not specified'}\nEvent tag: ${$('eventTag').value||'Not specified'}\n\nNote: please attach the downloaded file to this email.`);
+    window.location.href=`mailto:?subject=${subject}&body=${body}`;
+    setStatus('Email app opened. Download the edited photo and attach it to the email manually.');
+  });
+  $('detectFace').addEventListener('click',async()=>{
+    if(!imageLoaded){$('faceStatus').textContent='Upload a photo first.';return;}
+    if('FaceDetector' in window){
+      try{const detector=new FaceDetector({fastMode:true,maxDetectedFaces:20});const faces=await detector.detect(sourceCanvas);$('faceStatus').textContent=`Browser detected ${faces.length} face region(s). This does not identify anyone; add a person label and event tag manually.`;}
+      catch(e){$('faceStatus').textContent='Browser face detection could not run on this image. Add person/event tags manually.';}
+    }else $('faceStatus').textContent='This browser does not provide the experimental FaceDetector API. You can still add person and event tags manually.';
+  });
+  // A neutral initial preview; uploaded photos are never sent to a server.
+  render();
+})();
+</script>
+</body>
+</html>
