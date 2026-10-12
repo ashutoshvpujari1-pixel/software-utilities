@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neon Rush - Catch the Stars</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #090b1c;
+  color: white;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.game {
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 32px;
+  margin: 8px 0;
+  color: #71f9ff;
+  text-shadow: 0 0 20px #00d9ff;
+}
+
+.subtitle {
+  color: #a6afd1;
+  margin-bottom: 18px;
+}
+
+.stats {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.stat {
+  flex: 1;
+  background: #151a35;
+  border: 1px solid #303963;
+  border-radius: 12px;
+  padding: 12px 4px;
+}
+
+.stat span {
+  display: block;
+  color: #a6afd1;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.stat strong {
+  font-size: 23px;
+}
+
+#score { color: #71f9ff; }
+#time { color: #ffe17a; }
+#lives { color: #ff719b; }
+
+.arena {
+  position: relative;
+  width: 100%;
+  height: min(56vh, 440px);
+  min-height: 300px;
+  overflow: hidden;
+  border: 2px solid #353d73;
+  border-radius: 18px;
+  background:
+    radial-gradient(ellipse at 50% 100%, #182653 0%, transparent 60%),
+    linear-gradient(160deg, #10132d, #080a18);
+  box-shadow: 0 0 30px #172c59;
+  touch-action: manipulation;
+}
+
+.arena::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(#ffffff80 1px, transparent 1px);
+  background-size: 37px 43px;
+  opacity: .3;
+}
+
+.object {
+  position: absolute;
+  z-index: 2;
+  width: 43px;
+  height: 43px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 8px #70efff);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bomb {
+  filter: drop-shadow(0 0 8px #ff356e);
+}
+
+.pop {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+  color: #fff;
+  font-size: 22px;
+  font-weight: bold;
+  animation: floatUp .65s forwards;
+}
+
+@keyframes floatUp {
+  to { transform: translateY(-45px); opacity: 0; }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  background: #080a18dd;
+  backdrop-filter: blur(5px);
+}
+
+.overlay-content {
+  max-width: 300px;
+}
+
+.overlay h2 {
+  color: #71f9ff;
+  font-size: 29px;
+  margin: 0 0 12px;
+}
+
+.overlay p {
+  color: #c0c9e9;
+  line-height: 1.6;
+}
+
+button.action {
+  border: 0;
+  border-radius: 30px;
+  padding: 14px 28px;
+  background: linear-gradient(90deg, #4ae9ff, #a278ff);
+  color: #080b1d;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 22px #604dff70;
+  transition: transform .15s;
+}
+
+button.action:active {
+  transform: scale(.95);
+}
+
+.hint {
+  color: #929dbf;
+  font-size: 13px;
+  margin: 14px 0;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  margin-top: 12px;
+  color: #a6afd1;
+  font-size: 13px;
+}
+
+#soundBtn {
+  background: #191e3c;
+  color: white;
+  border: 1px solid #38416e;
+  padding: 9px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+<main class="game">
+  <h1>⚡ NEON RUSH</h1>
+  <div class="subtitle">Catch stars. Dodge bombs. Beat your best!</div>
+
+  <div class="stats">
+    <div class="stat">
+      <span>SCORE</span>
+      <strong id="score">0</strong>
+    </div>
+    <div class="stat">
+      <span>TIME</span>
+      <strong id="time">30</strong>
+    </div>
+    <div class="stat">
+      <span>LIVES</span>
+      <strong id="lives">❤️❤️❤️</strong>
+    </div>
+  </div>
+
+  <div class="arena" id="arena">
+    <div class="overlay" id="overlay">
+      <div class="overlay-content">
+        <h2 id="overlayTitle">Ready, Star Hunter? 🌟</h2>
+        <p id="overlayText">
+          Tap the glowing stars to score points.
+          Avoid bombs and build combos.
+          You have 30 seconds. How high can you go?
+        </p>
+        <p id="bestIntro">🏆 Best score: 0</p>
+        <button class="action" id="startBtn">LET'S PLAY ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hint">✨ Gold stars = bonus points · 💣 Bombs = lose a life</div>
+
+  <div class="bottom">
+    <span id="combo">🔥 Combo: x0</span>
+    <button id="soundBtn">🔊 Sound ON</button>
+    <span>🏆 Best: <b id="best">0</b></span>
+  </div>
+</main>
+
+<script>
+const arena = document.getElementById("arena");
+const scoreEl = document.getElementById("score");
+const timeEl = document.getElementById("time");
+const livesEl = document.getElementById("lives");
+const comboEl = document.getElementById("combo");
+const bestEl = document.getElementById("best");
+const overlay = document.getElementById("overlay");
+const startBtn = document.getElementById("startBtn");
+const soundBtn = document.getElementById("soundBtn");
+
+let score = 0;
+let time = 30;
+let lives = 3;
+let combo = 0;
+let running = false;
+let soundOn = true;
+let objects = [];
+let spawnTimer;
+let gameTimer;
+let audio;
+
+let best = 0;
+try {
+  best = Number(localStorage.getItem("neonRushBest")) || 0;
+} catch (e) {}
+
+bestEl.textContent = best;
+document.getElementById("bestIntro").textContent =
+  "🏆 Best score: " + best;
+
+function beep(freq = 600, duration = 0.08, type = "sine") {
+  if (!soundOn) return;
+
+  try {
+    audio = audio || new (
+      window.AudioContext || window.webkitAudioContext
+    )();
+
+    if (audio.state === "suspended") audio.resume();
+
+    const oscillator = audio.createOscillator();
+    const gain = audio.createGain();
+
+    oscillator.type = type;
+    oscillator.frequency.value = freq;
+    gain.gain.setValueAtTime(0.07, audio.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+      0.001, audio.currentTime + duration
+    );
+
+    oscillator.connect(gain);
+    gain.connect(audio.destination);
+    oscillator.start();
+    oscillator.stop(audio.currentTime + duration);
+  } catch (e) {}
+}
+
+soundBtn.onclick = () => {
+  soundOn = !soundOn;
+  soundBtn.textContent = soundOn ? "🔊 Sound ON" : "🔇 Sound OFF";
+  if (soundOn) beep();
+};
+
+function updateStats() {
+  scoreEl.textContent = score;
+  timeEl.textContent = time;
+  livesEl.textContent = "❤️".repeat(lives) + "🖤".repeat(3 - lives);
+  comboEl.textContent = "🔥 Combo: x" + combo;
+  bestEl.textContent = best;
+}
+
+function clearObjects() {
+  objects.forEach(obj => obj.el.remove());
+  objects = [];
+}
+
+function makePop(x, y, message, color = "#71f9ff") {
+  const pop = document.createElement("div");
+  pop.className = "pop";
+  pop.textContent = message;
+  pop.style.color = color;
+  pop.style.left = x + "px";
+  pop.style.top = y + "px";
+  arena.appendChild(pop);
+  setTimeout(() => pop.remove(), 700);
+}
+
+function spawnObject() {
+  if (!running) return;
+
+  const roll = Math.random();
+  let kind = "star";
+  let emoji = "⭐";
+
+  if (roll < 0.20) {
+    kind = "bomb";
+    emoji = "💣";
+  } else if (roll > 0.88) {
+    kind = "gold";
+    emoji = "🌟";
+  }
+
+  const el = document.createElement("button");
+  el.className = "object" + (kind === "bomb" ? " bomb" : "");
+  el.textContent = emoji;
+  el.setAttribute("aria-label", kind === "bomb" ? "Bomb" : "Catch star");
+
+  const maxX = Math.max(0, arena.clientWidth - 43);
+  const maxY = Math.max(0, arena.clientHeight - 43);
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  el.style.left = x + "px";
+  el.style.top = y + "px";
+
+  const obj = { el, kind, x, y };
+  objects.push(obj);
+  arena.appendChild(el);
+
+  el.addEventListener("pointerdown", event => {
+    event.preventDefault();
+    if (!running || !objects.includes(obj)) return;
+
+    objects = objects.filter(o => o !== obj);
+    el.remove();
+
+    if (kind === "bomb") {
+      lives--;
+      combo = 0;
+      beep(130, 0.22, "sawtooth");
+      makePop(x, y, "OUCH! 💥", "#ff557f");
+
+      if (lives <= 0) {
+        updateStats();
+        endGame();
+        return;
+      }
+    } else {
+      combo++;
+      const multiplier = Math.min(5, 1 + Math.floor(combo / 5));
+      const points = kind === "gold" ? 5 * multiplier : multiplier;
+
+      score += points;
+      beep(kind === "gold" ? 1000 : 600 + combo * 35, 0.08);
+
+      makePop(
+        x, y,
+        "+" + points + (multiplier > 1 ? " x" + multiplier : ""),
+        kind === "gold" ? "#ffdf67" : "#71f9ff"
+      );
+
+      // Brief bonus time for a strong combo.
+      if (combo % 10 === 0) {
+        time = Math.min(35, time + 2);
+        makePop(x, y - 20, "+2 SECONDS!", "#aaff8a");
+      }
+    }
+
+    if (score > best) {
+      best = score;
+      try {
+        localStorage.setItem("neonRushBest", best);
+      } catch (e) {}
+    }
+
+    updateStats();
+  });
+
+  // Objects disappear automatically if ignored.
+  const lifetime = Math.max(850, 1900 - score * 3);
+  setTimeout(() => {
+    if (objects.includes(obj)) {
+      objects = objects.filter(o => o !== obj);
+      el.remove();
+    }
+  }, lifetime);
+}
+
+function startGame() {
+  clearInterval(spawnTimer);
+  clearInterval(gameTimer);
+  clearObjects();
+
+  score = 0;
+  time = 30;
+  lives = 3;
+  combo = 0;
+  running = true;
+
+  overlay.style.display = "none";
+  updateStats();
+  beep(700, 0.12);
+
+  spawnObject();
+  spawnTimer = setInterval(
+    spawnObject,
+    Math.max(300, 780 - score * 2)
+  );
+
+  gameTimer = setInterval(() => {
+    if (!running) return;
+    time--;
+    updateStats();
+
+    if (time <= 0) endGame();
+  }, 1000);
+}
+
+function endGame() {
+  if (!running) return;
+  running = false;
+
+  clearInterval(spawnTimer);
+  clearInterval(gameTimer);
+  clearObjects();
+
+  beep(350, 0.2);
+
+  let title = "TIME'S UP! ⏰";
+  if (lives <= 0) title = "BOOM! 💥";
+  if (score >= 30) title = "STAR LEGEND! 👑";
+  else if (score >= 15) title = "NICE RUN! 🚀";
+
+  document.getElementById("overlayTitle").textContent = title;
+  document.getElementById("overlayText").textContent =
+    "You scored " + score + " points! " +
+    (score >= best ? "A new personal best — amazing!" :
+    "Can you beat your best score of " + best + "?");
+
+  document.getElementById("bestIntro").textContent =
+    "🏆 Best score: " + best;
+
+  startBtn.textContent = "PLAY AGAIN ↻";
+  overlay.style.display = "flex";
+  updateStats();
+}
+
+startBtn.addEventListener("click", startGame);
+
+// Initial screen
+updateStats();
+</script>
+</body>
+</html>
