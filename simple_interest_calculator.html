@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Profit Calculator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-full flex flex-col justify-between antialiased selection:bg-emerald-500 selection:text-white">
+
+    <header class="w-full border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-emerald-500/10 border border-emerald-500/30 p-2 rounded-xl text-emerald-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-white">ProfitSphere</h1>
+                    <p class="text-xs text-slate-400">Simple Interest & Returns Calculator</p>
+                </div>
+            </div>
+            <div class="text-xs bg-slate-800 text-slate-300 py-1.5 px-3 rounded-full border border-slate-700 font-medium">
+                Simple Interest Model
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8 sm:py-12">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+            
+            <!-- Left Column: Form Card -->
+            <div class="md:col-span-7 bg-slate-800/50 border border-slate-700/80 rounded-2xl p-6 sm:p-8 shadow-xl backdrop-blur-sm">
+                <div class="mb-6">
+                    <h2 class="text-xl font-semibold text-white mb-1">Investment Details</h2>
+                    <p class="text-sm text-slate-400">Enter your principal capital, expected interest rate, and duration.</p>
+                </div>
+
+                <!-- Custom Error Box -->
+                <div id="errorBox" class="hidden mb-6 bg-rose-500/10 border border-rose-500/30 text-rose-300 px-4 py-3 rounded-xl text-sm flex items-start space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-rose-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <span id="errorMessage">Please correct the inputs.</span>
+                </div>
+
+                <form id="profitForm" onsubmit="event.preventDefault(); calculateProfit();" class="space-y-5">
+                    <!-- Amount Input -->
+                    <div>
+                        <label for="amount" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Investment Amount ($)</label>
+                        <div class="relative rounded-xl shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 font-semibold">$</div>
+                            <input type="number" id="amount" step="0.01" min="0" placeholder="10000" required
+                                class="block w-full pl-8 pr-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition text-base">
+                        </div>
+                    </div>
+
+                    <!-- Interest Rate Input -->
+                    <div>
+                        <label for="rate" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Annual Interest Rate (%)</label>
+                        <div class="relative rounded-xl shadow-sm">
+                            <input type="number" id="rate" step="0.01" min="0" placeholder="7.5" required
+                                class="block w-full pl-4 pr-10 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition text-base">
+                            <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400 font-semibold">%</div>
+                        </div>
+                    </div>
+
+                    <!-- Number of Days Input -->
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="days" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">Number of Days</label>
+                            <span class="text-xs text-slate-400">Standard Year: 365 Days</span>
+                        </div>
+                        <input type="number" id="days" step="1" min="1" placeholder="90" required
+                            class="block w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition text-base">
+                        
+                        <!-- Quick Duration Presets -->
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <button type="button" onclick="setDays(30)" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-2.5 py-1 rounded-lg transition font-medium">30 Days</button>
+                            <button type="button" onclick="setDays(90)" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-2.5 py-1 rounded-lg transition font-medium">90 Days</button>
+                            <button type="button" onclick="setDays(180)" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-2.5 py-1 rounded-lg transition font-medium">180 Days</button>
+                            <button type="button" onclick="setDays(365)" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-2.5 py-1 rounded-lg transition font-medium">1 Year (365)</button>
+                        </div>
+                    </div>
+
+                    <!-- Action Button -->
+                    <button type="submit" class="w-full mt-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold py-3.5 px-4 rounded-xl shadow-lg shadow-emerald-500/20 active:scale-[0.99] transition duration-200 flex items-center justify-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                        <span>Show Profit</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right Column: Results & Breakdown Card -->
+            <div class="md:col-span-5 space-y-6">
+                
+                <!-- Initial / Empty State Card -->
+                <div id="emptyState" class="bg-slate-800/30 border border-slate-700/60 rounded-2xl p-8 text-center flex flex-col items-center justify-center min-h-[340px]">
+                    <div class="bg-slate-800 border border-slate-700 p-4 rounded-full text-slate-500 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                    </div>
+                    <h3 class="text-base font-medium text-slate-300 mb-1">No calculation yet</h3>
+                    <p class="text-sm text-slate-500 max-w-xs">Fill in your investment details on the left and click 'Show Profit' to evaluate your returns.</p>
+                </div>
+
+                <!-- Populated Results Card (Hidden by default) -->
+                <div id="resultsContainer" class="hidden bg-gradient-to-br from-slate-800 to-slate-800/80 border border-emerald-500/40 rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+                    <!-- Accent Glow -->
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-emerald-400">Calculation Results</h3>
+                        <span class="bg-emerald-500/10 text-emerald-400 text-xs px-2.5 py-1 rounded-full border border-emerald-500/20 font-medium">Computed</span>
+                    </div>
+
+                    <!-- Main Highlights -->
+                    <div class="space-y-4 mb-6">
+                        <div class="bg-slate-900/60 border border-slate-700/60 rounded-xl p-4">
+                            <span class="block text-xs text-slate-400 uppercase tracking-wider mb-1">Total Profit Made</span>
+                            <span id="displayProfit" class="text-3xl font-extrabold text-emerald-400 tracking-tight">$0.00</span>
+                        </div>
+
+                        <div class="bg-slate-900/60 border border-slate-700/60 rounded-xl p-4">
+                            <span class="block text-xs text-slate-400 uppercase tracking-wider mb-1">Final Total Amount</span>
+                            <span id="displayTotal" class="text-2xl font-bold text-white tracking-tight">$0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Breakdown -->
+                    <div class="border-t border-slate-700/80 pt-4 space-y-3">
+                        <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Breakdown Summary</h4>
+                        
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-slate-400">Principal Amount:</span>
+                            <span id="displayPrincipal" class="font-medium text-slate-200">$0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-slate-400">Daily Average Return:</span>
+                            <span id="displayDaily" class="font-medium text-slate-200">$0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-slate-400">Effective Yield (%):</span>
+                            <span id="displayEffectiveRate" class="font-medium text-slate-200">0.00%</span>
+                        </div>
+                    </div>
+
+                    <!-- Formula Reference -->
+                    <div class="mt-6 pt-4 border-t border-slate-700/50 text-[11px] text-slate-500">
+                        Formula: Profit = Principal × (Rate / 100) × (Days / 365)
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="w-full border-t border-slate-800 bg-slate-900 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-4xl mx-auto px-4">
+            <p>&copy; 2026 ProfitSphere Calculator. Secure client-side financial calculations.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Calculation and Validation Logic -->
+    <script>
+        function setDays(days) {
+            document.getElementById('days').value = days;
+        }
+
+        function showError(message) {
+            const errorBox = document.getElementById('errorBox');
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+            errorBox.classList.remove('hidden');
+            
+            // Scroll error into view on mobile
+            errorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(value);
+        }
+
+        function calculateProfit() {
+            const errorBox = document.getElementById('errorBox');
+            errorBox.classList.add('hidden');
+
+            const amountInput = document.getElementById('amount').value;
+            const rateInput = document.getElementById('rate').value;
+            const daysInput = document.getElementById('days').value;
+
+            const amount = parseFloat(amountInput);
+            const rate = parseFloat(rateInput);
+            const days = parseInt(daysInput, 10);
+
+            // Validation checks
+            if (isNaN(amount) || amount <= 0) {
+                showError('Please enter a valid investment amount greater than zero.');
+                return;
+            }
+            if (isNaN(rate) || rate < 0) {
+                showError('Please enter a valid interest rate (0% or higher).');
+                return;
+            }
+            if (isNaN(days) || days <= 0) {
+                showError('Please enter a valid number of days greater than zero.');
+                return;
+            }
+
+            // Calculation using simple interest formula provided:
+            // Profit = Amount * (Interest / 100) * (Days / 365)
+            const profit = amount * (rate / 100) * (days / 365);
+            const totalAmount = amount + profit;
+            const dailyReturn = profit / days;
+            const effectiveYield = (profit / amount) * 100;
+
+            // Update UI elements
+            document.getElementById('displayProfit').textContent = formatCurrency(profit);
+            document.getElementById('displayTotal').textContent = formatCurrency(totalAmount);
+            document.getElementById('displayPrincipal').textContent = formatCurrency(amount);
+            document.getElementById('displayDaily').textContent = formatCurrency(dailyReturn);
+            document.getElementById('displayEffectiveRate').textContent = effectiveYield.toFixed(2) + '%';
+
+            // Toggle visibility between empty state and results card
+            document.getElementById('emptyState').classList.add('hidden');
+            document.getElementById('resultsContainer').classList.remove('hidden');
+
+            // Smooth scroll to results on smaller viewports
+            if (window.innerWidth < 768) {
+                document.getElementById('resultsContainer').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>
