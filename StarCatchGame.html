@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Play Star Catch, a fun, quick browser game. Catch stars, avoid bombs, and beat your high score.">
+<title>Star Catch — Quick Fun Game</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+<style>
+:root{--bg:#0b1024;--panel:#151d3b;--text:#f7f8ff;--muted:#b7c1e6;--accent:#7c5cff;--pink:#ff5da2;--gold:#ffd166}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at top,#28346b 0,#111936 42%,#080c1b 100%);display:flex;flex-direction:column}
+header,footer{text-align:center;padding:18px 14px}
+header h1{margin:0;font-size:clamp(1.8rem,5vw,3rem);letter-spacing:.02em}
+header p{margin:6px 0 0;color:var(--muted)}
+main{width:min(960px,94vw);margin:0 auto 24px;flex:1}
+.panel{background:rgba(21,29,59,.92);border:1px solid #3a477a;border-radius:22px;padding:clamp(14px,3vw,26px);box-shadow:0 18px 60px #0005}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.stat{background:#0c1430;border-radius:14px;padding:10px;text-align:center}
+.stat small{display:block;color:var(--muted);font-size:.78rem}
+.stat strong{font-size:clamp(1.1rem,3vw,1.55rem)}
+.game-wrap{position:relative}
+canvas{display:block;width:100%;height:auto;aspect-ratio:800/440;background:linear-gradient(#101b45,#172b55 70%,#22365b);border:2px solid #47568b;border-radius:16px;touch-action:manipulation}
+.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;background:#080d20b8;border-radius:16px}
+.overlay-card{max-width:460px}
+.overlay h2{font-size:clamp(1.6rem,4vw,2.5rem);margin:0 0 8px}
+.overlay p{color:#e0e6ff;line-height:1.55}
+button{font:inherit;font-weight:750;border:0;border-radius:12px;padding:12px 18px;cursor:pointer;transition:transform .15s,filter .15s}
+button:hover{filter:brightness(1.1);transform:translateY(-1px)}
+button:focus-visible{outline:3px solid white;outline-offset:3px}
+.primary{background:linear-gradient(135deg,var(--accent),var(--pink));color:white;box-shadow:0 7px 20px #7c5cff55}
+.secondary{background:#27345f;color:white;border:1px solid #536398}
+.controls{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px}
+.hint{text-align:center;color:var(--muted);font-size:.93rem;margin:13px 0 0}
+.instructions{margin-top:16px;color:#e0e6ff;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tip{background:#0c1430;border-radius:12px;padding:12px;font-size:.9rem}
+.tip b{display:block;margin-bottom:4px}
+footer{color:var(--muted);font-size:.85rem}
+@media(max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}.instructions{grid-template-columns:1fr}.stat{padding:8px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>⭐ Star Catch</h1>
+  <p>Catch the stars. Dodge the bombs. Beat your best!</p>
+</header>
+<main>
+<section class="panel" aria-label="Star Catch game">
+  <div class="stats">
+    <div class="stat"><small>SCORE</small><strong id="score">0</strong></div>
+    <div class="stat"><small>TIME LEFT</small><strong><span id="time">30</span>s</strong></div>
+    <div class="stat"><small>LIVES</small><strong id="lives">❤️❤️❤️</strong></div>
+    <div class="stat"><small>BEST SCORE</small><strong id="best">0</strong></div>
+  </div>
+  <div class="game-wrap">
+    <canvas id="game" width="800" height="440" aria-label="Game area. Move the basket to catch falling stars and avoid bombs."></canvas>
+    <div class="overlay" id="overlay">
+      <div class="overlay-card">
+        <h2 id="overlayTitle">Ready, Star Catcher?</h2>
+        <p id="overlayText">Move your basket to catch ⭐ stars for points. Avoid 💣 bombs or lose a life. You have 30 seconds!</p>
+        <button class="primary" id="startBtn">▶ Start Playing</button>
+      </div>
+    </div>
+  </div>
+  <div class="controls">
+    <button class="secondary" id="leftBtn" aria-label="Move basket left">⬅ Left</button>
+    <button class="secondary" id="rightBtn" aria-label="Move basket right">Right ➡</button>
+    <button class="secondary" id="pauseBtn">⏸ Pause</button>
+    <button class="secondary" id="soundBtn" aria-pressed="true">🔊 Sound: On</button>
+  </div>
+  <p class="hint">Keyboard: ← → or A / D · On mobile, tap the left or right side of the game area.</p>
+  <div class="instructions">
+    <div class="tip"><b>⭐ Catch a star</b>+10 points</div>
+    <div class="tip"><b>✨ Golden star</b>+30 bonus points</div>
+    <div class="tip"><b>💣 Hit a bomb</b>Lose one life</div>
+  </div>
+</section>
+</main>
+<footer>Made for a little everyday fun · No installation required</footer>
+<script>
+(() => {
+  const canvas = document.getElementById('game');
+  const ctx = canvas.getContext('2d');
+  const $ = id => document.getElementById(id);
+  const scoreEl=$('score'), timeEl=$('time'), livesEl=$('lives'), bestEl=$('best');
+  const overlay=$('overlay'), titleEl=$('overlayTitle'), textEl=$('overlayText');
+  let score=0, lives=3, timeLeft=30, best=0, running=false, paused=false, soundOn=true;
+  let basket={x:350,y:382,w:100,h:28,speed:7};
+  let items=[], particles=[], keys={}, lastTime=0, spawnClock=0, elapsed=0, raf=0, audioCtx=null;
+  try { best=Number(localStorage.getItem('starCatchBest')||0); } catch(e) {}
+  bestEl.textContent=best;
+
+  function beep(freq=600,duration=.08,type='sine'){
+    if(!soundOn)return;
+    try{
+      audioCtx ||= new (window.AudioContext||window.webkitAudioContext)();
+      if(audioCtx.state==='suspended') audioCtx.resume();
+      const osc=audioCtx.createOscillator(), gain=audioCtx.createGain();
+      osc.type=type; osc.frequency.value=freq; gain.gain.setValueAtTime(.06,audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+duration);
+      osc.connect(gain);gain.connect(audioCtx.destination);osc.start();osc.stop(audioCtx.currentTime+duration);
+    }catch(e){}
+  }
+  function updateStats(){scoreEl.textContent=score;timeEl.textContent=Math.max(0,Math.ceil(timeLeft));livesEl.textContent='❤️'.repeat(lives)+'🖤'.repeat(3-lives);}
+  function reset(){
+    score=0;lives=3;timeLeft=30;elapsed=0;spawnClock=0;items=[];particles=[];
+    basket.x=(canvas.width-basket.w)/2; updateStats();
+  }
+  function showOverlay(title,message,buttonText='▶ Play Again'){
+    titleEl.textContent=title;textEl.textContent=message;$('startBtn').textContent=buttonText;overlay.style.display='flex';
+  }
+  function start(){
+    cancelAnimationFrame(raf);reset();running=true;paused=false;
+    $('pauseBtn').textContent='⏸ Pause';overlay.style.display='none';lastTime=performance.now();
+    raf=requestAnimationFrame(loop);beep(700,.1);
+  }
+  function end(){
+    running=false;paused=false;cancelAnimationFrame(raf);
+    if(score>best){best=score;bestEl.textContent=best;try{localStorage.setItem('starCatchBest',best)}catch(e){}}
+    const msg=score>=150?'Amazing catching! You are a star champion!':score>=80?'Great game! Can you beat that score?':'Nice try! Play again and aim for the golden stars.';
+    showOverlay(`Game Over! Score: ${score}`,msg);
+    beep(240,.25,'triangle');
+  }
+  function togglePause(){
+    if(!running)return;
+    paused=!paused;
+    if(paused){$('pauseBtn').textContent='▶ Resume';showOverlay('Game Paused','Take a breath, then jump back in.','▶ Resume');}
+    else{overlay.style.display='none';$('pauseBtn').textContent='⏸ Pause';lastTime=performance.now();raf=requestAnimationFrame(loop);}
+  }
+  function spawn(){
+    const golden=Math.random()<.13, bomb=!golden&&Math.random()<.23;
+    items.push({x:24+Math.random()*(canvas.width-48),y:-30,r:golden?16:14,type:golden?'gold':bomb?'bomb':'star',speed:2.2+Math.random()*1.8+elapsed*.055,spin:Math.random()*6});
+  }
+  function burst(x,y,color){
+    for(let i=0;i<9;i++)particles.push({x,y,vx:(Math.random()-.5)*5,vy:(Math.random()-.8)*5,life:.55,color});
+  }
+  function drawBasket(){
+    const x=basket.x,y=basket.y;
+    ctx.save();ctx.shadowColor='#ffb347';ctx.shadowBlur=12;
+    ctx.fillStyle='#ffb347';ctx.beginPath();ctx.moveTo(x+8,y);ctx.lineTo(x+basket.w-8,y);ctx.lineTo(x+basket.w-20,y+basket.h);ctx.lineTo(x+20,y+basket.h);ctx.closePath();ctx.fill();
+    ctx.strokeStyle='#ffe7a6';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(x+17,y+7);ctx.lineTo(x+basket.w-17,y+7);ctx.stroke();
+    ctx.restore();
+    ctx.fillStyle='#fff0bf';ctx.font='bold 13px system-ui';ctx.textAlign='center';ctx.fillText('CATCH!',x+basket.w/2,y+22);
+  }
+  function draw(){
+    const w=canvas.width,h=canvas.height;
+    ctx.clearRect(0,0,w,h);
+    // Stars in the night sky
+    for(let i=0;i<55;i++){
+      const x=(i*137+23)%w,y=(i*71+17)%h;
+      ctx.globalAlpha=.25+((i%4)*.15);ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(x,y,i%7===0?2:1,0,Math.PI*2);ctx.fill();
+    }
+    ctx.globalAlpha=1;
+    // Ground
+    ctx.fillStyle='#253e60';ctx.fillRect(0,418,w,22);
+    ctx.strokeStyle='#46678d';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,418);ctx.lineTo(w,418);ctx.stroke();
+    items.forEach(it=>{
+      ctx.save();ctx.translate(it.x,it.y);ctx.rotate(it.spin);
+      ctx.font=`${it.r*2}px serif`;ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(it.type==='bomb'?'💣':it.type==='gold'?'🌟':'⭐',0,0);ctx.restore();
+    });
+    particles.forEach(p=>{ctx.globalAlpha=Math.max(0,p.life/.55);ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);ctx.fill();});
+    ctx.globalAlpha=1;drawBasket();
+  }
+  function loop(now){
+    if(!running||paused)return;
+    const dt=Math.min((now-lastTime)/1000,.04);lastTime=now;
+    elapsed+=dt;timeLeft-=dt;spawnClock+=dt;
+    const interval=Math.max(.35,.85-elapsed*.008);
+    if(spawnClock>=interval){spawnClock=0;spawn();}
+    if(keys.ArrowLeft||keys.a||keys.A)basket.x-=basket.speed;
+    if(keys.ArrowRight||keys.d||keys.D)basket.x+=basket.speed;
+    basket.x=Math.max(0,Math.min(canvas.width-basket.w,basket.x));
+    for(let i=items.length-1;i>=0;i--){
+      const it=items[i];it.y+=it.speed;it.spin+=dt*1.8;
+      if(it.y+it.r>basket.y&&it.y-it.r<basket.y+basket.h&&it.x>basket.x-4&&it.x<basket.x+basket.w+4){
+        if(it.type==='bomb'){lives--;burst(it.x,it.y,'#ff5d73');beep(180,.18,'sawtooth');}
+        else{score+=it.type==='gold'?30:10;burst(it.x,it.y,it.type==='gold'?'#ffd166':'#fff4a3');beep(it.type==='gold'?1000:760,.07);}
+        items.splice(i,1);updateStats();
+        if(lives<=0){draw();end();return;}
+      }else if(it.y>canvas.height+25){items.splice(i,1);}
+    }
+    particles=particles.filter(p=>p.life>0);
+    particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.life-=dt;});
+    updateStats();draw();
+    if(timeLeft<=0){end();return;}
+    raf=requestAnimationFrame(loop);
+  }
+  $('startBtn').addEventListener('click',()=>{if(running&&paused){paused=false;$('pauseBtn').textContent='⏸ Pause';overlay.style.display='none';lastTime=performance.now();raf=requestAnimationFrame(loop);}else start();});
+  $('pauseBtn').addEventListener('click',togglePause);
+  $('soundBtn').addEventListener('click',()=>{soundOn=!soundOn;$('soundBtn').textContent=soundOn?'🔊 Sound: On':'🔇 Sound: Off';$('soundBtn').setAttribute('aria-pressed',String(soundOn));if(soundOn)beep();});
+  document.addEventListener('keydown',e=>{
+    if(['ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();
+    keys[e.key]=true;
+    if(e.key===' '&&!e.repeat)togglePause();
+    if(e.key==='Enter'&&!running)start();
+  });
+  document.addEventListener('keyup',e=>{keys[e.key]=false;});
+  function holdButton(id,key){
+    const btn=$(id);
+    const down=e=>{e.preventDefault();keys[key]=true;};
+    const up=e=>{e.preventDefault();keys[key]=false;};
+    btn.addEventListener('pointerdown',down);btn.addEventListener('pointerup',up);
+    btn.addEventListener('pointerleave',()=>{keys[key]=false;});btn.addEventListener('pointercancel',()=>{keys[key]=false;});
+  }
+  holdButton('leftBtn','ArrowLeft');holdButton('rightBtn','ArrowRight');
+  canvas.addEventListener('pointerdown',e=>{
+    if(!running||paused)return;
+    const rect=canvas.getBoundingClientRect(),x=(e.clientX-rect.left)/rect.width*canvas.width;
+    basket.x=x<canvas.width/2?Math.max(0,basket.x-75):Math.min(canvas.width-basket.w,basket.x+75);
+    draw();
+  });
+  draw();
+})();
+</script>
+</body>
+</html>
