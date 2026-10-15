@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free EMI calculator for home, personal, car, gold and other loans. Calculate monthly EMI, total interest and total repayment.">
+<title>EMI Calculator | Loan EMI, Interest & Repayment</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+<style>
+:root{--primary:#2457d6;--primary2:#6c42d8;--ink:#18233b;--muted:#63708a;--line:#e2e8f2;--surface:#fff;--bg:#f3f6fc;--green:#0f986b}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:linear-gradient(135deg,#eef3ff,#f8faff 50%,#f1edff);color:var(--ink);min-height:100vh}
+header{background:linear-gradient(110deg,#172b70,#2457d6 55%,#7044cf);color:#fff;padding:25px 18px 30px;text-align:center}
+header .brand{font-size:13px;text-transform:uppercase;letter-spacing:2px;opacity:.85;font-weight:800}h1{margin:9px 0;font-size:clamp(27px,4vw,40px)}header p{margin:0 auto;max-width:700px;line-height:1.6;color:#e6ebff}
+main{max-width:1100px;margin:-16px auto 30px;padding:0 16px}.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.card{background:var(--surface);border:1px solid #e8edf6;border-radius:20px;padding:25px;box-shadow:0 12px 35px #263e7610}.card h2{margin:0 0 7px;font-size:21px}.sub{color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 22px}
+label{display:block;font-size:13px;font-weight:750;color:#34415d;margin-bottom:8px}.field{margin-bottom:19px}.input-wrap{display:flex;align-items:center;border:1px solid #d9e1ef;border-radius:11px;overflow:hidden;background:#fff}.input-wrap:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px #2457d61a}.prefix,.suffix{padding:0 13px;color:#65718a;background:#f7f9fd;height:46px;display:flex;align-items:center;font-weight:700}.input-wrap input,.input-wrap select{width:100%;min-width:0;border:0;outline:0;background:transparent;padding:12px;font-size:16px;color:var(--ink)}
+select.simple{width:100%;padding:13px;border:1px solid #d9e1ef;border-radius:11px;background:#fff;font-size:15px;color:var(--ink)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:13px}.buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+button{border:0;border-radius:10px;padding:12px 15px;font-size:14px;font-weight:750;cursor:pointer;transition:transform .15s,filter .15s}button:hover{filter:brightness(.97);transform:translateY(-1px)}button:focus-visible{outline:3px solid #8daaff;outline-offset:2px}.primary{background:linear-gradient(100deg,var(--primary),var(--primary2));color:white;flex:1}.secondary{background:#eef2ff;color:#2448a8}.light{background:#f2f5fa;color:#35425e}.result-card{background:linear-gradient(150deg,#fff,#f9fbff)}.result-label{font-size:13px;color:var(--muted);font-weight:700}.emi-value{font-size:clamp(32px,4vw,43px);font-weight:850;letter-spacing:-1.4px;margin:8px 0 19px;color:#1d3f9f;overflow-wrap:anywhere}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px}.metric{border:1px solid var(--line);border-radius:13px;padding:14px;background:#fff}.metric .k{font-size:12px;color:var(--muted);margin-bottom:7px}.metric .v{font-size:19px;font-weight:800;overflow-wrap:anywhere}.metric.interest .v{color:#c46a13}.metric.total .v{color:var(--green)}
+.bar{height:12px;border-radius:20px;overflow:hidden;display:flex;background:#e8edf7;margin:18px 0 10px}.bar-principal{background:#315fdb;width:60%}.bar-interest{background:#f0a33c;width:40%}.legend{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted)}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}.principal-dot{background:#315fdb}.interest-dot{background:#f0a33c}
+.note{font-size:12px;line-height:1.55;color:var(--muted);margin:16px 0 0}.table-card{margin-top:20px}.table-wrap{overflow-x:auto;max-height:360px;border:1px solid var(--line);border-radius:12px}table{border-collapse:collapse;width:100%;font-size:13px;white-space:nowrap}th,td{text-align:right;padding:12px 14px;border-bottom:1px solid #edf0f6}th{background:#f4f7fd;color:#42506b;position:sticky;top:0}td:first-child,th:first-child{text-align:left}tr:last-child td{border-bottom:0}.empty{padding:20px;text-align:center;color:var(--muted)}
+footer{text-align:center;padding:15px 16px 28px;color:#6b7690;font-size:12px}footer a{color:var(--primary)}
+@media(max-width:760px){.layout{grid-template-columns:1fr}.card{padding:20px}main{margin-top:-12px}.row{gap:10px}}@media(max-width:380px){.row,.metrics{grid-template-columns:1fr}.buttons button{width:100%}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Everyday Finance Tool</div>
+  <h1>EMI Calculator</h1>
+  <p>Calculate your monthly instalment, total interest and total repayment for home, personal, car, gold or any other loan.</p>
+</header>
+<main>
+  <div class="layout">
+    <section class="card" aria-labelledby="inputHeading">
+      <h2 id="inputHeading">Loan details</h2>
+      <p class="sub">Enter your loan amount, annual interest rate and repayment tenure.</p>
+      <div class="field">
+        <label for="loanType">Loan type</label>
+        <select id="loanType" class="simple">
+          <option>Home Loan</option><option>Personal Loan</option><option>Car Loan</option><option>Gold Loan</option><option>Education Loan</option><option>Business Loan</option><option>Two-Wheeler Loan</option><option>Other Loan</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="principal">Loan amount / Principal (₹)</label>
+        <div class="input-wrap"><span class="prefix">₹</span><input id="principal" type="number" min="1" step="1000" value="2500000" inputmode="decimal" /></div>
+      </div>
+      <div class="field">
+        <label for="rate">Annual interest rate</label>
+        <div class="input-wrap"><input id="rate" type="number" min="0" max="100" step="0.01" value="8.5" inputmode="decimal" /><span class="suffix">% p.a.</span></div>
+      </div>
+      <div class="field">
+        <label>Loan tenure</label>
+        <div class="row">
+          <div><div class="input-wrap"><input id="tenure" type="number" min="1" max="600" step="1" value="20" inputmode="numeric" /><span class="suffix">units</span></div></div>
+          <div><select id="tenureUnit" class="simple" aria-label="Tenure unit"><option value="years" selected>Years</option><option value="months">Months</option></select></div>
+        </div>
+      </div>
+      <div class="buttons">
+        <button class="primary" id="calculateBtn">Calculate EMI</button>
+        <button class="light" id="resetBtn" type="button">Reset</button>
+      </div>
+      <p class="note">This calculator provides an estimate using a fixed annual interest rate and monthly reducing balance. Actual lender charges, fees, insurance, floating-rate changes and rounding may affect your repayment.</p>
+    </section>
+    <section class="card result-card" aria-live="polite" aria-labelledby="resultHeading">
+      <h2 id="resultHeading">Your EMI summary</h2>
+      <p class="sub" id="resultCaption">Estimated monthly instalment</p>
+      <div class="result-label">Monthly EMI</div>
+      <div class="emi-value" id="emi">₹ 21,696</div>
+      <div class="metrics">
+        <div class="metric"><div class="k">Loan principal</div><div class="v" id="principalOut">₹25,00,000</div></div>
+        <div class="metric interest"><div class="k">Total interest</div><div class="v" id="interestOut">₹27,07,040</div></div>
+        <div class="metric total"><div class="k">Total repayment</div><div class="v" id="totalOut">₹52,07,040</div></div>
+        <div class="metric"><div class="k">Repayment period</div><div class="v" id="periodOut">240 months</div></div>
+      </div>
+      <div class="bar" aria-label="Principal and interest share"><div class="bar-principal" id="principalBar"></div><div class="bar-interest" id="interestBar"></div></div>
+      <div class="legend"><span><i class="dot principal-dot"></i><span id="principalPercent">Principal 48%</span></span><span><i class="dot interest-dot"></i><span id="interestPercent">Interest 52%</span></span></div>
+      <div class="buttons" style="margin-top:22px">
+        <button class="secondary" id="copyBtn">Copy summary</button>
+        <button class="secondary" id="downloadBtn">Download report</button>
+        <button class="light" id="shareBtn">Share</button>
+        <button class="light" id="emailBtn">Email</button>
+      </div>
+      <p class="note" id="status" role="status">Change the inputs and select Calculate EMI to update the estimate.</p>
+    </section>
+  </div>
+  <section class="card table-card">
+    <h2>Year-wise repayment breakdown</h2>
+    <p class="sub">Estimated principal repaid, interest paid and remaining balance for each year.</p>
+    <div class="table-wrap" id="tableWrap"><div class="empty">Calculate your EMI to view the repayment schedule.</div></div>
+  </section>
+</main>
+<footer>EMI Calculator · A free everyday utility · Results are estimates, not a loan offer.</footer>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  let current = null;
+  const money = value => new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:2}).format(Number.isFinite(value)?value:0);
+  const wholeMoney = value => new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(Number.isFinite(value)?value:0);
+  const number = value => new Intl.NumberFormat('en-IN',{maximumFractionDigits:2}).format(value);
+  const safe = value => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+
+  function calculate() {
+    const principal = Number($('principal').value);
+    const annualRate = Number($('rate').value);
+    const rawTenure = Number($('tenure').value);
+    const unit = $('tenureUnit').value;
+    const months = unit === 'years' ? rawTenure * 12 : rawTenure;
+    if (!Number.isFinite(principal) || principal <= 0 || !Number.isFinite(annualRate) || annualRate < 0 || annualRate > 100 ||
+        !Number.isFinite(rawTenure) || rawTenure <= 0 || !Number.isInteger(months) || months > 600) {
+      $('status').textContent = 'Please enter a loan amount above ₹0, a rate from 0 to 100%, and a tenure of 1 to 600 whole months.';
+      return;
+    }
+    const r = annualRate / 1200;
+    const emi = r === 0 ? principal / months : principal * r * Math.pow(1+r, months) / (Math.pow(1+r, months)-1);
+    const total = emi * months;
+    const interest = Math.max(0,total-principal);
+    const rows = [];
+    let balance = principal, yearlyPrincipal = 0, yearlyInterest = 0, year = 1;
+    for (let m=1; m<=months; m++) {
+      const interestPart = r === 0 ? 0 : balance * r;
+      let principalPart = emi - interestPart;
+      if (m === months || principalPart > balance) principalPart = balance;
+      balance = Math.max(0,balance-principalPart);
+      yearlyPrincipal += principalPart;
+      yearlyInterest += interestPart;
+      if (m % 12 === 0 || m === months) {
+        rows.push({year, months: Math.min(12, months-(year-1)*12), principal: yearlyPrincipal, interest: yearlyInterest, balance});
+        yearlyPrincipal = 0; yearlyInterest = 0; year++;
+      }
+    }
+    current = {loanType:$('loanType').value, principal, annualRate, months, emi, total, interest, rows};
+    $('emi').textContent = wholeMoney(emi);
+    $('principalOut').textContent = wholeMoney(principal);
+    $('interestOut').textContent = wholeMoney(interest);
+    $('totalOut').textContent = wholeMoney(total);
+    $('periodOut').textContent = months + (months === 1 ? ' month' : ' months');
+    $('resultCaption').textContent = current.loanType + ' · Estimated monthly instalment';
+    const pp = total ? principal/total*100 : 100, ip = total ? interest/total*100 : 0;
+    $('principalBar').style.width = pp+'%';
+    $('interestBar').style.width = ip+'%';
+    $('principalPercent').textContent = 'Principal '+pp.toFixed(1)+'%';
+    $('interestPercent').textContent = 'Interest '+ip.toFixed(1)+'%';
+    $('status').textContent = 'Calculation updated. Use the buttons to copy, download, share or email this summary.';
+    renderTable(rows);
+  }
+
+  function renderTable(rows) {
+    let html = '<table><thead><tr><th>Year</th><th>Months</th><th>Principal repaid</th><th>Interest paid</th><th>Closing balance</th></tr></thead><tbody>';
+    rows.forEach(row => {
+      html += `<tr><td>${row.year}</td><td>${row.months}</td><td>${wholeMoney(row.principal)}</td><td>${wholeMoney(row.interest)}</td><td>${wholeMoney(row.balance)}</td></tr>`;
+    });
+    html += '</tbody></table>';
+    $('tableWrap').innerHTML = html;
+  }
+
+  function summaryText() {
+    if (!current) calculate();
+    if (!current) return '';
+    const c = current;
+    return [
+      'EMI CALCULATOR SUMMARY',
+      'Loan type: '+c.loanType,
+      'Loan principal: '+money(c.principal),
+      'Annual interest rate: '+number(c.annualRate)+'%',
+      'Tenure: '+c.months+' months',
+      'Monthly EMI: '+money(c.emi),
+      'Total interest: '+money(c.interest),
+      'Total repayment: '+money(c.total),
+      '',
+      'Estimate only. Actual lender charges and terms may differ.'
+    ].join('\n');
+  }
+
+  function downloadReport() {
+    const c = current;
+    if (!c) return;
+    const lines = [
+      ['EMI Calculator Report'], ['Loan type', c.loanType], ['Loan principal (INR)', c.principal],
+      ['Annual interest rate (%)', c.annualRate], ['Tenure (months)', c.months],
+      ['Monthly EMI (INR)', c.emi], ['Total interest (INR)', c.interest], ['Total repayment (INR)', c.total], [],
+      ['Year','Months','Principal repaid (INR)','Interest paid (INR)','Closing balance (INR)'],
+      ...c.rows.map(r=>[r.year,r.months,r.principal.toFixed(2),r.interest.toFixed(2),r.balance.toFixed(2)])
+    ];
+    const csv = lines.map(row => row.map(v => '"'+String(v ?? '').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+    const blob = new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download='emi-calculator-report.csv';
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    $('status').textContent = 'Your EMI report has been downloaded as a CSV file.';
+  }
+
+  $('calculateBtn').addEventListener('click', calculate);
+  $('resetBtn').addEventListener('click', () => {
+    $('loanType').value='Home Loan'; $('principal').value='2500000'; $('rate').value='8.5'; $('tenure').value='20'; $('tenureUnit').value='years'; calculate();
+  });
+  ['principal','rate','tenure','tenureUnit','loanType'].forEach(id => $(id).addEventListener('change', calculate));
+  $('copyBtn').addEventListener('click', async () => {
+    const text = summaryText(); if (!text) return;
+    try { await navigator.clipboard.writeText(text); $('status').textContent='EMI summary copied to clipboard.'; }
+    catch(e) { const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); const ok=document.execCommand('copy'); ta.remove(); $('status').textContent=ok?'EMI summary copied to clipboard.':'Copy was blocked by your browser. You can select and copy the summary manually.'; }
+  });
+  $('downloadBtn').addEventListener('click', downloadReport);
+  $('shareBtn').addEventListener('click', async () => {
+    const text=summaryText(); if(!text)return;
+    if(navigator.share) { try { await navigator.share({title:'EMI Calculator Summary',text}); $('status').textContent='Share dialog opened.'; } catch(e) { if(e.name!=='AbortError') $('status').textContent='Sharing was not completed. Try Copy summary instead.'; } }
+    else { try { await navigator.clipboard.writeText(text); $('status').textContent='Web Share is not supported in this browser. Summary copied so you can paste it into an app.'; } catch(e) { $('status').textContent='Web Share is not supported in this browser. Use Copy summary instead.'; } }
+  });
+  $('emailBtn').addEventListener('click', () => {
+    const text=summaryText(); if(!text)return;
+    location.href='mailto:?subject='+encodeURIComponent('EMI Calculator Summary')+'&body='+encodeURIComponent(text);
+  });
+  calculate();
+})();
+</script>
+</body>
+</html>
