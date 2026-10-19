@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Interactive Earth rotation simulator from a spaceship window, with stars, orbital controls and a spaceflight HUD.">
+<title>Earth from Space — Spaceship View</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+
+<style>
+  :root{color-scheme:dark;--cyan:#7eeaff;--glass:rgba(5,17,31,.72);--line:rgba(126,234,255,.45)}
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#020611;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#eafaff}
+  #scene{position:fixed;inset:0;width:100%;height:100%;display:block}
+  .vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,.18) 72%,rgba(0,0,0,.76) 120%)}
+  .topbar{position:fixed;top:18px;left:20px;right:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;pointer-events:none}
+  .brand,.telemetry,.controls,.hint{background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(10px);box-shadow:0 0 24px rgba(28,173,255,.08)}
+  .brand{padding:12px 16px;border-radius:12px;max-width:calc(100vw - 40px)}
+  .eyebrow{font-size:10px;letter-spacing:.22em;color:var(--cyan);text-transform:uppercase}
+  h1{font-size:clamp(17px,2.4vw,25px);margin:3px 0 0;font-weight:650;letter-spacing:.02em}
+  .telemetry{padding:10px 13px;border-radius:10px;min-width:165px;text-align:right;font:12px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;color:#c5f7ff}
+  .telemetry strong{color:#fff;font-weight:600}
+  .bottom{position:fixed;left:20px;right:20px;bottom:18px;display:flex;justify-content:space-between;align-items:flex-end;gap:14px}
+  .controls{padding:14px;border-radius:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:min(720px,100%)}
+  button{border:1px solid rgba(126,234,255,.55);background:rgba(17,57,78,.72);color:#effcff;padding:9px 13px;border-radius:8px;font-weight:600;cursor:pointer}
+  button:hover{background:rgba(29,106,133,.85)}
+  button:focus-visible,input:focus-visible{outline:2px solid white;outline-offset:3px}
+  .control{display:flex;flex-direction:column;gap:4px;font-size:11px;color:#b9dbe4;min-width:115px}
+  .control span{display:flex;justify-content:space-between;gap:12px}
+  input[type=range]{width:130px;accent-color:var(--cyan)}
+  .hint{padding:10px 12px;border-radius:10px;font-size:11px;color:#c8e7ee;max-width:250px;line-height:1.5}
+  .reticle{position:fixed;left:50%;top:50%;width:28px;height:28px;transform:translate(-50%,-50%);pointer-events:none;opacity:.45}
+  .reticle:before,.reticle:after{content:"";position:absolute;background:var(--cyan)}
+  .reticle:before{width:1px;height:28px;left:13px;top:0}
+  .reticle:after{height:1px;width:28px;top:13px;left:0}
+  .window-frame{position:fixed;inset:0;pointer-events:none;box-shadow:inset 0 0 0 11px rgba(6,15,27,.88),inset 0 0 0 13px rgba(126,234,255,.18)}
+  .corner{position:fixed;width:46px;height:46px;border-color:rgba(126,234,255,.75);border-style:solid;pointer-events:none}
+  .tl{top:27px;left:27px;border-width:2px 0 0 2px}.tr{top:27px;right:27px;border-width:2px 2px 0 0}
+  .bl{bottom:27px;left:27px;border-width:0 0 2px 2px}.br{bottom:27px;right:27px;border-width:0 2px 2px 0}
+  #loading{position:fixed;inset:0;display:grid;place-items:center;background:#020611;z-index:10;color:#bfefff;text-align:center;padding:24px;transition:opacity .6s}
+  #loading.hidden{opacity:0;pointer-events:none}
+  .loader{width:34px;height:34px;border:2px solid rgba(126,234,255,.2);border-top-color:var(--cyan);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media(max-width:650px){.topbar{top:20px;left:20px;right:20px}.telemetry{display:none}.bottom{left:20px;right:20px;bottom:20px;align-items:stretch;flex-direction:column}.controls{gap:10px}.hint{max-width:none}.window-frame{box-shadow:inset 0 0 0 6px rgba(6,15,27,.82)}.corner{width:25px;height:25px}}
+</style>
+</head>
+<body>
+<canvas id="scene" aria-label="Animated view of Earth rotating in space from a spaceship"></canvas>
+<div class="vignette"></div>
+<div class="topbar">
+  <div class="brand"><div class="eyebrow">Orbital observation deck · Mission 01</div><h1>EARTH // LIVE ORBIT VIEW</h1></div>
+  <div class="telemetry"><div>FLIGHT STATUS: <strong id="status">ORBITAL</strong></div><div>ORBIT ALTITUDE: <strong>408 KM</strong></div><div>SIM CLOCK: <strong id="clock">00:00:00</strong></div><div>ROTATION: <strong id="rotReadout">1.0×</strong></div></div>
+</div>
+<div class="reticle"></div>
+<div class="bottom">
+  <div class="controls">
+    <button id="toggleBtn" type="button">Ⅱ Pause rotation</button>
+    <button id="resetBtn" type="button">↺ Reset view</button>
+    <label class="control"><span>Earth rotation <b id="speedLabel">1.0×</b></span><input id="speed" type="range" min="0" max="3" step=".1" value="1" aria-label="Earth rotation speed"></label>
+    <label class="control"><span>Camera distance <b id="zoomLabel">1.0×</b></span><input id="zoom" type="range" min=".75" max="1.7" step=".05" value="1" aria-label="Camera distance"></label>
+  </div>
+  <div class="hint">DRAG to look around · Use the sliders to adjust rotation and distance. This is a visual simulation, not a live satellite feed.</div>
+</div>
+<div class="window-frame"></div><div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+<div id="loading"><div><div class="loader"></div><strong>INITIALIZING ORBITAL VIEW</strong><div style="font-size:12px;margin-top:8px;opacity:.7">Loading Earth textures and star field…</div></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+(() => {
+  const canvas = document.getElementById('scene');
+  const loading = document.getElementById('loading');
+  const speedInput = document.getElementById('speed');
+  const zoomInput = document.getElementById('zoom');
+  const speedLabel = document.getElementById('speedLabel');
+  const zoomLabel = document.getElementById('zoomLabel');
+  const toggleBtn = document.getElementById('toggleBtn');
+  const clockEl = document.getElementById('clock');
+  const rotReadout = document.getElementById('rotReadout');
+  const statusEl = document.getElementById('status');
+
+  if (!window.THREE) {
+    loading.innerHTML = '<div><strong>3D library could not load</strong><p>Please check your internet connection and reload this page.</p></div>';
+    return;
+  }
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x020611);
+  const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 1000);
+  camera.position.set(0, 0.15, 5.2);
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.15;
+
+  scene.add(new THREE.AmbientLight(0x7899bd, 0.72));
+  const sun = new THREE.DirectionalLight(0xfff1d5, 3.0);
+  sun.position.set(-4, 2.2, 5);
+  scene.add(sun);
+
+  // A dense procedural star field; no external star texture required.
+  const starCount = 3200;
+  const starPositions = new Float32Array(starCount * 3);
+  const starColors = new Float32Array(starCount * 3);
+  for (let i = 0; i < starCount; i++) {
+    const r = 45 + Math.random() * 90;
+    const theta = Math.random() * Math.PI * 2;
+    const z = Math.random() * 2 - 1;
+    const planar = Math.sqrt(1 - z * z);
+    starPositions[i * 3] = r * planar * Math.cos(theta);
+    starPositions[i * 3 + 1] = r * z;
+    starPositions[i * 3 + 2] = r * planar * Math.sin(theta);
+    const tint = 0.65 + Math.random() * 0.35;
+    starColors[i * 3] = tint * (0.78 + Math.random() * 0.22);
+    starColors[i * 3 + 1] = tint * (0.85 + Math.random() * 0.15);
+    starColors[i * 3 + 2] = tint;
+  }
+  const starGeo = new THREE.BufferGeometry();
+  starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+  starGeo.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
+  const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ size: 0.16, vertexColors: true, sizeAttenuation: true, transparent: true, opacity: 0.9 }));
+  scene.add(stars);
+
+  const earthGroup = new THREE.Group();
+  scene.add(earthGroup);
+  const earthGeo = new THREE.SphereGeometry(1.52, 96, 96);
+  const textureLoader = new THREE.TextureLoader();
+  textureLoader.setCrossOrigin('anonymous');
+  const earthMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1, metalness: 0 });
+  const earth = new THREE.Mesh(earthGeo, earthMaterial);
+  earthGroup.add(earth);
+
+  // Atmospheric glow shell, rendered as a translucent Fresnel-like rim.
+  const atmosphere = new THREE.Mesh(
+    new THREE.SphereGeometry(1.57, 80, 80),
+    new THREE.ShaderMaterial({
+      vertexShader: `varying vec3 vNormal; varying vec3 vViewPosition;
+        void main(){vNormal=normalize(normalMatrix*normal);vec4 mvPosition=modelViewMatrix*vec4(position,1.0);vViewPosition=-mvPosition.xyz;gl_Position=projectionMatrix*mvPosition;}`,
+      fragmentShader: `varying vec3 vNormal; varying vec3 vViewPosition;
+        void main(){float rim=pow(1.0-max(dot(normalize(vNormal),normalize(vViewPosition)),0.0),2.4);gl_FragColor=vec4(0.12,0.55,1.0,rim*0.62);}`,
+      blending: THREE.AdditiveBlending, side: THREE.BackSide, transparent: true, depthWrite: false
+    })
+  );
+  earthGroup.add(atmosphere);
+
+  // A subtle cloud layer gives the planet a little extra depth.
+  const cloudMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, transparent: true, opacity: 0.11, roughness: 1, depthWrite: false });
+  const clouds = new THREE.Mesh(new THREE.SphereGeometry(1.535, 72, 72), cloudMaterial);
+  earthGroup.add(clouds);
+
+  let textureLoaded = 0;
+  function markLoaded() {
+    textureLoaded++;
+    if (textureLoaded >= 1) setTimeout(() => loading.classList.add('hidden'), 350);
+  }
+  textureLoader.load(
+    'https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg',
+    texture => { texture.colorSpace = THREE.SRGBColorSpace; earthMaterial.map = texture; earthMaterial.needsUpdate = true; markLoaded(); },
+    undefined,
+    () => {
+      // Graceful fallback: a blue planet with stylized green land patches.
+      earthMaterial.color.set(0x1c75b9);
+      earthMaterial.roughness = 0.9;
+      markLoaded();
+      loading.querySelector('div div:last-child').textContent = 'Using simplified Earth surface (texture unavailable)';
+    }
+  );
+  textureLoader.load(
+    'https://threejs.org/examples/textures/planets/earth_clouds_1024.png',
+    texture => { texture.colorSpace = THREE.SRGBColorSpace; cloudMaterial.map = texture; cloudMaterial.alphaMap = texture; cloudMaterial.needsUpdate = true; },
+    undefined, () => {}
+  );
+
+  // Soft distant blue light and a small sun glow.
+  const sunGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: makeGlowTexture(), color: 0x76bfff, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+  sunGlow.position.set(-5, 2.5, -10);
+  sunGlow.scale.set(8, 8, 1);
+  scene.add(sunGlow);
+
+  function makeGlowTexture() {
+    const c = document.createElement('canvas'); c.width = c.height = 128;
+    const ctx = c.getContext('2d');
+    const g = ctx.createRadialGradient(64,64,0,64,64,64);
+    g.addColorStop(0,'rgba(90,170,255,.45)'); g.addColorStop(.25,'rgba(45,110,220,.16)'); g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle = g; ctx.fillRect(0,0,128,128);
+    const tex = new THREE.CanvasTexture(c); return tex;
+  }
+
+  let running = true, elapsed = 0, lastTime = performance.now();
+  let drag = false, lastX = 0, lastY = 0;
+  let targetX = -0.12, targetY = 0.1, cameraDistance = 5.2;
+  const initial = { x: -0.12, y: 0.1, distance: 5.2 };
+
+  canvas.addEventListener('pointerdown', e => { drag = true; lastX = e.clientX; lastY = e.clientY; canvas.setPointerCapture(e.pointerId); });
+  canvas.addEventListener('pointermove', e => {
+    if (!drag) return;
+    targetY += (e.clientX - lastX) * 0.005;
+    targetX += (e.clientY - lastY) * 0.004;
+    targetX = Math.max(-0.8, Math.min(0.8, targetX));
+    lastX = e.clientX; lastY = e.clientY;
+  });
+  canvas.addEventListener('pointerup', () => drag = false);
+  canvas.addEventListener('pointercancel', () => drag = false);
+
+  speedInput.addEventListener('input', () => {
+    speedLabel.textContent = Number(speedInput.value).toFixed(1) + '×';
+    rotReadout.textContent = Number(speedInput.value).toFixed(1) + '×';
+  });
+  zoomInput.addEventListener('input', () => {
+    zoomLabel.textContent = Number(zoomInput.value).toFixed(2).replace(/0$/,'') + '×';
+  });
+  toggleBtn.addEventListener('click', () => {
+    running = !running;
+    toggleBtn.textContent = running ? 'Ⅱ Pause rotation' : '▶ Resume rotation';
+    statusEl.textContent = running ? 'ORBITAL' : 'PAUSED';
+  });
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    targetX = initial.x; targetY = initial.y; zoomInput.value = '1'; speedInput.value = '1';
+    speedInput.dispatchEvent(new Event('input')); zoomInput.dispatchEvent(new Event('input'));
+    cameraDistance = initial.distance;
+  });
+
+  function animate(now) {
+    requestAnimationFrame(animate);
+    const dt = Math.min((now - lastTime) / 1000, 0.05);
+    lastTime = now;
+    if (running) elapsed += dt;
+    const speed = Number(speedInput.value);
+    if (running) {
+      earth.rotation.y += dt * 0.12 * speed;
+      clouds.rotation.y += dt * 0.145 * speed;
+      stars.rotation.y += dt * 0.002;
+    }
+    earthGroup.rotation.x += (targetX - earthGroup.rotation.x) * 0.035;
+    earthGroup.rotation.y += (targetY - earthGroup.rotation.y) * 0.035;
+    const desiredDistance = 5.2 * (2 - Number(zoomInput.value));
+    cameraDistance += (desiredDistance - cameraDistance) * 0.08;
+    camera.position.z = cameraDistance;
+    camera.lookAt(0, 0, 0);
+    const secs = Math.floor(elapsed);
+    const hh = String(Math.floor(secs / 3600)).padStart(2,'0');
+    const mm = String(Math.floor((secs % 3600) / 60)).padStart(2,'0');
+    const ss = String(secs % 60).padStart(2,'0');
+    clockEl.textContent = `${hh}:${mm}:${ss}`;
+    renderer.render(scene, camera);
+  }
+  addEventListener('resize', () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  });
+  requestAnimationFrame(animate);
+})();
+</script>
+</body>
+</html>
