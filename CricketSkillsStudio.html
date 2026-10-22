@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Interactive cricket coaching guide covering batting shots, batting fundamentals and leg-spin bowling techniques with video lessons and practice drills.">
-<meta name="keywords" content="cricket batting shots, cricket techniques, leg spin bowling, googly, sweep shot, cover drive, cricket coaching">
+<meta name="description" content="Comprehensive interactive cricket guide covering right- and left-handed batting, pace bowling, swing, spin, fielding, wicketkeeping, fitness, tactics and match pressure with video lessons and drills.">
+<meta name="keywords" content="cricket batting shots, left handed batting, right handed batting, fast bowling, inswing, outswing, left arm fast bowling, off spin, leg spin, fielding, catching, wicketkeeping, cricket tactics, match pressure">
 <meta property="og:title" content="Cricket Skills Studio | Batting & Leg Spin">
 <meta property="og:description" content="Learn cricket batting shots and leg-spin bowling with step-by-step tips, drills and video lessons.">
-<title>Cricket Skills Studio | Batting & Leg Spin</title>
+<title>Cricket Skills Studio | Complete Cricket Learning Hub</title>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
@@ -44,16 +44,36 @@ footer{border-top:1px solid var(--line);margin-top:35px;padding:28px 0;color:var
 .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:35px;border:1px dashed var(--line);border-radius:14px}
 @media(max-width:850px){.hero{grid-template-columns:1fr}.hero-art{min-height:210px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lesson-layout{grid-template-columns:1fr}.drills{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){nav{gap:9px}nav a{font-size:.8rem}.hero{padding-top:35px}.grid,.drills{grid-template-columns:1fr}.stats{gap:7px}.stat{padding:12px}.stat strong{font-size:1.2rem}.section-head{display:block}}
+
+/* Extended cricket curriculum */
+.extra-nav{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
+.extra-nav a{font-size:.88rem;text-decoration:none;background:#102b38;border:1px solid var(--line);padding:7px 11px;border-radius:999px}
+.topic-intro{color:var(--muted);max-width:850px}
+.two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.checklist{list-style:none;padding:0;margin:8px 0}
+.checklist li{padding:7px 0 7px 28px;position:relative;border-bottom:1px solid #294754}
+.checklist li:before{content:"✓";position:absolute;left:2px;color:var(--accent);font-weight:900}
+.scenario{background:#102b38;border:1px solid var(--line);border-radius:15px;padding:17px}
+.scenario h3{margin:0 0 8px}
+.quiz-box{background:linear-gradient(145deg,#153746,#0b2530);border:1px solid var(--line);padding:20px;border-radius:18px}
+.quiz-options{display:grid;gap:8px;margin:14px 0}
+.quiz-options button{text-align:left;background:#0a202a;color:var(--text);border:1px solid #355967;padding:10px 12px;border-radius:10px;cursor:pointer}
+.quiz-options button:hover{border-color:var(--accent)}
+.feedback{min-height:28px;color:var(--accent);font-weight:700}
+.progress-wrap{background:#294754;height:9px;border-radius:999px;overflow:hidden;margin:10px 0}
+.progress-bar{height:100%;width:0;background:var(--accent);transition:width .25s}
+@media(max-width:700px){.two-col{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
-<header><div class="wrap nav"><div class="brand">🏏 CRICKET <span>SKILLS STUDIO</span></div><nav><a href="#batting">Batting</a><a href="#legspin">Leg spin</a><a href="#drills">Practice drills</a><a href="#videos">Videos</a></nav></div></header>
+<header><div class="wrap nav"><div class="brand">🏏 CRICKET <span>SKILLS STUDIO</span></div><nav><a href="#batting">Batting</a><a href="#pace">Pace bowling</a><a href="#spin-all">Spin</a><a href="#fielding">Fielding</a><a href="#mindset">Game strategy</a><a href="#drills">Drills</a></nav></div></header>
 <main class="wrap">
 <section class="hero">
-<div><div class="eyebrow">Learn • Practice • Improve</div><h1>Build your game.<br><em>One skill at a time.</em></h1><p>An interactive guide to cricket batting shots and leg-spin bowling. Explore the purpose of each technique, follow simple coaching cues, and open video demonstrations to see the movement in action.</p><div class="hero-buttons"><a class="btn primary" href="#batting">Explore batting shots ↓</a><a class="btn secondary" href="#legspin">Learn leg spin ↗</a></div></div>
+<div><div class="eyebrow">Learn • Practice • Improve</div><h1>Build your game.<br><em>One skill at a time.</em></h1><p>A complete cricket learning hub: batting from both sides, pace and swing bowling, spin, fielding, catching, wicketkeeping, fitness, tactics and match-pressure skills. Explore simple coaching cues, practice plans and video demonstrations.</p><div class="hero-buttons"><a class="btn primary" href="#batting">Explore batting shots ↓</a><a class="btn secondary" href="#legspin">Learn leg spin ↗</a></div></div>
 <div class="hero-art" aria-label="Cricket illustration"><div class="pitch">🏏</div><div class="ball">🔴</div></div>
 </section>
-<div class="stats"><div class="stat"><strong id="shotCount">24</strong><span>Batting techniques</span></div><div class="stat"><strong>5</strong><span>Spin variations covered</span></div><div class="stat"><strong>3 levels</strong><span>Beginner to advanced</span></div></div>
+<div class="stats"><div class="stat"><strong id="shotCount">24+</strong><span>Batting techniques</span></div><div class="stat"><strong>All-round</strong><span>Skills, tactics & mindset</span></div><div class="stat"><strong>Video + drills</strong><span>Learn and practise</span></div></div>
 
 <section id="batting">
 <div class="section-head"><div><div class="eyebrow">Batting academy</div><h2>Explore cricket batting shots</h2><p>Start with balance, watch the ball closely, and choose a shot based on line, length, pace and your own skill level.</p></div></div>
@@ -78,6 +98,127 @@ footer{border-top:1px solid var(--line);margin-top:35px;padding:28px 0;color:var
 <div class="grid" id="spinGrid" style="margin-top:16px"></div>
 </section>
 
+
+<section id="batting-handedness">
+  <div class="section-head"><div><div class="eyebrow">Batting foundations</div><h2>Right-handed and left-handed batting</h2>
+  <p class="topic-intro">The core principles are the same for both: balance, watching the ball, judging length, moving the feet and keeping the head steady. The stance and off/leg sides are mirrored. Use the hand that gives you natural control; do not force a change without coaching.</p></div></div>
+  <div class="two-col">
+    <article class="feature"><h3>🏏 Right-handed batter</h3><ul class="checklist">
+      <li>Normally the left hand is the top hand on the handle and the right hand the bottom hand.</li>
+      <li>For a right-handed batter, the off side is to the batter's right when facing the bowler; the leg side is to the left.</li>
+      <li>Build a balanced stance, relaxed grip, still head and a clear view of the bowler's release.</li>
+      <li>Practise straight-bat defence, forward defence, back-foot defence and straight drive before advanced shots.</li>
+    </ul><a class="btn primary smallbtn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=right+handed+cricket+batting+stance+basics+coaching">Watch right-handed batting lessons ↗</a></article>
+    <article class="feature"><h3>🏏 Left-handed batter</h3><ul class="checklist">
+      <li>Normally the right hand is the top hand on the handle and the left hand the bottom hand.</li>
+      <li>The off side and leg side are mirrored compared with a right-handed batter.</li>
+      <li>Practise the same fundamentals with a mirrored stance; check grip and alignment with a coach.</li>
+      <li>Learn to score on both sides and communicate clearly with a right-handed partner when running.</li>
+    </ul><a class="btn primary smallbtn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=left+handed+cricket+batting+stance+technique+coaching">Watch left-handed batting lessons ↗</a></article>
+  </div>
+  <div class="note">For both handednesses, the safest and most effective technique is individual: stance width, trigger movement and grip comfort can vary. Focus on repeatable balance rather than copying a professional's exact style.</div>
+</section>
+
+<section id="pace">
+  <div class="section-head"><div><div class="eyebrow">Pace bowling academy</div><h2>Fast bowling, swing and seam</h2>
+  <p class="topic-intro">Pace bowling combines a repeatable run-up, legal action, stable alignment, wrist position, seam presentation and a balanced follow-through. Swing depends on the ball, seam, conditions and release; it cannot be guaranteed by one grip alone.</p></div></div>
+  <div class="grid" id="paceGrid"></div>
+  <div class="feature" style="margin-top:16px"><h3>Fast-bowling action checklist</h3><div class="two-col">
+    <ul class="checklist"><li>Use a run-up you can repeat without sprinting out of control.</li><li>Build a smooth gather and coordinated non-bowling-arm movement.</li><li>Keep the head and trunk stable through the delivery stride.</li><li>Release with a firm, comfortable wrist and a seam position suited to the delivery.</li></ul>
+    <ul class="checklist"><li>Follow through naturally in line with the target and finish balanced.</li><li>Develop speed gradually with strength, mobility and recovery work.</li><li>Stop and seek qualified advice for persistent back, shoulder, elbow or ankle pain.</li><li>Young and developing bowlers should follow age-appropriate workload guidance and coaching.</li></ul>
+  </div><a class="btn primary smallbtn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=fast+bowling+technique+run+up+action+cricket+coaching">Find fast-bowling coaching videos ↗</a></div>
+</section>
+
+<section id="spin-all">
+  <div class="section-head"><div><div class="eyebrow">Spin bowling academy</div><h2>Off spin and other spin skills</h2>
+  <p class="topic-intro">Spin bowling is about revolutions, flight, drift, dip, changes of pace and landing the ball in a challenging area. Build a reliable stock ball before adding variations.</p></div></div>
+  <div class="grid" id="offspinGrid"></div>
+  <div class="two-col" style="margin-top:16px">
+    <article class="feature"><h3>🌀 Right-arm off spin: fundamentals</h3><ol class="steps">
+      <li>Use a relaxed finger-spin grip; the index and middle fingers work across the seam, with the thumb resting lightly as comfortable.</li>
+      <li>Keep the run-up and delivery stride balanced and repeatable.</li>
+      <li>Use the fingers to impart revolutions; avoid squeezing the ball or forcing the wrist.</li>
+      <li>Release with a consistent action and aim for a good length outside the batter's scoring zone.</li>
+      <li>Develop flight and control first, then practise changes of pace and variations under coaching.</li>
+    </ol><a class="btn primary smallbtn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=how+to+bowl+off+spin+grip+release+cricket+coaching">Watch off-spin tutorials ↗</a></article>
+    <article class="feature"><h3>🌀 Spin-bowling plan</h3><ul class="checklist">
+      <li>Choose a stock ball and a clear target before each over.</li><li>Change one variable at a time: line, length, pace or flight.</li><li>Use a field that supports your plan and communicate with the captain.</li><li>Keep notes on which deliveries produce false shots, not only wickets.</li><li>Practise variations without telegraphing them through a large action change.</li>
+    </ul><a class="btn secondary smallbtn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=off+spin+bowling+variations+arm+ball+doosra+coaching">Explore spin variations ↗</a></article>
+  </div>
+</section>
+
+<section id="fielding">
+  <div class="section-head"><div><div class="eyebrow">Fielding and wicketkeeping</div><h2>Catch cleanly, move quickly, save runs</h2>
+  <p class="topic-intro">Good fielding is anticipation plus safe body position, soft hands, communication and repeatable footwork. Practise catching progressions with a suitable ball before increasing pace or difficulty.</p></div></div>
+  <div class="grid" id="fieldGrid"></div>
+  <div class="two-col" style="margin-top:16px">
+    <article class="feature"><h3>🧤 How to take catches</h3><ol class="steps">
+      <li><b>Get ready:</b> Start balanced on the balls of the feet with hands relaxed and eyes on the batter or ball.</li>
+      <li><b>Move early:</b> Take small adjustment steps and get your body behind the ball when possible.</li>
+      <li><b>Watch it in:</b> Track the ball all the way into your hands; avoid closing your eyes or turning away.</li>
+      <li><b>Make a soft pocket:</b> For a high catch, fingers generally point up; for a low catch, fingers generally point down. Adapt hand position to the ball's path.</li>
+      <li><b>Give with the ball:</b> Relax the hands and elbows to absorb impact. Secure the ball before celebrating or throwing.</li>
+      <li><b>Communicate:</b> Call clearly, especially when two fielders converge, and avoid colliding.</li>
+    </ol><a class="btn primary smallbtn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=cricket+catching+technique+high+catches+slip+catching+coaching">Watch catching drills ↗</a></article>
+    <article class="feature"><h3>🧤 Wicketkeeping essentials</h3><ul class="checklist">
+      <li>Adopt a comfortable crouch and stay balanced, with eyes level.</li><li>Move the feet to get in line; do not reach with hands alone.</li><li>Give with the hands to receive the ball softly and bring it into the body.</li><li>For takes standing back, track bounce and carry; for standing up, train safely with a coach.</li><li>Practise takes, footwork, stumpings, run-outs and clear communication with bowlers.</li>
+    </ul><a class="btn primary smallbtn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=wicketkeeping+basics+gloves+footwork+stumping+cricket+coaching">Watch wicketkeeping lessons ↗</a></article>
+  </div>
+</section>
+
+<section id="mindset">
+  <div class="section-head"><div><div class="eyebrow">Game intelligence</div><h2>Match strategy, pressure and decision-making</h2>
+  <p class="topic-intro">A strong player does not try to win every ball. They choose a plan, communicate, notice patterns and reset after mistakes. Match tactics depend on format, conditions, rules, score and available players.</p></div></div>
+  <div class="grid" id="mindGrid"></div>
+  <div class="two-col" style="margin-top:16px">
+    <article class="feature"><h3>🧠 A simple pressure routine</h3><ol class="steps">
+      <li><b>Pause:</b> Take one comfortable breath and relax your shoulders.</li>
+      <li><b>Focus:</b> Pick one controllable cue—watch the release, move early, or hit the target.</li>
+      <li><b>Plan:</b> Decide the next ball's intention, not the whole match's outcome.</li>
+      <li><b>Commit:</b> Trust the plan and avoid changing it at the last instant without new information.</li>
+      <li><b>Reset:</b> After the ball, review one thing briefly and return attention to the next delivery.</li>
+    </ol><p class="topic-intro">If nerves rise, that is normal. Use a repeatable routine, talk to your captain or coach, and focus on effort and decisions rather than only the scoreboard.</p></article>
+    <article class="feature"><h3>📋 Match-day checklist</h3><ul class="checklist">
+      <li>Know the format, target, wickets remaining, overs and required rate.</li><li>Agree batting partnerships, calling words and running risks before play.</li><li>For batters: identify scoring zones and a safe option for a good ball.</li><li>For bowlers: set a plan for each batter and review field placement with the captain.</li><li>For fielders: know the boundary, backing-up role and likely batter tendencies.</li><li>After play: note two strengths and one practical improvement.</li>
+    </ul></article>
+  </div>
+</section>
+
+<section id="fitness">
+  <div class="section-head"><div><div class="eyebrow">Preparation and recovery</div><h2>Fitness, warm-up, nutrition and injury prevention</h2>
+  <p class="topic-intro">Cricket needs repeated short bursts, throwing capacity, mobility, concentration and recovery. Training should match your age, experience and health status; use a qualified coach or health professional when needed.</p></div></div>
+  <div class="grid">
+    <article class="card"><div class="card-top"><h3>🔥 Warm-up</h3><span class="emoji">🏃</span></div><p>Prepare gradually before batting, bowling or fielding.</p><ul><li>Begin with light movement to raise body temperature.</li><li>Add dynamic mobility for ankles, hips, thoracic spine and shoulders.</li><li>Progress into short accelerations, easy throws and sport-specific movements.</li></ul></article>
+    <article class="card"><div class="card-top"><h3>💪 Strength and mobility</h3><span class="emoji">🏋️</span></div><p>Build a durable body with balanced, progressive training.</p><ul><li>Include legs, trunk, upper back and shoulder-control exercises.</li><li>Use sound technique and sensible loads.</li><li>Fast bowlers need particular attention to workload and recovery.</li></ul></article>
+    <article class="card"><div class="card-top"><h3>💧 Fuel and recover</h3><span class="emoji">🥗</span></div><p>Support long sessions with everyday basics.</p><ul><li>Drink regularly and adjust for heat and sweat.</li><li>Eat familiar meals and snacks that provide energy and protein.</li><li>Prioritise sleep, rest days and gradual return after injury.</li></ul></article>
+  </div>
+  <div class="note">This is general sports education, not medical advice. Do not bowl through pain or sudden loss of function. Seek qualified assessment for persistent pain, dizziness, concussion symptoms or significant injury.</div>
+</section>
+
+<section id="formats">
+  <div class="section-head"><div><div class="eyebrow">Understand the match</div><h2>Formats, roles and cricket vocabulary</h2>
+  <p class="topic-intro">The best approach changes with the match format and situation. Learn the language used by players, coaches and umpires.</p></div></div>
+  <div class="grid">
+    <article class="card"><h3>🏟️ Test cricket</h3><p>Patience, leaving well, bowling long spells, creating pressure and protecting energy over multiple days. A draw can be a valid result.</p></article>
+    <article class="card"><h3>⏱️ One-day cricket</h3><p>Balance wickets and run rate, build partnerships, rotate strike, use fielding restrictions strategically and plan bowling phases.</p></article>
+    <article class="card"><h3>⚡ T20 cricket</h3><p>Know match-ups, boundary options, risk-reward choices, death-over plans and the value of wickets in hand.</p></article>
+    <article class="card"><h3>📣 Communication</h3><p>Call “yes”, “no” or “wait” loudly and early when running. Back up, watch your partner and avoid both batters stopping in the same area.</p></article>
+    <article class="card"><h3>🎯 Bowling terms</h3><p>Line is the direction of the delivery; length is where it pitches; swing is movement in the air; seam movement occurs after pitching; spin changes rotation and bounce.</p></article>
+    <article class="card"><h3>📏 Fielding positions</h3><p>Learn slips, gully, point, cover, mid-off, mid-on, midwicket, square leg, fine leg, third man, long-off and long-on. Positioning depends on the plan and rules.</p></article>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="section-head"><div><div class="eyebrow">Check your cricket IQ</div><h2>Quick cricket quiz</h2><p>Answer a few practical questions to reinforce your learning.</p></div></div>
+  <div class="quiz-box">
+    <div id="quizProgressText">Question 1 of 5</div><div class="progress-wrap"><div class="progress-bar" id="quizProgress"></div></div>
+    <h3 id="quizQuestion">What should a beginner prioritise when learning a stock spin delivery?</h3>
+    <div class="quiz-options" id="quizOptions"></div><div class="feedback" id="quizFeedback" aria-live="polite"></div>
+    <button class="btn primary" id="quizNext">Next question →</button>
+    <button class="btn secondary" id="quizRestart" style="display:none">Try again</button>
+  </div>
+</section>
+
 <section id="videos">
 <div class="section-head"><div><div class="eyebrow">Watch and learn</div><h2>Curated cricket video lessons</h2><p>Open a lesson or search YouTube for a specific coaching demonstration. Video availability and titles may change over time.</p></div></div>
 <div class="grid">
@@ -96,6 +237,10 @@ footer{border-top:1px solid var(--line);margin-top:35px;padding:28px 0;color:var
 <div class="drill"><strong>04 · Spin-bowling accuracy</strong><p>From a short distance, land gentle leg-spin deliveries on a marked target before moving to full distance.</p></div>
 <div class="drill"><strong>05 · Revolutions first</strong><p>Practise spinning the ball from the fingers with a relaxed wrist. Focus on clean rotation, not speed.</p></div>
 <div class="drill"><strong>06 · Line and length</strong><p>Set safe target zones on a practice pitch. Record how many of 12 deliveries land in your chosen area.</p></div>
+<div class="drill"><strong>07 · Catching progression</strong><p>Begin with gentle underarm feeds, then practise high catches and low catches with a suitable ball.</p></div>
+<div class="drill"><strong>08 · Throwing to a target</strong><p>Practise a balanced pickup, alignment and accurate throw at increasing distances. Warm up the shoulder first.</p></div>
+<div class="drill"><strong>09 · Match scenarios</strong><p>Play short scenarios: defend 8 runs in the final over, or chase a target with wickets in hand. Discuss options after each ball.</p></div>
+<div class="drill"><strong>10 · Pressure routine</strong><p>Before each practice ball, breathe, choose one cue, execute, then reset. Keep the routine short and repeatable.</p></div>
 </div>
 <div class="note">Safety: practise in a clear space with suitable protective equipment and a coach or experienced partner where possible. Use a soft ball for early drills. Do not attempt high-risk shots or force wrist/shoulder movements through pain.</div>
 </section>
@@ -137,15 +282,97 @@ const spins=[
 {name:"Flight, dip & drift",cat:"Control",level:"Intermediate",emoji:"🌬️",purpose:"Use changes in trajectory and revolutions to make a batter judge length and movement incorrectly.",steps:["Keep a repeatable action and vary the trajectory gradually.","Aim to land the ball on a good length rather than simply bowling it high.","Observe how wind and conditions affect the ball."],mistake:"Giving away easy scoring balls while experimenting with flight."}
 ];
 function videoSearch(q){return "https://www.youtube.com/results?search_query="+encodeURIComponent(q+" cricket coaching tutorial");}
-function cardTemplate(item,isSpin=false){const searchTerm=isSpin?item.name+" leg spin bowling technique":item.name+" cricket batting technique";return `<article class="card"><div class="card-top"><div><h3>${item.emoji} ${item.name}</h3><div style="margin-top:7px"><span class="pill">${item.level}</span></div></div></div><p>${item.purpose}</p><h4>How to practise</h4><ul>${item.steps.map(s=>`<li>${s}</li>`).join("")}</ul><h4>Common mistake</h4><p>${item.mistake}</p><div class="actions"><a class="btn primary smallbtn" target="_blank" rel="noopener" href="${videoSearch(searchTerm)}">▶ Watch video</a><button class="btn video smallbtn" onclick="copyTechnique('${item.name.replace(/'/g,"\\'")}',${isSpin})">Copy tips</button></div></article>`}
+function cardTemplate(item,isSpin=false){const isLegSpinLesson=Array.isArray(spins)&&spins.includes(item);const isBattingLesson=Array.isArray(shots)&&shots.includes(item);const searchTerm=(isLegSpinLesson?item.name+" leg spin bowling technique":isBattingLesson?item.name+" cricket batting technique":item.name+" cricket coaching tutorial");return `<article class="card"><div class="card-top"><div><h3>${item.emoji} ${item.name}</h3><div style="margin-top:7px"><span class="pill">${item.level}</span></div></div></div><p>${item.purpose}</p><h4>How to practise</h4><ul>${item.steps.map(s=>`<li>${s}</li>`).join("")}</ul><h4>Common mistake</h4><p>${item.mistake}</p><div class="actions"><a class="btn primary smallbtn" target="_blank" rel="noopener" href="${videoSearch(searchTerm)}">▶ Watch video</a><button class="btn video smallbtn" onclick="copyTechnique('${item.name.replace(/'/g,"\\'")}',${isSpin})">Copy tips</button></div></article>`}
 let activeCategory="All";
 function renderShots(){const q=document.getElementById("shotSearch").value.trim().toLowerCase();const level=document.getElementById("levelFilter").value;const filtered=shots.filter(s=>(activeCategory==="All"||s.cat===activeCategory)&&(!q||(s.name+" "+s.purpose+" "+s.cat).toLowerCase().includes(q))&&(level==="All"||s.level===level));document.getElementById("shotGrid").innerHTML=filtered.length?filtered.map(s=>cardTemplate(s)).join(""):`<div class="empty">No shots match your search. Try another keyword or filter.</div>`;document.getElementById("shotCount").textContent=shots.length;}
-function copyTechnique(name,isSpin){const item=(isSpin?spins:shots).find(x=>x.name===name);if(!item)return;const text=`${item.name}\n${item.purpose}\n\nSteps:\n${item.steps.map((s,i)=>(i+1)+". "+s).join("\n")}\n\nCommon mistake: ${item.mistake}`;navigator.clipboard?.writeText(text).then(()=>alert("Technique notes copied!")).catch(()=>prompt("Copy these technique notes:",text));}
+function copyTechnique(name,isSpin){const collections=[shots,spins,typeof paceLessons!=="undefined"?paceLessons:[],typeof offspinLessons!=="undefined"?offspinLessons:[],typeof fieldLessons!=="undefined"?fieldLessons:[],typeof mindsetLessons!=="undefined"?mindsetLessons:[]];const item=collections.flat().find(x=>x.name===name);if(!item)return;const text=`${item.name}\n${item.purpose}\n\nSteps:\n${item.steps.map((s,i)=>(i+1)+". "+s).join("\n")}\n\nCommon mistake: ${item.mistake}`;navigator.clipboard?.writeText(text).then(()=>alert("Technique notes copied!")).catch(()=>prompt("Copy these technique notes:",text));}
 document.getElementById("shotTabs").addEventListener("click",e=>{const b=e.target.closest("button[data-filter]");if(!b)return;activeCategory=b.dataset.filter;document.querySelectorAll("#shotTabs .tab").forEach(t=>t.classList.toggle("active",t===b));renderShots();});
 document.getElementById("shotSearch").addEventListener("input",renderShots);document.getElementById("levelFilter").addEventListener("change",renderShots);
 document.getElementById("spinGrid").innerHTML=spins.map(s=>cardTemplate(s,true)).join("");
-document.getElementById("shareBtn").addEventListener("click",async()=>{const data={title:document.title,text:"Explore cricket batting shots and leg-spin bowling techniques.",url:location.href};if(navigator.share){try{await navigator.share(data)}catch(e){}}else{try{await navigator.clipboard.writeText(location.href);alert("Page link copied. Share it with your friends!")}catch(e){prompt("Copy this page link:",location.href)}}});
+document.getElementById("shareBtn").addEventListener("click",async()=>{const data={title:document.title,text:"Explore cricket batting, pace and spin bowling, fielding, tactics and match-pressure lessons.",url:location.href};if(navigator.share){try{await navigator.share(data)}catch(e){}}else{try{await navigator.clipboard.writeText(location.href);alert("Page link copied. Share it with your friends!")}catch(e){prompt("Copy this page link:",location.href)}}});
 renderShots();
+
+const paceLessons = [
+{name:"Inswing",cat:"Swing bowling",level:"Intermediate",emoji:"↩️",purpose:"A delivery that curves in the air towards the batter before pitching. Movement depends on seam, wrist position, ball condition and conditions.",steps:["Start with a comfortable, repeatable action and a stable wrist.","Practise presenting the seam consistently; for a conventional right-arm inswinger to a right-handed batter, the seam and wrist position are set to encourage inward swing.","Keep the wrist behind the ball and avoid twisting painfully at release.","Work on a good line and length before trying to exaggerate movement."],mistake:"Changing the whole action or forcing the wrist to manufacture swing."},
+{name:"Outswing",cat:"Swing bowling",level:"Intermediate",emoji:"↗️",purpose:"A delivery that curves away from the batter in the air. A conventional right-arm outswinger to a right-handed batter moves away towards the off side.",steps:["Keep a repeatable run-up and aligned delivery action.","Practise a stable wrist and consistent seam presentation.","Aim for a challenging channel outside off stump without sacrificing control.","Use video or a coach to check release and wrist alignment."],mistake:"Bowling too wide while chasing swing."},
+{name:"Reverse swing: introduction",cat:"Swing bowling",level:"Advanced",emoji:"🔄",purpose:"At higher speeds and with an older ball, swing can behave differently from conventional swing. It requires practice, appropriate conditions and legal ball care.",steps:["Learn conventional seam and swing control first.","Work with a qualified coach on wrist position and release at suitable pace.","Understand the rules for ball maintenance and never alter the ball illegally.","Focus on line and length rather than assuming reverse swing will occur."],mistake:"Assuming every old ball will reverse swing or attempting to alter the ball unlawfully."},
+{name:"Left-arm fast bowling",cat:"Bowling style",level:"Intermediate",emoji:"⬅️",purpose:"Left-arm pace bowling creates a different angle and can move the ball across or into batters depending on their handedness and delivery.",steps:["Build the same foundations: repeatable run-up, balance, stable wrist and safe follow-through.","Practise release and seam presentation for your intended line and movement.","Learn how the angle changes against right- and left-handed batters.","Use a target and track both accuracy and workload."],mistake:"Trying to copy a right-arm bowler's body positions exactly; left-arm alignment is mirrored and individual."},
+{name:"Seam movement",cat:"Fast bowling",level:"Intermediate",emoji:"🧵",purpose:"A delivery that deviates after pitching because the seam and contact with the surface influence its path.",steps:["Present the seam consistently and keep the wrist stable.","Land the ball on a useful length and let the surface do the work.","Use the pitch and conditions to decide your target area.","Record which lengths create edges or defensive mistakes."],mistake:"Over-focusing on seam position while losing control of line and length."},
+{name:"Yorker and full-length bowling",cat:"Fast bowling",level:"Advanced",emoji:"🎯",purpose:"A very full delivery aimed near the batter's feet or base of the stumps; useful when controlled but difficult to execute.",steps:["Practise with a target on an empty net or safe training area.","Build accuracy at a moderate pace before increasing speed.","Keep the head steady and follow through safely.","Use it selectively and have a plan if the ball becomes a full toss."],mistake:"Trying to bowl every ball as a yorker without mastering accuracy."},
+{name:"Bouncer and short ball",cat:"Fast bowling",level:"Advanced",emoji:"⬆️",purpose:"A short-pitched delivery that rises towards the batter. It is tactical and must always comply with the match's playing conditions.",steps:["Develop pace, control and a legal action with qualified coaching first.","Use appropriate protective equipment and a safe practice environment.","Understand format-specific limits and umpire rules before using short-pitched bowling.","Aim for control, not intimidation; never bowl dangerously at a person."],mistake:"Attempting high-risk short-pitched bowling without control, protection or rule awareness."}
+];
+const offspinLessons = [
+{name:"Off-break stock ball",cat:"Stock ball",level:"Beginner",emoji:"🌀",purpose:"A right-arm finger-spinner's stock ball, usually turning from off to leg for a right-handed batter.",steps:["Use a relaxed grip with the index and middle fingers working across the seam.","Impart revolutions with the fingers while keeping the wrist comfortable.","Repeat the same release and land the ball on a consistent good length.","Build accuracy before adding flight or pace changes."],mistake:"Gripping too tightly or trying to spin the ball only with the arm."},
+{name:"Arm ball",cat:"Variation",level:"Intermediate",emoji:"➡️",purpose:"A quicker, straighter finger-spin variation with less turn than the stock ball, depending on the bowler's release.",steps:["Make the stock ball reliable first.","Practise a straighter seam/release while keeping the action similar.","Use it to challenge a batter expecting turn, not as a substitute for control.","Have a coach check that the action remains comfortable and repeatable."],mistake:"Telegraphing the variation or sacrificing accuracy."},
+{name:"Flight and dip",cat:"Control",level:"Intermediate",emoji:"🌤️",purpose:"Change trajectory to invite a drive or make the batter misjudge where the ball will pitch.",steps:["Release the ball with consistent revolutions.","Vary trajectory gradually while maintaining a useful line.","Use a field that supports the intended attacking plan.","Watch the batter's response and adjust with the captain."],mistake:"Giving the batter easy scoring opportunities by floating the ball without a plan."},
+{name:"Left-arm orthodox spin",cat:"Bowling style",level:"Intermediate",emoji:"↪️",purpose:"Left-arm finger spin usually turns from the batter's off side towards leg side for a right-handed batter; the angle and turn reverse for a left-handed batter.",steps:["Use a relaxed finger-spin grip and comfortable wrist position.","Build a repeatable run-up and consistent release point.","Target a good length and use changes of flight only after control develops.","Learn how the ball moves against batters of both handednesses."],mistake:"Assuming the same line works against every batter; adapt to stance and field."}
+];
+const fieldLessons = [
+{name:"High catch",cat:"Catching",level:"Beginner",emoji:"🙌",purpose:"Secure a ball descending from above while keeping balance and judging its path.",steps:["Move early under the ball with small adjustment steps.","Keep eyes on the ball and hands ready above the face when appropriate.","Use fingers up for a typical high catch and soften the hands on contact.","Call clearly if another fielder is nearby."],mistake:"Waiting flat-footed, closing eyes or cupping hands too rigidly."},
+{name:"Slip and close catching",cat:"Catching",level:"Intermediate",emoji:"🧤",purpose:"React to edges at close range with relaxed hands and quick movement.",steps:["Take a balanced crouch with weight ready to move.","Keep hands low and relaxed in the expected catching area.","React to the ball rather than guessing its path.","Start with gentle, predictable feeds and increase speed progressively."],mistake:"Standing too upright or locking the fingers and wrists."},
+{name:"Ground fielding and pickup",cat:"Ground fielding",level:"Beginner",emoji:"🧎",purpose:"Stop the ball cleanly and get into a strong position to return it quickly.",steps:["Move behind the line of the ball and lower the centre of gravity.","Keep the head over the ball and present hands close to the ground.","Secure the ball before transferring it to the throwing hand.","Rise into a balanced throwing position."],mistake:"Reaching with one hand while the body remains far from the ball."},
+{name:"Throwing and backing up",cat:"Ground fielding",level:"Intermediate",emoji:"🎯",purpose:"Make accurate returns and prevent overthrows from creating extra runs.",steps:["Align the body towards the target and throw within a comfortable range.","Use a smooth action and follow through naturally.","Other fielders back up behind likely throws and communicate.","Prioritise a reliable throw over unnecessary power."],mistake:"Throwing at maximum effort from an unstable position."},
+{name:"Boundary fielding",cat:"Boundary",level:"Advanced",emoji:"🚧",purpose:"Save boundaries safely while maintaining awareness of the rope and teammates.",steps:["Know the boundary position before the ball is hit.","Approach under control and keep awareness of the rope.","Use a safe, legal method to stop or return the ball; practise relay throws with a coach.","Communicate early with a teammate for a relay."],mistake:"Diving blindly or losing awareness of the boundary and other players."},
+{name:"Run-out and direct hit",cat:"Ground fielding",level:"Advanced",emoji:"🎯",purpose:"Create a run-out chance with quick collection, efficient transfer and a controlled throw at the stumps.",steps:["Collect the ball cleanly and bring it into the throwing hand quickly.","Move towards a good throwing line if time allows.","Aim at the stumps or the keeper's safe collection area.","Keep awareness of the runner and avoid dangerous collisions."],mistake:"Rushing the throw from poor balance when a secure relay is available."}
+];
+const mindsetLessons = [
+{name:"Build an innings",cat:"Batting plan",level:"Beginner",emoji:"🧱",purpose:"Build runs by protecting the wicket, rotating strike and selecting good scoring opportunities.",steps:["Know the match target or team plan.","Identify your reliable scoring shots and the deliveries to leave or defend.","Use singles to reduce pressure and keep communication clear.","After a boundary or wicket, reset rather than assuming the next ball will be the same."],mistake:"Trying to score from every delivery or abandoning a working plan after one dot ball."},
+{name:"Read the bowler",cat:"Batting plan",level:"Intermediate",emoji:"👀",purpose:"Observe run-up, release, field, pace and patterns to make better decisions.",steps:["Watch the hand and ball release without moving too early.","Notice repeated line and length and any clear variations.","Check the field for gaps and understand which shots are lower risk.","Make a plan between deliveries, then focus on the next ball."],mistake:"Guessing every delivery instead of watching the ball."},
+{name:"Bowling to a plan",cat:"Bowling plan",level:"Intermediate",emoji:"📍",purpose:"Use a clear line, length and field combination to build pressure and create mistakes.",steps:["Decide the stock delivery and target before the over.","Use the field to protect likely scoring areas and attack the intended weakness.","Change one factor at a time based on the batter's response.","Discuss adjustments with the captain and review execution honestly."],mistake:"Changing line, length and field every ball without a clear reason."},
+{name:"Field placement and teamwork",cat:"Team tactics",level:"Intermediate",emoji:"🗺️",purpose:"Position fielders based on batter tendencies, bowler plan, match situation and playing conditions.",steps:["Know the bowler's intended line and length.","Place fielders to stop the most likely scoring shot while preserving attacking options.","Communicate who backs up, who takes a catch and who calls for the ball.","Review the field when the batter changes stance or scoring options."],mistake:"Using a field that does not match the bowler's plan."},
+{name:"Handle pressure and mistakes",cat:"Mental game",level:"Beginner",emoji:"🧠",purpose:"Stay present when the score, crowd, opponent or previous mistake creates pressure.",steps:["Use a short breathing routine to relax tension.","Choose one controllable cue for the next ball.","Separate the outcome from the quality of the decision.","After the ball, reset attention and ask what the next useful action is."],mistake:"Replaying a mistake during the next delivery or trying to fix everything at once."},
+{name:"Captaincy and communication",cat:"Team tactics",level:"Intermediate",emoji:"📣",purpose:"Help the team stay organised through clear plans, calm communication and timely adjustments.",steps:["Agree roles and plans before the over or phase.","Give specific, respectful messages rather than blame.","Ask for input from bowlers and fielders who can see the situation.","After a setback, state the next plan clearly."],mistake:"Changing the plan without explaining roles or reacting emotionally."},
+{name:"Review performance",cat:"Improvement",level:"Beginner",emoji:"📓",purpose:"Turn practice and match experience into a small, measurable next step.",steps:["Record one strength and one area to improve.","Use a measurable goal such as target hits out of 12 balls.","Review video or ask a coach for one specific cue.","Repeat the drill and compare results over time."],mistake:"Setting vague goals such as 'be better' without a practical action."}
+];
+
+document.getElementById("paceGrid").innerHTML = paceLessons.map(x=>cardTemplate(x,true)).join("");
+document.getElementById("offspinGrid").innerHTML = offspinLessons.map(x=>cardTemplate(x,true)).join("");
+document.getElementById("fieldGrid").innerHTML = fieldLessons.map(x=>cardTemplate(x,true)).join("");
+document.getElementById("mindGrid").innerHTML = mindsetLessons.map(x=>cardTemplate(x,true)).join("");
+
+const quizData = [
+{q:"What should a beginner prioritise when learning a stock spin delivery?",o:["Maximum speed on every ball","A comfortable repeatable action and line-length control","A different grip every delivery"],a:1,why:"Control and a repeatable action make spin useful. Add variations after the stock ball is reliable."},
+{q:"What is a useful first response to match pressure?",o:["Think about the final result constantly","Change technique on every ball","Breathe, choose one cue and focus on the next delivery"],a:2,why:"A short routine helps return attention to controllable actions."},
+{q:"For a high catch, which habit is most important?",o:["Watch the ball into relaxed hands","Close your eyes at contact","Run backwards without looking"],a:0,why:"Track the ball, move early, communicate and soften the hands on contact."},
+{q:"What is the difference between line and length?",o:["They mean the same thing","Line is direction; length is where the ball pitches","Line is speed; length is spin"],a:1,why:"Line describes direction, while length describes the pitching distance from the batter."},
+{q:"What should a pace bowler do if persistent pain develops?",o:["Ignore it and bowl faster","Change action mid-over without help","Stop and seek qualified advice"],a:2,why:"Persistent pain deserves assessment. Workload, technique and recovery should be managed safely."}
+];
+let quizIndex=0, quizScore=0, quizAnswered=false;
+function renderQuiz(){
+ const d=quizData[quizIndex]; quizAnswered=false;
+ document.getElementById("quizProgressText").textContent=`Question ${quizIndex+1} of ${quizData.length} · Score ${quizScore}`;
+ document.getElementById("quizProgress").style.width=`${quizIndex/quizData.length*100}%`;
+ document.getElementById("quizQuestion").textContent=d.q;
+ document.getElementById("quizFeedback").textContent="";
+ document.getElementById("quizNext").style.display="inline-flex";
+ document.getElementById("quizNext").textContent=quizIndex===quizData.length-1?"See result →":"Next question →";
+ document.getElementById("quizRestart").style.display="none";
+ document.getElementById("quizOptions").innerHTML=d.o.map((v,i)=>`<button type="button" data-answer="${i}">${String.fromCharCode(65+i)}. ${v}</button>`).join("");
+}
+document.getElementById("quizOptions").addEventListener("click",e=>{
+ const b=e.target.closest("button[data-answer]");if(!b||quizAnswered)return;
+ quizAnswered=true;const d=quizData[quizIndex],correct=Number(b.dataset.answer)===d.a;
+ if(correct)quizScore++;
+ document.querySelectorAll("#quizOptions button").forEach((x,i)=>{x.disabled=true;if(i===d.a)x.style.borderColor="var(--accent)";});
+ document.getElementById("quizFeedback").textContent=(correct?"Correct! ":"Not quite. ")+d.why;
+ document.getElementById("quizProgressText").textContent=`Question ${quizIndex+1} of ${quizData.length} · Score ${quizScore}`;
+});
+document.getElementById("quizNext").addEventListener("click",()=>{
+ if(!quizAnswered){document.getElementById("quizFeedback").textContent="Choose an answer before continuing.";return;}
+ if(quizIndex<quizData.length-1){quizIndex++;renderQuiz();}
+ else{
+  document.getElementById("quizQuestion").textContent=`You scored ${quizScore} out of ${quizData.length}.`;
+  document.getElementById("quizOptions").innerHTML="<p>Keep practising the techniques and try again to reinforce your cricket knowledge.</p>";
+  document.getElementById("quizProgress").style.width="100%";
+  document.getElementById("quizProgressText").textContent="Quiz complete";
+  document.getElementById("quizFeedback").textContent=quizScore===5?"Excellent — a perfect score!":quizScore>=3?"Good work. Review the explanations for the questions you missed.":"Good start. Review the coaching sections and try again.";
+  document.getElementById("quizNext").style.display="none";
+  document.getElementById("quizRestart").style.display="inline-flex";
+ }
+});
+document.getElementById("quizRestart").addEventListener("click",()=>{quizIndex=0;quizScore=0;renderQuiz();});
+renderQuiz();
+
 </script>
 </body>
 </html>
