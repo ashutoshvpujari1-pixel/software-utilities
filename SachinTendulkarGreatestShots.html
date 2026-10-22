@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Celebrate Sachin Tendulkar's greatest cricket shots with a curated collection of YouTube highlights, iconic innings and batting strokes.">
+<meta property="og:title" content="Sachin Tendulkar – Greatest Shots">
+<meta property="og:description" content="Relive the Master Blaster's iconic straight drives, upper cuts, cover drives, pulls and more.">
+<title>Sachin Tendulkar | Greatest Shots Gallery</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+<style>
+:root{--bg:#071426;--panel:#10233d;--panel2:#142d4c;--text:#f4f8ff;--muted:#b9c8dc;--gold:#ffd166;--cyan:#62e5e0}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at top right,#173c62 0,#071426 46%);color:var(--text);line-height:1.55}
+header{padding:44px 20px 32px;text-align:center;background:linear-gradient(120deg,rgba(8,25,48,.94),rgba(16,57,79,.86));border-bottom:1px solid #31506d}
+.kicker{letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-size:.78rem;font-weight:bold}
+h1{font-size:clamp(2rem,5vw,3.8rem);line-height:1.08;margin:12px 0}header p{max-width:760px;margin:12px auto;color:var(--muted);font-size:1.05rem}
+.hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+button,.btn{border:0;border-radius:999px;padding:11px 17px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.primary{background:var(--gold);color:#142033}.secondary{background:#183552;color:var(--text);border:1px solid #42617c}
+main{max-width:1200px;margin:auto;padding:25px 18px 48px}
+.tools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+input,select{background:#0b1b30;color:var(--text);border:1px solid #39516d;border-radius:12px;padding:13px 14px;font-size:1rem}
+input{flex:1;min-width:210px}select{min-width:180px}
+.note{color:var(--muted);font-size:.9rem;margin:8px 0 22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:17px}
+.card{background:linear-gradient(145deg,var(--panel),#0c1b30);border:1px solid #294562;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 12px 28px #0003;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);border-color:var(--cyan)}
+.thumb{min-height:145px;background:linear-gradient(135deg,#153e60,#0b1c32);display:flex;align-items:center;justify-content:center;position:relative;padding:18px;text-align:center}
+.thumb .emoji{font-size:2.8rem;display:block}.thumb strong{display:block;font-size:1.1rem;margin-top:5px}.play{position:absolute;right:13px;bottom:13px;background:#ffd166;color:#13233a;border-radius:50%;width:42px;height:42px;padding:0;font-size:1rem}
+.content{padding:17px;display:flex;flex-direction:column;flex:1}.tag{color:var(--cyan);text-transform:uppercase;letter-spacing:1.2px;font-size:.72rem;font-weight:bold}
+h2{font-size:1.2rem;margin:7px 0}.content p{color:var(--muted);margin:0 0 16px;font-size:.94rem;flex:1}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions a{font-size:.88rem;padding:9px 12px}
+footer{text-align:center;padding:25px 16px;color:var(--muted);border-top:1px solid #294562;font-size:.9rem}
+.empty{text-align:center;padding:40px;color:var(--muted);display:none}
+@media(max-width:540px){main{padding:18px 12px 35px}.tools{display:grid}.tools input,.tools select{width:100%}.card{min-width:0}}
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">A tribute to the Master Blaster</div>
+  <h1>🏏 Sachin Tendulkar<br><span style="color:var(--gold)">Greatest Shots Gallery</span></h1>
+  <p>Relive the elegance, timing and unforgettable moments of Sachin's batting — from the trademark straight drive to the iconic upper cut and Desert Storm fireworks.</p>
+  <div class="hero-actions">
+    <button class="primary" id="shareBtn">↗ Share this gallery</button>
+    <button class="secondary" id="copyBtn">▣ Copy page link</button>
+    <a class="btn secondary" href="https://www.youtube.com/results?search_query=Sachin+Tendulkar+greatest+shots+highlights" target="_blank" rel="noopener">▶ Explore YouTube</a>
+  </div>
+</header>
+<main>
+  <div class="tools">
+    <input id="search" type="search" placeholder="Search a shot, bowler or moment…" aria-label="Search videos">
+    <select id="category" aria-label="Filter by category">
+      <option value="all">All shots & moments</option>
+      <option value="classic">Classic strokes</option>
+      <option value="power">Power shots</option>
+      <option value="innings">Iconic innings</option>
+      <option value="highlights">Compilations</option>
+    </select>
+  </div>
+  <p class="note">Choose <b>Watch video</b> to open a YouTube highlight. Where a particular upload may change or become unavailable, the card opens a targeted YouTube search instead. Videos remain hosted by their respective publishers.</p>
+  <section class="grid" id="videoGrid" aria-label="Sachin Tendulkar video collection"></section>
+  <div class="empty" id="empty">No matching videos. Try another search.</div>
+</main>
+<footer>
+  Made for cricket fans ❤️ | This is an independent fan-made link collection and is not affiliated with Sachin Tendulkar, ICC, BCCI or YouTube.
+</footer>
+<script>
+const videos = [
+ {title:"The Trademark Straight Drive",category:"classic",label:"Signature stroke",emoji:"🎯",desc:"Watch the balanced stance, straight bat and beautiful timing that made Sachin's straight drive legendary.",url:"https://www.icc-cricket.com/videos/some-of-sachin-tendulkar-s-finest-straight-drives",search:"Sachin Tendulkar best straight drives ICC highlights"},
+ {title:"Best Cover Drive Compilation",category:"classic",label:"Elegant timing",emoji:"✨",desc:"A collection celebrating the flowing cover drive and Sachin's precision through the off side.",url:"https://www.youtube.com/watch?v=f6ICyiOqfp4",search:"Sachin Tendulkar cover drive compilation"},
+ {title:"The Famous Upper Cut",category:"power",label:"Inventive stroke",emoji:"🚀",desc:"Relive the audacious upper cut over the slips, including the famous World Cup stroke against Shoaib Akhtar.",url:"https://www.youtube.com/watch?v=52e9678oiTA",search:"Sachin Tendulkar upper cut Shoaib Akhtar 2003 World Cup"},
+ {title:"Desert Storm – Sharjah 1998",category:"innings",label:"Historic innings",emoji:"🌪️",desc:"The unforgettable assault on Australia, including huge hits and the innings that became known as Desert Storm.",url:"https://www.youtube.com/results?search_query=Sachin+Tendulkar+Desert+Storm+Sharjah+1998+highlights",search:"Sachin Tendulkar Desert Storm Sharjah 1998 highlights"},
+ {title:"Straight Drive Six vs Kasprowicz",category:"power",label:"Desert Storm moment",emoji:"💥",desc:"A memorable straight hit over the bowler during Sachin's iconic Sharjah innings.",url:"https://www.youtube.com/results?search_query=Sachin+Tendulkar+straight+drive+six+Kasprowicz",search:"Sachin Tendulkar straight drive six Kasprowicz"},
+ {title:"Upper Cut vs Shoaib Akhtar – World Cup 2003",category:"power",label:"World Cup classic",emoji:"⚡",desc:"A fearless response to express pace in one of the most replayed moments of the 2003 World Cup.",url:"https://www.youtube.com/watch?v=52e9678oiTA",search:"Sachin upper cut Shoaib Akhtar 2003"},
+ {title:"Pull Shot vs Andrew Caddick",category:"power",label:"World Cup 2003",emoji:"🏏",desc:"A confident pull shot against England during India's memorable 2003 World Cup campaign.",url:"https://www.youtube.com/results?search_query=Sachin+Tendulkar+pull+shot+Andrew+Caddick+2003",search:"Sachin Tendulkar pull shot Andrew Caddick"},
+ {title:"Slog Sweep vs Shane Warne",category:"power",label:"Spin mastery",emoji:"🌀",desc:"See Sachin take on Shane Warne with attacking footwork and a powerful sweep against spin.",url:"https://www.youtube.com/results?search_query=Sachin+Tendulkar+slog+sweep+Shane+Warne",search:"Sachin Tendulkar slog sweep Shane Warne"},
+ {title:"Dancing Down the Track to Hit a Six",category:"power",label:"Footwork & power",emoji:"🚁",desc:"Watch Sachin use his feet to get to the pitch of the ball and loft spinners over the boundary.",url:"https://www.youtube.com/results?search_query=Sachin+Tendulkar+down+the+track+six+Shane+Warne",search:"Sachin Tendulkar down the track six"},
+ {title:"Wristy Flick Through Midwicket",category:"classic",label:"Wrist work",emoji:"🎨",desc:"A showcase of the wrist control and timing behind Sachin's famous leg-side flicks.",url:"https://www.youtube.com/results?search_query=Sachin+Tendulkar+wristy+flick+shots+highlights",search:"Sachin Tendulkar wristy flick shots"},
+ {title:"Back-Foot Punch & Drive",category:"classic",label:"Back-foot play",emoji:"🧭",desc:"Enjoy Sachin's compact back-foot punches and drives against fast bowling.",url:"https://www.youtube.com/results?search_query=Sachin+Tendulkar+back+foot+punch+drive+compilation",search:"Sachin Tendulkar back foot punch drive"},
+ {title:"The 241* at Sydney – Controlled Brilliance",category:"innings",label:"Test cricket classic",emoji:"🏆",desc:"Highlights from the unbeaten 241 at Sydney in 2004, a masterclass in discipline and shot selection.",url:"https://www.youtube.com/results?search_query=Sachin+Tendulkar+241+not+out+Sydney+2004+highlights",search:"Sachin Tendulkar 241 not out Sydney 2004"},
+ {title:"The 114 at Perth – 1992",category:"innings",label:"Against the pace",emoji:"🌊",desc:"Highlights of the celebrated Perth century on a fast, bouncy pitch.",url:"https://www.youtube.com/results?search_query=Sachin+Tendulkar+114+Perth+1992+highlights",search:"Sachin Tendulkar 114 Perth 1992"},
+ {title:"First Test Century – Old Trafford 1990",category:"innings",label:"A star is born",emoji:"🌟",desc:"Revisit Sachin's first Test century, scored at just 17 to help India save the Test against England.",url:"https://www.youtube.com/results?search_query=Sachin+Tendulkar+first+Test+century+Old+Trafford+1990",search:"Sachin Tendulkar first Test century Old Trafford 1990"},
+ {title:"Top 10 Greatest Sachin Shots",category:"highlights",label:"Fan-favourite list",emoji:"🔟",desc:"A curated countdown of remarkable shots, including the square cut, straight drive and upper cut.",url:"https://www.youtube.com/watch?v=ti1-VGn-r3s",search:"The Very Best of Sachin Tendulkar Top 10 Shots"},
+ {title:"All-Round Batting Highlights",category:"highlights",label:"Every kind of stroke",emoji:"🎬",desc:"A broad collection of drives, flicks, pulls, cuts and attacking shots from across his career.",url:"https://www.youtube.com/results?search_query=Sachin+Tendulkar+best+batting+shots+compilation",search:"Sachin Tendulkar best batting shots compilation"},
+ {title:"Back-Foot Punch Through Cover",category:"classic",label:"Timing at its best",emoji:"🪄",desc:"A back-foot stroke that shows how Sachin could pierce the field with timing rather than brute force.",url:"https://www.youtube.com/results?search_query=Sachin+Tendulkar+back+foot+drive+cover+compilation",search:"Sachin Tendulkar back foot drive cover"},
+ {title:"Reverse Sweep & Unusual Strokes",category:"classic",label:"Inventive batting",emoji:"🔄",desc:"Explore the range of strokes Sachin used to find gaps and unsettle bowlers.",url:"https://www.youtube.com/results?search_query=Sachin+Tendulkar+reverse+sweep+shots",search:"Sachin Tendulkar reverse sweep shots"},
+ {title:"The 200* vs South Africa – 2010",category:"innings",label:"ODI history",emoji:"📜",desc:"Highlights from Sachin's historic unbeaten double century in men's ODI cricket.",url:"https://www.youtube.com/results?search_query=Sachin+Tendulkar+200+not+out+South+Africa+2010+highlights",search:"Sachin Tendulkar 200 not out South Africa 2010"},
+ {title:"Road Safety Series – Vintage Drives & Flicks",category:"highlights",label:"Classic strokes again",emoji:"💫",desc:"Later-career highlights showing that signature timing and stroke-making remained a joy to watch.",url:"https://www.youtube.com/results?search_query=Sachin+Tendulkar+Road+Safety+World+Series+60+highlights",search:"Sachin Tendulkar Road Safety World Series 60 highlights"}
+];
+const grid=document.getElementById('videoGrid');
+function render(){
+ const q=document.getElementById('search').value.toLowerCase().trim();
+ const cat=document.getElementById('category').value;
+ const filtered=videos.filter(v=>(cat==='all'||v.category===cat)&&[v.title,v.label,v.desc,v.search].join(' ').toLowerCase().includes(q));
+ grid.innerHTML=filtered.map(v=>`<article class="card">
+  <div class="thumb"><div><span class="emoji">${v.emoji}</span><strong>${v.title}</strong></div><button class="play" aria-label="Watch ${v.title}" onclick="window.open('${v.url}','_blank','noopener')">▶</button></div>
+  <div class="content"><span class="tag">${v.label}</span><h2>${v.title}</h2><p>${v.desc}</p><div class="actions"><a class="btn primary" href="${v.url}" target="_blank" rel="noopener">▶ Watch video</a><a class="btn secondary" href="https://www.youtube.com/results?search_query=${encodeURIComponent(v.search)}" target="_blank" rel="noopener">More clips ↗</a></div></div>
+ </article>`).join('');
+ document.getElementById('empty').style.display=filtered.length?'none':'block';
+}
+document.getElementById('search').addEventListener('input',render);
+document.getElementById('category').addEventListener('change',render);
+document.getElementById('shareBtn').addEventListener('click',async()=>{
+ const data={title:document.title,text:'Relive Sachin Tendulkar’s greatest cricket shots!',url:location.href};
+ try{if(navigator.share) await navigator.share(data);else{await navigator.clipboard.writeText(location.href);alert('Page link copied. You can now share it.')}}catch(e){}
+});
+document.getElementById('copyBtn').addEventListener('click',async()=>{
+ try{await navigator.clipboard.writeText(location.href);alert('Page link copied!')}catch(e){prompt('Copy this page link:',location.href)}
+});
+render();
+</script>
+</body>
+</html>
