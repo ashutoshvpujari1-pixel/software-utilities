@@ -1,0 +1,522 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Explore Jonty Rhodes' legendary cricket catches, diving stops, fielding highlights and famous run-outs with video links.">
+<meta property="og:title" content="Jonty Rhodes Fielding Legends">
+<meta property="og:description" content="Watch legendary catches, dives and run-outs by Jonty Rhodes.">
+<title>Jonty Rhodes | Fielding Legends</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+<style>
+:root {
+  --bg: #08131c;
+  --panel: #12232e;
+  --text: #f3f8fa;
+  --muted: #b3c4ce;
+  --accent: #c7ff4d;
+  --border: #2b414d;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+header {
+  padding: 48px 20px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at top, #315a3e, transparent 65%),
+    linear-gradient(135deg, #09131c, #16352c);
+  border-bottom: 1px solid var(--border);
+}
+.eyebrow {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 13px;
+  font-weight: bold;
+}
+h1 { font-size: clamp(34px, 6vw, 64px); margin: 14px 0; }
+header p { color: var(--muted); line-height: 1.7; max-width: 680px; margin: auto; }
+.hero-buttons { margin-top: 24px; }
+button, .btn {
+  background: var(--accent);
+  color: #101a12;
+  border: none;
+  border-radius: 9px;
+  padding: 12px 17px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px;
+}
+button:hover, .btn:hover { filter: brightness(.9); }
+main { max-width: 1200px; padding: 24px 18px; margin: auto; }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 25px;
+}
+.stat, .card, .video-panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+}
+.stat { padding: 18px; text-align: center; }
+.stat strong { display: block; font-size: 28px; color: var(--accent); }
+.stat span { color: var(--muted); font-size: 13px; }
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 22px 0;
+}
+input, select {
+  background: #10212c;
+  border: 1px solid #3a5260;
+  color: white;
+  border-radius: 9px;
+  padding: 13px;
+  font-size: 15px;
+  min-width: 160px;
+}
+#search { flex: 1; }
+.section-title { margin-top: 35px; }
+.section-title p { color: var(--muted); line-height: 1.6; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+  gap: 18px;
+}
+.card {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform .2s, border-color .2s;
+}
+.card:hover { transform: translateY(-4px); border-color: var(--accent); }
+.card-art {
+  min-height: 155px;
+  padding: 20px;
+  display: grid;
+  place-items: center;
+  font-size: 54px;
+  background: linear-gradient(135deg, #193d36, #16232f);
+}
+.card-content { padding: 18px; display: flex; flex: 1; flex-direction: column; }
+.tag {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.card h3 { margin: 12px 0 8px; font-size: 20px; }
+.card p { color: var(--muted); line-height: 1.6; font-size: 14px; }
+.card-actions { margin-top: auto; padding-top: 10px; }
+.card-actions a { margin: 3px; }
+.secondary {
+  background: #253b47;
+  color: white;
+}
+.video-panel { padding: 18px; margin: 25px 0; }
+.video-panel iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 10px;
+}
+#player { display: none; }
+#empty { display: none; color: var(--muted); padding: 25px; }
+.note { color: var(--muted); font-size: 13px; line-height: 1.7; }
+footer {
+  text-align: center;
+  padding: 30px 15px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+}
+footer a { color: var(--accent); }
+</style>
+</head>
+
+<body>
+<header>
+  <div class="eyebrow">Cricket Fielding Hall of Fame</div>
+  <h1>Jonty Rhodes</h1>
+  <p>
+    The dives. The catches. The lightning-fast hands.
+    Relive the unforgettable fielding moments of a South African cricket legend.
+  </p>
+  <div class="hero-buttons">
+    <a class="btn" href="#highlights">Explore Highlights ↓</a>
+    <button onclick="sharePage()">Share This Page ↗</button>
+  </div>
+</header>
+
+<main>
+  <section class="stats">
+    <div class="stat"><strong>1992</strong><span>World Cup breakthrough</span></div>
+    <div class="stat"><strong>245</strong><span>ODI appearances</span></div>
+    <div class="stat"><strong>139</strong><span>International catches*</span></div>
+    <div class="stat"><strong>1992–2003</strong><span>South Africa career era</span></div>
+  </section>
+
+  <section class="section-title" id="highlights">
+    <h2>🏏 Legendary Fielding Moments</h2>
+    <p>Choose a highlight, watch a video, or open the original source.</p>
+  </section>
+
+  <div class="toolbar">
+    <input id="search" type="search"
+      placeholder="Search catches, run-outs, diving..."
+      aria-label="Search highlights">
+    <select id="category" aria-label="Filter by category">
+      <option value="all">All highlights</option>
+      <option value="catch">Amazing catches</option>
+      <option value="runout">Run-outs</option>
+      <option value="dive">Diving fielding</option>
+      <option value="collection">Video compilations</option>
+    </select>
+    <button class="secondary" onclick="showFavourites()">★ Favourites</button>
+    <button class="secondary" onclick="resetFilters()">Reset</button>
+  </div>
+
+  <section class="grid" id="cards"></section>
+  <div id="empty">No highlights match your search. Try another keyword.</div>
+
+  <section class="video-panel" id="player">
+    <h2 id="videoTitle">Now Playing</h2>
+    <iframe id="videoFrame" src=""
+      title="Jonty Rhodes fielding highlight"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen loading="lazy"></iframe>
+    <p class="note">If playback is unavailable, use the Open on YouTube link on the selected card.</p>
+    <button class="secondary" onclick="closePlayer()">Close video</button>
+  </section>
+
+  <section class="section-title">
+    <h2>🎯 What made his fielding special?</h2>
+    <div class="grid">
+      <article class="card">
+        <div class="card-content">
+          <h3>⚡ Anticipation</h3>
+          <p>Reading the batter early and moving before the ball passed the infield.</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-content">
+          <h3>🧤 Reflexes & agility</h3>
+          <p>Quick first steps, low body position and full-length dives to reach difficult balls.</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-content">
+          <h3>🎯 Accurate throwing</h3>
+          <p>Fast pickup, balanced release and direct hits that turned tight singles into wickets.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <p class="note">
+    *The career statistics shown are commonly reported international figures.
+    Video links lead to third-party publishers. Their availability may change;
+    this page does not host or download copyrighted footage.
+  </p>
+</main>
+
+<footer>
+  <p>Jonty Rhodes Fielding Legends | A cricket fan project</p>
+  <p>Videos belong to their respective publishers.</p>
+</footer>
+
+<script>
+const highlights = [
+  {
+    title: "The 1992 World Cup Run-Out of Inzamam-ul-Haq",
+    category: "runout",
+    icon: "🏃",
+    description: "The famous sprint from point and airborne dive to break the stumps against Pakistan.",
+    url: "https://www.youtube.com/watch?v=v29OuwZBhWg",
+    source: "YouTube"
+  },
+  {
+    title: "Best Catches, Fielding & Run-Outs Compilation",
+    category: "collection",
+    icon: "🏆",
+    description: "A collection of Rhodes' signature catches, athletic stops and direct-hit run-outs.",
+    url: "https://www.youtube.com/watch?v=Xgf0lLwZlVU",
+    source: "CricketCloud on YouTube"
+  },
+  {
+    title: "Five Great Catches in One Match",
+    category: "catch",
+    icon: "🧤",
+    description: "A video dedicated to five excellent catches attributed to Rhodes in a single match.",
+    url: "https://www.youtube.com/watch?v=UqHBjb2t5Ak",
+    source: "YouTube"
+  },
+  {
+    title: "The Famous Catch Against England",
+    category: "catch",
+    icon: "🙌",
+    description: "Explore footage of Rhodes' acrobatic catching, including the celebrated 1999 World Cup era.",
+    url: "https://www.youtube.com/results?search_query=Jonty+Rhodes+catch+England+1999+World+Cup",
+    source: "YouTube search"
+  },
+  {
+    title: "The One-Handed Catch",
+    category: "catch",
+    icon: "✋",
+    description: "Watch the official Punjab Kings feature of Rhodes taking a stunning one-handed catch.",
+    url: "https://www.punjabkingsipl.in/videos/jonty-rhodes-stunning-one-handed-catch-ipl-2020",
+    source: "Punjab Kings"
+  },
+  {
+    title: "The Matthew Hayden Catch",
+    category: "catch",
+    icon: "🚀",
+    description: "A remarkable one-handed effort against a powerful square cut by Matthew Hayden.",
+    url: "https://www.youtube.com/results?search_query=Jonty+Rhodes+Matthew+Hayden+amazing+catch",
+    source: "YouTube search"
+  },
+  {
+    title: "Diving Saves & Boundary-Stopping Efforts",
+    category: "dive",
+    icon: "💨",
+    description: "Search for footage of Rhodes diving across the turf to stop runs and save boundaries.",
+    url: "https://www.youtube.com/results?search_query=Jonty+Rhodes+15+splendid+fielding+diving+saves",
+    source: "YouTube search"
+  },
+  {
+    title: "The Famous Catch Against Sachin Tendulkar",
+    category: "catch",
+    icon: "⭐",
+    description: "Find video coverage of Rhodes' athletic catch dismissing Sachin Tendulkar.",
+    url: "https://www.youtube.com/results?search_query=Jonty+Rhodes+flying+catch+Sachin+Tendulkar",
+    source: "YouTube search"
+  },
+  {
+    title: "Direct-Hit Run-Out Highlights",
+    category: "runout",
+    icon: "🎯",
+    description: "Explore Rhodes' quick pickups, accurate throws and memorable run-out moments.",
+    url: "https://www.youtube.com/results?search_query=Jonty+Rhodes+remarkable+direct+hit+run+outs",
+    source: "YouTube search"
+  },
+  {
+    title: "ICC: Moments of Genius on the Field",
+    category: "collection",
+    icon: "🌍",
+    description: "Official ICC video celebrating Rhodes' outstanding fielding moments.",
+    url: "https://www.icc-cricket.com/videos/jonty-rhodes-moments-of-genius-on-the-field",
+    source: "ICC"
+  },
+  {
+    title: "Jonty Rhodes: Best Fielding Highlights",
+    category: "collection",
+    icon: "🔥",
+    description: "A more recent highlight compilation showcasing the skills that made Rhodes famous.",
+    url: "https://www.youtube.com/watch?v=3QO9kcMFWzA",
+    source: "Third Man Cricket on YouTube"
+  },
+  {
+    title: "The Classic Fielding Story: 1992 World Cup",
+    category: "runout",
+    icon: "📽️",
+    description: "Read the match story and find the iconic run-out footage from the 1992 World Cup.",
+    url: "https://www.cricket.com.au/news/3292204",
+    source: "Cricket Australia"
+  }
+];
+
+const cards = document.getElementById("cards");
+const search = document.getElementById("search");
+const category = document.getElementById("category");
+const empty = document.getElementById("empty");
+let favouritesOnly = false;
+
+function getFavourites() {
+  try {
+    return JSON.parse(localStorage.getItem("jontyFavourites") || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function toggleFavourite(index) {
+  let favs = getFavourites();
+  if (favs.includes(index)) {
+    favs = favs.filter(n => n !== index);
+  } else {
+    favs.push(index);
+  }
+  localStorage.setItem("jontyFavourites", JSON.stringify(favs));
+  renderCards();
+}
+
+function renderCards() {
+  const term = search.value.toLowerCase().trim();
+  const filter = category.value;
+  const favs = getFavourites();
+
+  const visible = highlights
+    .map((item, index) => ({ ...item, index }))
+    .filter(item => {
+      const matchesText =
+        (item.title + " " + item.description + " " + item.category)
+          .toLowerCase().includes(term);
+      const matchesCategory = filter === "all" || item.category === filter;
+      const matchesFavourite = !favouritesOnly || favs.includes(item.index);
+      return matchesText && matchesCategory && matchesFavourite;
+    });
+
+  cards.innerHTML = "";
+  empty.style.display = visible.length ? "none" : "block";
+
+  visible.forEach(item => {
+    const isFav = favs.includes(item.index);
+    const videoId = getYouTubeId(item.url);
+
+    const article = document.createElement("article");
+    article.className = "card";
+
+    const art = document.createElement("div");
+    art.className = "card-art";
+    art.textContent = item.icon;
+
+    const content = document.createElement("div");
+    content.className = "card-content";
+
+    const tag = document.createElement("span");
+    tag.className = "tag";
+    tag.textContent = item.category;
+
+    const title = document.createElement("h3");
+    title.textContent = item.title;
+
+    const desc = document.createElement("p");
+    desc.textContent = item.description;
+
+    const source = document.createElement("p");
+    source.className = "note";
+    source.textContent = "Source: " + item.source;
+
+    const actions = document.createElement("div");
+    actions.className = "card-actions";
+
+    const open = document.createElement("a");
+    open.className = "btn";
+    open.href = item.url;
+    open.target = "_blank";
+    open.rel = "noopener noreferrer";
+    open.textContent = "Open video ↗";
+
+    actions.appendChild(open);
+
+    if (videoId) {
+      const play = document.createElement("button");
+      play.textContent = "▶ Play here";
+      play.onclick = () => playVideo(videoId, item.title);
+      actions.appendChild(play);
+    }
+
+    const fav = document.createElement("button");
+    fav.className = "secondary";
+    fav.textContent = isFav ? "★ Saved" : "☆ Favourite";
+    fav.onclick = () => toggleFavourite(item.index);
+    actions.appendChild(fav);
+
+    content.append(tag, title, desc, source, actions);
+    article.append(art, content);
+    cards.appendChild(article);
+  });
+}
+
+function getYouTubeId(url) {
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname.includes("youtu.be")) {
+      return parsed.pathname.slice(1);
+    }
+    if (parsed.hostname.includes("youtube.com")) {
+      if (parsed.pathname === "/watch") return parsed.searchParams.get("v");
+      const match = parsed.pathname.match(/\/(embed|shorts)\/([^/]+)/);
+      if (match) return match[2];
+    }
+  } catch {}
+  return null;
+}
+
+function playVideo(id, title) {
+  const player = document.getElementById("player");
+  document.getElementById("videoTitle").textContent = title;
+  document.getElementById("videoFrame").src =
+    "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id);
+  player.style.display = "block";
+  player.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function closePlayer() {
+  document.getElementById("videoFrame").src = "";
+  document.getElementById("player").style.display = "none";
+}
+
+function showFavourites() {
+  favouritesOnly = !favouritesOnly;
+  renderCards();
+}
+
+function resetFilters() {
+  search.value = "";
+  category.value = "all";
+  favouritesOnly = false;
+  renderCards();
+}
+
+async function sharePage() {
+  const data = {
+    title: "Jonty Rhodes Fielding Legends",
+    text: "Explore amazing catches, diving saves and run-outs by Jonty Rhodes!",
+    url: location.href
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(data);
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(data.url);
+      alert("Page link copied!");
+    } else {
+      prompt("Copy this page link:", data.url);
+    }
+  } catch (error) {
+    if (error.name !== "AbortError") {
+      prompt("Copy this page link:", data.url);
+    }
+  }
+}
+
+search.addEventListener("input", renderCards);
+category.addEventListener("change", renderCards);
+renderCards();
+</script>
+</body>
+</html>

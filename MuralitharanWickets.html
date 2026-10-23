@@ -1,0 +1,488 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Explore Muttiah Muralitharan wicket highlights, bowling videos, career records and cricket searches.">
+<title>Muralitharan Wicket Highlights Explorer</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+
+<style>
+:root {
+  --bg: #071426;
+  --panel: #11243c;
+  --text: #f4f7ff;
+  --muted: #b5c4d9;
+  --accent: #ffc857;
+  --green: #50e3a4;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #17365a, var(--bg) 65%);
+  color: var(--text);
+}
+header {
+  text-align: center;
+  padding: 38px 16px 26px;
+  background: linear-gradient(120deg, #102b49, #071426);
+  border-bottom: 2px solid var(--accent);
+}
+header h1 { font-size: clamp(27px, 5vw, 44px); margin: 0 0 12px; }
+header p { color: var(--muted); line-height: 1.7; }
+.container { width: min(1100px, 94%); margin: auto; }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 14px;
+  margin: 24px 0;
+}
+.stat, .panel, .video-card {
+  background: rgba(17,36,60,.94);
+  border: 1px solid #294562;
+  border-radius: 14px;
+  padding: 20px;
+}
+.stat { text-align: center; }
+.stat strong {
+  display: block;
+  color: var(--accent);
+  font-size: 32px;
+  margin-bottom: 7px;
+}
+.stat span { color: var(--muted); }
+.panel { margin: 20px 0; }
+h2 { margin-top: 0; }
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+}
+input, select, button {
+  width: 100%;
+  padding: 13px;
+  border-radius: 8px;
+  font-size: 15px;
+}
+input, select {
+  background: #071426;
+  color: white;
+  border: 1px solid #45617e;
+}
+button {
+  cursor: pointer;
+  border: 0;
+  background: var(--accent);
+  color: #172033;
+  font-weight: bold;
+}
+button:hover, .link:hover { filter: brightness(1.12); }
+.quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+.quick-links a, .link {
+  display: inline-block;
+  text-decoration: none;
+  background: #1b3857;
+  color: white;
+  border: 1px solid #496581;
+  padding: 10px 13px;
+  border-radius: 8px;
+}
+.quick-links a:hover { background: #285071; }
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin: 20px 0 35px;
+}
+.video-card { display: flex; flex-direction: column; gap: 12px; }
+.video-card .emoji { font-size: 36px; }
+.video-card h3 { margin: 0; line-height: 1.4; }
+.video-card p { color: var(--muted); line-height: 1.6; margin: 0; }
+.video-card .link { text-align: center; margin-top: auto; }
+.tag { color: var(--green); font-size: 13px; font-weight: bold; }
+.notice { color: var(--muted); line-height: 1.7; }
+footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 25px 12px;
+  border-top: 1px solid #294562;
+  line-height: 1.8;
+}
+footer a { color: var(--accent); }
+.hidden { display: none; }
+</style>
+</head>
+
+<body>
+<header>
+  <div class="container">
+    <div style="font-size:44px">🏏 🌀 🏏</div>
+    <h1>Muralitharan Wicket Highlights</h1>
+    <p>
+      Celebrate the magician of spin. Explore classic dismissals,
+      bowling spells, records and video searches of Sri Lankan legend
+      Muttiah Muralitharan.
+    </p>
+    <div class="quick-links" style="justify-content:center">
+      <a href="#explorer">Explore Videos</a>
+      <a href="#records">Career Records</a>
+      <a href="#sources">Cricket Sources</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="stats" id="records">
+    <div class="stat"><strong>800</strong><span>Test wickets</span></div>
+    <div class="stat"><strong>534</strong><span>ODI wickets</span></div>
+    <div class="stat"><strong>13</strong><span>T20I wickets</span></div>
+    <div class="stat"><strong>1,347</strong><span>International wickets</span></div>
+  </section>
+
+  <section class="panel">
+    <h2>🔎 Find a wicket video</h2>
+    <p class="notice">
+      Search for a batsman, team, match, dismissal, or bowling spell.
+      Searches open video results from YouTube or other cricket sources.
+    </p>
+    <div class="controls" id="explorer">
+      <input id="searchInput" type="search"
+        placeholder="Example: Sachin, Ponting, bowled...">
+      <select id="format">
+        <option value="all">All international formats</option>
+        <option value="Test">Test cricket</option>
+        <option value="ODI">ODI cricket</option>
+        <option value="T20I">T20 International</option>
+      </select>
+      <select id="kind">
+        <option value="all">All video categories</option>
+        <option value="dismissal">Individual dismissals</option>
+        <option value="spell">Best bowling spells</option>
+        <option value="record">Career milestones</option>
+        <option value="technique">Spin bowling techniques</option>
+      </select>
+      <button onclick="renderVideos()">Search Videos</button>
+    </div>
+    <div class="quick-links">
+      <a href="https://www.youtube.com/results?search_query=Muralitharan+all+wickets"
+         target="_blank" rel="noopener">All Wickets</a>
+      <a href="https://www.youtube.com/results?search_query=Muralitharan+bowled+dismissals"
+         target="_blank" rel="noopener">Bowled Dismissals</a>
+      <a href="https://www.youtube.com/results?search_query=Muralitharan+LBW+wickets"
+         target="_blank" rel="noopener">LBW Wickets</a>
+      <a href="https://www.youtube.com/results?search_query=Muralitharan+five+wicket+hauls"
+         target="_blank" rel="noopener">Five-Wicket Hauls</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>🎬 Wicket Video Collection</h2>
+    <p class="notice" id="resultCount" aria-live="polite"></p>
+    <div class="video-grid" id="videoGrid"></div>
+  </section>
+
+  <section class="panel">
+    <h2>🏆 Legendary milestones</h2>
+    <div class="video-grid" id="milestones"></div>
+  </section>
+
+  <section class="panel" id="sources">
+    <h2>📚 More cricket resources</h2>
+    <div class="quick-links">
+      <a href="https://www.icc-cricket.com/hall-of-fame/hall-of-famers/hall-of-famer-muttiah-muralitharan"
+         target="_blank" rel="noopener">ICC Hall of Fame</a>
+      <a href="https://www.icc-cricket.com/rankings/2159/muttiah-muralitharan"
+         target="_blank" rel="noopener">ICC Player Statistics</a>
+      <a href="https://www.espncricinfo.com/"
+         target="_blank" rel="noopener">ESPNcricinfo</a>
+      <a href="https://www.cricbuzz.com/profiles/110/muthiah-muralidaran"
+         target="_blank" rel="noopener">Cricbuzz Profile</a>
+    </div>
+    <p class="notice">
+      Video links lead to external websites. Availability depends on the
+      uploader, region, copyright restrictions and current platform access.
+      This page does not download or host copyrighted videos.
+    </p>
+  </section>
+</main>
+
+<footer>
+  <p>Muralitharan Wicket Highlights Explorer</p>
+  <p>A fan-made cricket learning and video discovery page.</p>
+</footer>
+
+<script>
+const videos = [
+  {
+    title: "Muralitharan's 800th Test Wicket",
+    format: "Test",
+    kind: "record",
+    emoji: "🏆",
+    description: "The historic final wicket of his Test career against India in Galle, July 2010.",
+    query: "Muttiah Muralitharan 800th wicket India Galle 2010"
+  },
+  {
+    title: "Muralitharan vs Sachin Tendulkar",
+    format: "all",
+    kind: "dismissal",
+    emoji: "⚔️",
+    description: "Search classic contests between the legendary Sri Lankan spinner and Indian batter.",
+    query: "Muralitharan dismisses Sachin Tendulkar wickets"
+  },
+  {
+    title: "Muralitharan vs Ricky Ponting",
+    format: "all",
+    kind: "dismissal",
+    emoji: "🎯",
+    description: "Explore videos of Muralitharan bowling to Australia's great batter.",
+    query: "Muralitharan wicket Ricky Ponting dismissal"
+  },
+  {
+    title: "Best Test Bowling Spells",
+    format: "Test",
+    kind: "spell",
+    emoji: "🔥",
+    description: "Search memorable spells, big innings hauls and match-winning performances.",
+    query: "Muttiah Muralitharan best Test bowling spells wickets"
+  },
+  {
+    title: "Nine Wickets for 51 Runs",
+    format: "Test",
+    kind: "spell",
+    emoji: "📊",
+    description: "Explore footage and reports about his outstanding 9/51 Test innings figures.",
+    query: "Muralitharan 9 for 51 bowling highlights"
+  },
+  {
+    title: "ODI Wicket Highlights",
+    format: "ODI",
+    kind: "dismissal",
+    emoji: "🌍",
+    description: "Discover his wickets across Sri Lanka's one-day international career.",
+    query: "Muttiah Muralitharan ODI wickets highlights"
+  },
+  {
+    title: "World Cup Wicket Highlights",
+    format: "ODI",
+    kind: "dismissal",
+    emoji: "🏏",
+    description: "Search for his memorable ICC Cricket World Cup bowling performances.",
+    query: "Muralitharan Cricket World Cup wickets highlights"
+  },
+  {
+    title: "The Famous Doosra",
+    format: "all",
+    kind: "technique",
+    emoji: "🌀",
+    description: "Understand the variations, flight and deception behind his spin bowling.",
+    query: "Muttiah Muralitharan doosra bowling wickets slow motion"
+  },
+  {
+    title: "LBW and Bowled Dismissals",
+    format: "all",
+    kind: "dismissal",
+    emoji: "🎯",
+    description: "Find clips featuring batters beaten by spin, line, length and turn.",
+    query: "Muralitharan LBW bowled wicket compilation"
+  },
+  {
+    title: "Five-Wicket Hauls",
+    format: "Test",
+    kind: "spell",
+    emoji: "✋",
+    description: "Search for innings in which he took five or more wickets.",
+    query: "Muralitharan five wicket haul highlights"
+  },
+  {
+    title: "Ten-Wicket Match Performances",
+    format: "Test",
+    kind: "spell",
+    emoji: "💥",
+    description: "Explore famous matches in which he took ten or more wickets.",
+    query: "Muralitharan ten wicket match haul highlights"
+  },
+  {
+    title: "Final Test Against India",
+    format: "Test",
+    kind: "record",
+    emoji: "🇱🇰",
+    description: "Explore highlights from the Galle Test in which he reached 800 Test wickets.",
+    query: "Sri Lanka India Galle Test July 2010 Muralitharan highlights"
+  },
+  {
+    title: "T20 International Wickets",
+    format: "T20I",
+    kind: "dismissal",
+    emoji: "⚡",
+    description: "Search Muralitharan's international Twenty20 wicket highlights.",
+    query: "Muttiah Muralitharan T20I wickets highlights"
+  },
+  {
+    title: "Wickets Against Australia",
+    format: "all",
+    kind: "dismissal",
+    emoji: "🇦🇺",
+    description: "Find his wickets against Australia in Tests and one-day internationals.",
+    query: "Muralitharan wickets against Australia highlights"
+  },
+  {
+    title: "Wickets Against England",
+    format: "all",
+    kind: "dismissal",
+    emoji: "🏴",
+    description: "Search memorable dismissals against England.",
+    query: "Muralitharan wickets against England cricket"
+  },
+  {
+    title: "Spin Bowling in Slow Motion",
+    format: "all",
+    kind: "technique",
+    emoji: "🎥",
+    description: "Study his bowling action, release, flight and variations.",
+    query: "Muttiah Muralitharan bowling action slow motion analysis"
+  }
+];
+
+const milestones = [
+  {
+    title: "800 Test Wickets",
+    description: "His record-setting Test career ended with 800 wickets.",
+    query: "Muralitharan 800 Test wickets highlights"
+  },
+  {
+    title: "534 ODI Wickets",
+    description: "Explore his record-breaking one-day international career.",
+    query: "Muralitharan 534 ODI wickets highlights"
+  },
+  {
+    title: "World Cup Champion",
+    description: "Look back at Sri Lanka's 1996 World Cup campaign.",
+    query: "Sri Lanka 1996 World Cup Muralitharan highlights"
+  }
+];
+
+function youtubeSearch(query) {
+  return "https://www.youtube.com/results?search_query=" +
+    encodeURIComponent(query);
+}
+
+function renderVideos() {
+  const search = document.getElementById("searchInput")
+    .value.trim().toLowerCase();
+  const format = document.getElementById("format").value;
+  const kind = document.getElementById("kind").value;
+
+  const filtered = videos.filter(video => {
+    const text = [
+      video.title, video.description, video.query,
+      video.format, video.kind
+    ].join(" ").toLowerCase();
+
+    const matchesSearch = !search || text.includes(search);
+    const matchesFormat = format === "all" ||
+      video.format === "all" || video.format === format;
+    const matchesKind = kind === "all" || video.kind === kind;
+
+    return matchesSearch && matchesFormat && matchesKind;
+  });
+
+  const grid = document.getElementById("videoGrid");
+  grid.replaceChildren();
+
+  document.getElementById("resultCount").textContent =
+    filtered.length + " video categories found. Open a card to search YouTube.";
+
+  if (filtered.length === 0) {
+    const message = document.createElement("p");
+    message.className = "notice";
+    message.textContent = "No matching categories. Try another keyword or filter.";
+    grid.appendChild(message);
+    return;
+  }
+
+  filtered.forEach(video => {
+    const card = document.createElement("article");
+    card.className = "video-card";
+
+    const emoji = document.createElement("div");
+    emoji.className = "emoji";
+    emoji.textContent = video.emoji;
+
+    const tag = document.createElement("div");
+    tag.className = "tag";
+    tag.textContent = video.format === "all"
+      ? "INTERNATIONAL CRICKET"
+      : video.format + " CRICKET";
+
+    const title = document.createElement("h3");
+    title.textContent = video.title;
+
+    const description = document.createElement("p");
+    description.textContent = video.description;
+
+    const link = document.createElement("a");
+    link.className = "link";
+    link.href = youtubeSearch(video.query);
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.textContent = "▶ Find Videos on YouTube";
+
+    card.append(emoji, tag, title, description, link);
+    grid.appendChild(card);
+  });
+}
+
+function renderMilestones() {
+  const grid = document.getElementById("milestones");
+
+  milestones.forEach(item => {
+    const card = document.createElement("article");
+    card.className = "video-card";
+
+    const title = document.createElement("h3");
+    title.textContent = item.title;
+
+    const description = document.createElement("p");
+    description.textContent = item.description;
+
+    const link = document.createElement("a");
+    link.className = "link";
+    link.href = youtubeSearch(item.query);
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.textContent = "▶ Explore Highlights";
+
+    card.append(title, description, link);
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById("searchInput")
+  .addEventListener("input", renderVideos);
+document.getElementById("format")
+  .addEventListener("change", renderVideos);
+document.getElementById("kind")
+  .addEventListener("change", renderVideos);
+
+renderVideos();
+renderMilestones();
+</script>
+</body>
+</html>
