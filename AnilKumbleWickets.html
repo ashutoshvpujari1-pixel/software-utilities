@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Explore Anil Kumble wickets, famous bowling spells, Test and ODI wicket highlights with YouTube video links.">
+<title>Anil Kumble Wicket Explorer</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+<style>
+:root {
+  --bg:#081426; --panel:#12243b; --text:#f4f8ff;
+  --muted:#b8c7dc; --accent:#42e6b5; --blue:#63a8ff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Arial,sans-serif;color:var(--text);
+  background:linear-gradient(140deg,#07111f,#102a48,#17204a);
+  min-height:100vh;
+}
+header{text-align:center;padding:35px 16px 24px}
+header h1{font-size:clamp(28px,5vw,46px);margin:8px 0}
+header p{color:var(--muted);line-height:1.6}
+.badge{color:var(--accent);font-weight:bold;letter-spacing:2px}
+.container{max-width:1150px;margin:auto;padding:16px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat,.filters,.card{
+  background:rgba(18,36,59,.94);border:1px solid #294362;
+  border-radius:16px;padding:18px;
+}
+.stat{text-align:center}
+.stat strong{display:block;font-size:28px;color:var(--accent)}
+.stat span{color:var(--muted);font-size:13px}
+.filters{margin:20px 0}
+input,select{
+  background:#071629;color:white;border:1px solid #3c5877;
+  border-radius:9px;padding:13px;width:100%;font-size:16px;
+}
+.controls{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+button,.btn{
+  display:inline-block;border:0;border-radius:9px;padding:11px 15px;
+  cursor:pointer;font-weight:bold;text-decoration:none;font-size:14px;
+}
+button{background:var(--accent);color:#061b20}
+.btn{background:var(--blue);color:#061629}
+.secondary{background:#293e59;color:white}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:15px}
+.card{display:flex;flex-direction:column;gap:10px}
+.card h3{margin:0;font-size:19px;line-height:1.4}
+.card p{margin:0;color:var(--muted);line-height:1.55}
+.tag{font-size:12px;color:var(--accent);font-weight:bold}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:5px}
+a{color:inherit}
+.note{color:var(--muted);font-size:13px;line-height:1.6}
+footer{text-align:center;padding:30px;color:var(--muted)}
+@media(max-width:500px){
+ .stats{grid-template-columns:1fr}
+ .controls{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="badge">INDIAN CRICKET LEGENDS</div>
+  <h1>🏏 Anil Kumble Wicket Explorer</h1>
+  <p>Explore Jumbo's memorable wickets, match-winning spells
+     and legendary bowling performances.</p>
+</header>
+
+<main class="container">
+  <section class="stats">
+    <div class="stat"><strong>619</strong><span>Test wickets</span></div>
+    <div class="stat"><strong>337</strong><span>ODI wickets</span></div>
+    <div class="stat"><strong>45</strong><span>IPL wickets</span></div>
+  </section>
+
+  <section class="filters">
+    <div class="controls">
+      <input id="search" type="search"
+        placeholder="Search opponent, match, wicket, year..."
+        aria-label="Search wicket highlights">
+      <select id="format" aria-label="Filter by format">
+        <option value="All">All formats</option>
+        <option value="Test">Test cricket</option>
+        <option value="ODI">One Day Internationals</option>
+        <option value="IPL">IPL</option>
+        <option value="Highlights">General highlights</option>
+      </select>
+    </div>
+    <p class="note">Links open YouTube search results where available.
+       Search results may include full spells, compilations or individual
+       dismissals; each video should be checked for accuracy.</p>
+    <button onclick="resetFilters()">Reset filters</button>
+  </section>
+
+  <h2>🎯 Wicket highlights & video searches</h2>
+  <p id="count" class="note" aria-live="polite"></p>
+  <section id="videos" class="grid"></section>
+
+  <section class="card" style="margin-top:22px">
+    <h2>📺 Famous performance: Perfect 10</h2>
+    <p>On 7 February 1999, Kumble took all 10 wickets in Pakistan's
+       second innings in Delhi, finishing with 10/74.</p>
+    <div class="actions">
+      <a class="btn" target="_blank" rel="noopener"
+         href="https://www.youtube.com/watch?v=H91_szqIFHk">
+         ▶ Watch 10-wicket haul
+      </a>
+      <a class="btn secondary" target="_blank" rel="noopener"
+         href="https://www.youtube.com/results?search_query=Anil+Kumble+all+10+wickets+Pakistan+1999">
+         Find other videos
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Anil Kumble Wicket Explorer · Made for cricket fans</p>
+  <p class="note">Video content belongs to its respective owners.
+     This page links to publicly discoverable search results and videos.</p>
+</footer>
+
+<script>
+const highlights = [
+ {title:"Perfect 10 wickets against Pakistan",format:"Test",
+  opponent:"Pakistan",year:"1999",query:"Anil Kumble all 10 wickets Pakistan 1999 Delhi"},
+ {title:"Individual dismissals in the Perfect 10",format:"Test",
+  opponent:"Pakistan",year:"1999",query:"Anil Kumble ten wickets individual dismissals 1999"},
+ {title:"Anil Kumble 10/74 full bowling spell",format:"Test",
+  opponent:"Pakistan",year:"1999",query:"Anil Kumble 10 for 74 full highlights"},
+ {title:"Kumble dismisses Shahid Afridi",format:"Test",
+  opponent:"Pakistan",year:"1999",query:"Anil Kumble wicket Shahid Afridi 1999"},
+ {title:"Kumble dismisses Wasim Akram",format:"Test",
+  opponent:"Pakistan",year:"1999",query:"Anil Kumble Wasim Akram wicket 1999"},
+ {title:"Kumble's 14 wickets in a Test match",format:"Test",
+  opponent:"Australia",year:"2004",query:"Anil Kumble 14 wickets in a Test match"},
+ {title:"Five-wicket hauls in Test cricket",format:"Test",
+  opponent:"Various",year:"Career",query:"Anil Kumble Test five wicket haul highlights"},
+ {title:"Ten-wicket match hauls",format:"Test",
+  opponent:"Various",year:"Career",query:"Anil Kumble Test match 10 wickets haul"},
+ {title:"Kumble vs Australia — Test wickets",format:"Test",
+  opponent:"Australia",year:"Career",query:"Anil Kumble wickets against Australia Test"},
+ {title:"Kumble vs Pakistan — Test wickets",format:"Test",
+  opponent:"Pakistan",year:"Career",query:"Anil Kumble wickets against Pakistan Test"},
+ {title:"Kumble vs England — Test wickets",format:"Test",
+  opponent:"England",year:"Career",query:"Anil Kumble wickets against England Test"},
+ {title:"Kumble vs South Africa — Test wickets",format:"Test",
+  opponent:"South Africa",year:"Career",query:"Anil Kumble wickets against South Africa Test"},
+ {title:"Kumble vs Sri Lanka — Test wickets",format:"Test",
+  opponent:"Sri Lanka",year:"Career",query:"Anil Kumble wickets against Sri Lanka Test"},
+ {title:"Kumble vs West Indies — Test wickets",format:"Test",
+  opponent:"West Indies",year:"Career",query:"Anil Kumble wickets against West Indies Test"},
+ {title:"Kumble's best ODI bowling figures",format:"ODI",
+  opponent:"Various",year:"Career",query:"Anil Kumble best ODI bowling figures 6 for 12"},
+ {title:"Kumble's famous 6/12 in ODIs",format:"ODI",
+  opponent:"West Indies",year:"1993",query:"Anil Kumble 6 for 12 ODI highlights"},
+ {title:"Kumble's World Cup wickets",format:"ODI",
+  opponent:"Various",year:"Career",query:"Anil Kumble Cricket World Cup wickets highlights"},
+ {title:"Kumble vs Australia — ODI wickets",format:"ODI",
+  opponent:"Australia",year:"Career",query:"Anil Kumble wickets against Australia ODI"},
+ {title:"Kumble vs Pakistan — ODI wickets",format:"ODI",
+  opponent:"Pakistan",year:"Career",query:"Anil Kumble wickets against Pakistan ODI"},
+ {title:"Kumble vs Sri Lanka — ODI wickets",format:"ODI",
+  opponent:"Sri Lanka",year:"Career",query:"Anil Kumble wickets against Sri Lanka ODI"},
+ {title:"Kumble's ODI bowling highlights",format:"ODI",
+  opponent:"Various",year:"Career",query:"Anil Kumble best ODI bowling highlights wickets"},
+ {title:"Kumble's IPL wickets",format:"IPL",
+  opponent:"Various",year:"2008–2010",query:"Anil Kumble IPL wickets bowling highlights"},
+ {title:"Kumble for Royal Challengers Bangalore",format:"IPL",
+  opponent:"RCB",year:"2008–2010",query:"Anil Kumble RCB bowling wickets highlights"},
+ {title:"Kumble's five-wicket haul in IPL",format:"IPL",
+  opponent:"Rajasthan Royals",year:"2009",query:"Anil Kumble 5 for 5 Rajasthan Royals IPL"},
+ {title:"Top 20 Anil Kumble wickets",format:"Highlights",
+  opponent:"Various",year:"Career",query:"Anil Kumble top 20 wickets compilation"},
+ {title:"Anil Kumble bowling action and leg spin",format:"Highlights",
+  opponent:"Various",year:"Career",query:"Anil Kumble bowling action leg spin wickets"},
+ {title:"Anil Kumble bowled dismissals",format:"Highlights",
+  opponent:"Various",year:"Career",query:"Anil Kumble bowled wickets compilation"},
+ {title:"Anil Kumble caught and bowled dismissals",format:"Highlights",
+  opponent:"Various",year:"Career",query:"Anil Kumble caught and bowled wickets"},
+ {title:"Anil Kumble lbw dismissals",format:"Highlights",
+  opponent:"Various",year:"Career",query:"Anil Kumble LBW wickets highlights"},
+ {title:"Anil Kumble career wicket compilation",format:"Highlights",
+  opponent:"Various",year:"Career",query:"Anil Kumble career wickets compilation"}
+];
+
+const videos = document.getElementById("videos");
+const search = document.getElementById("search");
+const format = document.getElementById("format");
+
+function youtubeSearch(query) {
+  return "https://www.youtube.com/results?search_query=" +
+         encodeURIComponent(query);
+}
+
+function render() {
+  const term = search.value.trim().toLowerCase();
+  const selectedFormat = format.value;
+
+  const filtered = highlights.filter(item => {
+    const matchesFormat = selectedFormat === "All" ||
+                         item.format === selectedFormat;
+    const matchesText = Object.values(item).join(" ")
+                         .toLowerCase().includes(term);
+    return matchesFormat && matchesText;
+  });
+
+  document.getElementById("count").textContent =
+    `Showing ${filtered.length} of ${highlights.length} video searches`;
+
+  videos.innerHTML = "";
+
+  if (!filtered.length) {
+    videos.innerHTML = "<p>No matching highlights. Try another search.</p>";
+    return;
+  }
+
+  filtered.forEach(item => {
+    const card = document.createElement("article");
+    card.className = "card";
+
+    const tag = document.createElement("div");
+    tag.className = "tag";
+    tag.textContent = item.format.toUpperCase() + " • " + item.year;
+
+    const heading = document.createElement("h3");
+    heading.textContent = item.title;
+
+    const description = document.createElement("p");
+    description.textContent = "Opponent: " + item.opponent;
+
+    const actions = document.createElement("div");
+    actions.className = "actions";
+
+    const watch = document.createElement("a");
+    watch.className = "btn";
+    watch.href = youtubeSearch(item.query);
+    watch.target = "_blank";
+    watch.rel = "noopener";
+    watch.textContent = "▶ Find videos";
+
+    const copy = document.createElement("button");
+    copy.className = "secondary";
+    copy.textContent = "Copy search link";
+    copy.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(watch.href);
+        copy.textContent = "Copied!";
+      } catch {
+        window.prompt("Copy this link:", watch.href);
+      }
+    });
+
+    actions.append(watch, copy);
+    card.append(tag, heading, description, actions);
+    videos.appendChild(card);
+  });
+}
+
+function resetFilters() {
+  search.value = "";
+  format.value = "All";
+  render();
+}
+
+search.addEventListener("input", render);
+format.addEventListener("change", render);
+render();
+</script>
+</body>
+</html>
