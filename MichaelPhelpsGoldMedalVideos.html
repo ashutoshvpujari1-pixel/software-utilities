@@ -1,0 +1,378 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Explore Michael Phelps' 23 Olympic gold medal swimming performances with YouTube video search links, event details and Olympic years.">
+<title>Michael Phelps | Gold Medal Video Explorer</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+<style>
+:root {
+  --navy: #071b35;
+  --blue: #0879d9;
+  --gold: #f8c844;
+  --light: #f1f6fc;
+  --text: #172b45;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--light);
+  color: var(--text);
+}
+header {
+  background: linear-gradient(135deg, #06172d, #0756a1);
+  color: white;
+  padding: 38px 18px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+header:after {
+  content: "🏊";
+  position: absolute;
+  font-size: 110px;
+  right: 5%;
+  bottom: -20px;
+  opacity: .13;
+}
+header h1 {
+  margin: 0 0 12px;
+  font-size: clamp(27px, 5vw, 44px);
+}
+header p { line-height: 1.6; margin: 8px auto; max-width: 720px; }
+.medal {
+  color: var(--gold);
+  font-weight: bold;
+}
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 20px 12px;
+}
+.stat {
+  background: white;
+  border-radius: 12px;
+  text-align: center;
+  padding: 15px 24px;
+  box-shadow: 0 3px 12px #102e5010;
+  min-width: 130px;
+}
+.stat strong {
+  display: block;
+  font-size: 28px;
+  color: #075eae;
+}
+main { max-width: 1200px; margin: auto; padding: 12px 18px 40px; }
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px 0 20px;
+}
+input, select, button {
+  font: inherit;
+  border-radius: 8px;
+  padding: 12px;
+}
+input, select {
+  border: 1px solid #cbd6e3;
+  background: white;
+  min-width: 160px;
+}
+#search { flex: 1; min-width: 220px; }
+button {
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+}
+button:hover, a:hover { filter: brightness(.94); }
+.section-title {
+  margin: 30px 0 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #d6e3f2;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+  gap: 16px;
+}
+.card {
+  background: white;
+  border: 1px solid #e0e8f1;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 4px 14px #0b31500a;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform .2s, box-shadow .2s;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px #0b31501c;
+}
+.card h3 { margin: 0; font-size: 19px; line-height: 1.4; }
+.year {
+  display: inline-block;
+  align-self: flex-start;
+  color: #064f92;
+  background: #e4f1ff;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 13px;
+}
+.gold { color: #a87800; font-weight: bold; }
+.details { color: #52657b; font-size: 14px; line-height: 1.5; }
+.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+.links a {
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: bold;
+}
+.youtube { background: #d92332; color: white; }
+.broad { background: #e8eef6; color: #193a60; }
+#resultCount { margin: 10px 0; color: #52657b; }
+#empty { padding: 30px; text-align: center; display: none; }
+.info {
+  background: #e8f3ff;
+  border-left: 4px solid #0879d9;
+  padding: 15px;
+  border-radius: 7px;
+  line-height: 1.6;
+  margin: 25px 0;
+}
+footer {
+  text-align: center;
+  padding: 25px 15px;
+  background: var(--navy);
+  color: white;
+  line-height: 1.8;
+}
+footer a { color: #9bd1ff; }
+@media(max-width: 500px) {
+  main { padding: 10px; }
+  .stat { flex: 1; min-width: 100px; padding: 12px; }
+  .controls > * { width: 100%; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🏊 Michael Phelps</h1>
+  <p>Olympic Gold Medal Swimming Video Explorer</p>
+  <p>Relive the races, records, finishes and relay victories of the greatest Olympic swimmer.</p>
+  <p class="medal">🏅 23 Olympic Gold Medals · 4 Olympic Games</p>
+</header>
+
+<div class="stats">
+  <div class="stat"><strong>23</strong>Gold medals</div>
+  <div class="stat"><strong>8</strong>Beijing 2008</div>
+  <div class="stat"><strong>4</strong>Olympic Games</div>
+  <div class="stat"><strong>13</strong>Individual golds</div>
+</div>
+
+<main>
+  <h2 class="section-title">Find a Gold Medal Performance</h2>
+
+  <div class="controls">
+    <input id="search" type="search"
+      placeholder="🔍 Search event, year, stroke or Olympics..."
+      aria-label="Search swimming performances">
+
+    <select id="yearFilter" aria-label="Filter by Olympic year">
+      <option value="all">All Olympic years</option>
+      <option value="2004">2004 Athens</option>
+      <option value="2008">2008 Beijing</option>
+      <option value="2012">2012 London</option>
+      <option value="2016">2016 Rio</option>
+    </select>
+
+    <select id="typeFilter" aria-label="Filter by event type">
+      <option value="all">All event types</option>
+      <option value="Individual">Individual events</option>
+      <option value="Relay">Relay events</option>
+    </select>
+
+    <button onclick="resetFilters()" style="background:#dce7f3;color:#153858">
+      Reset
+    </button>
+  </div>
+
+  <div id="resultCount" aria-live="polite"></div>
+  <div id="videos" class="grid"></div>
+  <div id="empty">No matching performances. Try another search.</div>
+
+  <div class="info">
+    <strong>📺 How video links work</strong><br>
+    Select <b>Watch on YouTube</b> to search for the specific Olympic race.
+    These are search links, not guarantees that a complete race is available.
+    Video availability depends on the uploader and region.
+  </div>
+
+  <h2 class="section-title">Explore More Michael Phelps Videos</h2>
+  <div class="links">
+    <a class="youtube"
+       href="https://www.youtube.com/results?search_query=Michael+Phelps+all+Olympic+gold+medals"
+       target="_blank" rel="noopener">All 23 Gold Medals</a>
+
+    <a class="broad"
+       href="https://www.youtube.com/results?search_query=Michael+Phelps+Beijing+2008+8+gold+medals"
+       target="_blank" rel="noopener">Eight Golds in 2008</a>
+
+    <a class="broad"
+       href="https://www.youtube.com/results?search_query=Michael+Phelps+Olympic+world+record+races"
+       target="_blank" rel="noopener">World Record Races</a>
+
+    <a class="broad"
+       href="https://www.youtube.com/results?search_query=Michael+Phelps+Olympic+swimming+highlights"
+       target="_blank" rel="noopener">Olympic Highlights</a>
+  </div>
+
+  <p style="margin-top:25px">
+    Official results:
+    <a href="https://www.worldaquatics.com/athletes/1001621/-/medals"
+       target="_blank" rel="noopener">World Aquatics medal record</a>
+  </p>
+</main>
+
+<footer>
+  <strong>Michael Phelps Gold Medal Video Explorer</strong><br>
+  Built for swimming fans, students and sports enthusiasts.<br>
+  Video content is hosted by YouTube and its respective publishers.
+</footer>
+
+<script>
+const performances = [
+  // Athens 2004 — 6 golds
+  {year:2004, city:"Athens", event:"100m Butterfly", type:"Individual"},
+  {year:2004, city:"Athens", event:"200m Butterfly", type:"Individual"},
+  {year:2004, city:"Athens", event:"200m Individual Medley", type:"Individual"},
+  {year:2004, city:"Athens", event:"400m Individual Medley", type:"Individual"},
+  {year:2004, city:"Athens", event:"4x200m Freestyle Relay", type:"Relay"},
+  {year:2004, city:"Athens", event:"4x100m Medley Relay", type:"Relay"},
+
+  // Beijing 2008 — 8 golds
+  {year:2008, city:"Beijing", event:"200m Freestyle", type:"Individual"},
+  {year:2008, city:"Beijing", event:"100m Butterfly", type:"Individual"},
+  {year:2008, city:"Beijing", event:"200m Butterfly", type:"Individual"},
+  {year:2008, city:"Beijing", event:"200m Individual Medley", type:"Individual"},
+  {year:2008, city:"Beijing", event:"400m Individual Medley", type:"Individual"},
+  {year:2008, city:"Beijing", event:"4x100m Freestyle Relay", type:"Relay"},
+  {year:2008, city:"Beijing", event:"4x200m Freestyle Relay", type:"Relay"},
+  {year:2008, city:"Beijing", event:"4x100m Medley Relay", type:"Relay"},
+
+  // London 2012 — 4 golds
+  {year:2012, city:"London", event:"100m Butterfly", type:"Individual"},
+  {year:2012, city:"London", event:"200m Individual Medley", type:"Individual"},
+  {year:2012, city:"London", event:"4x200m Freestyle Relay", type:"Relay"},
+  {year:2012, city:"London", event:"4x100m Medley Relay", type:"Relay"},
+
+  // Rio 2016 — 5 golds
+  {year:2016, city:"Rio de Janeiro", event:"200m Butterfly", type:"Individual"},
+  {year:2016, city:"Rio de Janeiro", event:"200m Individual Medley", type:"Individual"},
+  {year:2016, city:"Rio de Janeiro", event:"4x100m Freestyle Relay", type:"Relay"},
+  {year:2016, city:"Rio de Janeiro", event:"4x200m Freestyle Relay", type:"Relay"},
+  {year:2016, city:"Rio de Janeiro", event:"4x100m Medley Relay", type:"Relay"}
+];
+
+const videos = document.getElementById("videos");
+const search = document.getElementById("search");
+const yearFilter = document.getElementById("yearFilter");
+const typeFilter = document.getElementById("typeFilter");
+const resultCount = document.getElementById("resultCount");
+const empty = document.getElementById("empty");
+
+function makeSearchURL(query) {
+  return "https://www.youtube.com/results?search_query=" +
+    encodeURIComponent(query);
+}
+
+function render() {
+  const term = search.value.trim().toLowerCase();
+  const year = yearFilter.value;
+  const type = typeFilter.value;
+
+  const filtered = performances.filter(p => {
+    const text = `${p.year} ${p.city} ${p.event} ${p.type} Michael Phelps`
+      .toLowerCase();
+
+    return (year === "all" || String(p.year) === year) &&
+      (type === "all" || p.type === type) &&
+      text.includes(term);
+  });
+
+  videos.innerHTML = filtered.map((p, index) => {
+    const query =
+      `Michael Phelps ${p.year} ${p.city} Olympics ${p.event} gold medal race`;
+
+    const generalQuery =
+      `Michael Phelps ${p.year} Olympics ${p.event} full race highlights`;
+
+    return `
+      <article class="card">
+        <span class="year">${p.year} · ${p.city}</span>
+        <h3>${p.event}</h3>
+        <div class="gold">🥇 Olympic Gold Medal</div>
+        <div class="details">
+          Event type: ${p.type}<br>
+          Athlete: Michael Phelps<br>
+          Olympic swimming
+        </div>
+        <div class="links">
+          <a class="youtube"
+             href="${makeSearchURL(query)}"
+             target="_blank" rel="noopener">
+             ▶ Watch on YouTube
+          </a>
+          <a class="broad"
+             href="${makeSearchURL(generalQuery)}"
+             target="_blank" rel="noopener">
+             Find Highlights
+          </a>
+        </div>
+      </article>`;
+  }).join("");
+
+  resultCount.textContent =
+    `Showing ${filtered.length} of ${performances.length} gold medal performances`;
+
+  empty.style.display = filtered.length ? "none" : "block";
+}
+
+function resetFilters() {
+  search.value = "";
+  yearFilter.value = "all";
+  typeFilter.value = "all";
+  render();
+}
+
+search.addEventListener("input", render);
+yearFilter.addEventListener("change", render);
+typeFilter.addEventListener("change", render);
+
+render();
+</script>
+
+</body>
+</html>

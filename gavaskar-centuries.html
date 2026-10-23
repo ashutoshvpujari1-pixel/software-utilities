@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunil Gavaskar - All International Centuries</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      color: #172033;
+    }
+
+    header {
+      background: linear-gradient(135deg, #063b2b, #087f5b);
+      color: white;
+      text-align: center;
+      padding: 32px 16px;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: clamp(25px, 5vw, 38px);
+    }
+
+    header p {
+      margin: 0;
+      color: #d8f3e8;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .stat {
+      background: #ffffff1c;
+      padding: 12px 22px;
+      border-radius: 10px;
+      min-width: 110px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 25px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 25px auto;
+      padding: 0 16px;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    input, select {
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: white;
+      font-size: 15px;
+    }
+
+    input {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .toolbar select {
+      min-width: 150px;
+    }
+
+    #count {
+      color: #475569;
+      margin: 12px 0;
+    }
+
+    .century-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 2px 5px #0f172a08;
+    }
+
+    .details {
+      min-width: 0;
+    }
+
+    .score {
+      color: #087f5b;
+      font-size: 27px;
+      font-weight: bold;
+    }
+
+    .details h2 {
+      margin: 5px 0;
+      font-size: 18px;
+    }
+
+    .details p {
+      margin: 5px 0;
+      color: #64748b;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .format {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #075985;
+      padding: 4px 8px;
+      border-radius: 5px;
+      font-size: 12px;
+      margin-left: 6px;
+    }
+
+    .youtube {
+      flex-shrink: 0;
+      display: inline-block;
+      text-decoration: none;
+      background: #e62117;
+      color: white;
+      padding: 11px 14px;
+      border-radius: 7px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .youtube:hover {
+      background: #b91c1c;
+    }
+
+    #empty {
+      display: none;
+      padding: 25px;
+      text-align: center;
+      background: white;
+      border-radius: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 15px;
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      .century-card {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .youtube {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🏏 Sunil Gavaskar</h1>
+  <p>The Little Master's International Centuries</p>
+
+  <div class="stats">
+    <div class="stat">
+      <strong>35</strong>
+      <span>Total centuries</span>
+    </div>
+    <div class="stat">
+      <strong>34</strong>
+      <span>Test centuries</span>
+    </div>
+    <div class="stat">
+      <strong>1</strong>
+      <span>ODI century</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="toolbar">
+    <input
+      id="search"
+      type="search"
+      placeholder="Search opponent, score, venue or year..."
+      aria-label="Search centuries"
+    >
+
+    <select id="format" aria-label="Filter by format">
+      <option value="All">All formats</option>
+      <option value="Test">Test matches</option>
+      <option value="ODI">ODI matches</option>
+    </select>
+
+    <select id="sort" aria-label="Sort centuries">
+      <option value="chronological">Career order</option>
+      <option value="highest">Highest score first</option>
+      <option value="newest">Newest first</option>
+    </select>
+  </div>
+
+  <p id="count" aria-live="polite"></p>
+  <section id="list"></section>
+  <p id="empty">No centuries match your search.</p>
+</main>
+
+<footer>
+  Century records: Wikipedia's international centuries list.
+  YouTube buttons search for videos; individual video availability
+  depends on YouTube.
+</footer>
+
+<script>
+  // Score, opponent, venue and date are based on the
+  // published international century record.
+  const centuries = [
+    [116, "West Indies", "Georgetown", "1971-03-19", "Test"],
+    [117, "West Indies", "Bridgetown", "1971-04-01", "Test", true],
+    [124, "West Indies", "Port of Spain", "1971-04-13", "Test"],
+    [220, "West Indies", "Port of Spain", "1971-04-13", "Test"],
+    [101, "England", "Manchester", "1974-06-06", "Test"],
+    [116, "New Zealand", "Auckland", "1976-01-24", "Test"],
+    [156, "West Indies", "Port of Spain", "1976-03-24", "Test"],
+    [102, "West Indies", "Port of Spain", "1976-04-07", "Test"],
+    [119, "New Zealand", "Mumbai", "1976-11-10", "Test"],
+    [108, "England", "Mumbai", "1977-02-11", "Test"],
+    [113, "Australia", "Brisbane", "1977-12-02", "Test"],
+    [127, "Australia", "Perth", "1977-12-16", "Test"],
+    [118, "Australia", "Melbourne", "1977-12-30", "Test"],
+    [111, "Pakistan", "Karachi", "1978-11-14", "Test"],
+    [137, "Pakistan", "Karachi", "1978-11-14", "Test"],
+    [205, "West Indies", "Mumbai", "1978-12-01", "Test"],
+    [107, "West Indies", "Kolkata", "1978-12-29", "Test"],
+    [182, "West Indies", "Kolkata", "1978-12-29", "Test", true],
+    [120, "West Indies", "Delhi", "1979-01-24", "Test"],
+    [221, "England", "The Oval, London", "1979-08-30", "Test"],
+    [115, "Australia", "Delhi", "1979-10-13", "Test"],
+    [123, "Australia", "Mumbai", "1979-11-03", "Test"],
+    [166, "Pakistan", "Chennai", "1980-01-15", "Test"],
+    [172, "England", "Bengaluru", "1981-12-09", "Test"],
+    [155, "Sri Lanka", "Chennai", "1982-09-17", "Test"],
+    [127, "Pakistan", "Faisalabad", "1983-01-03", "Test", true],
+    [147, "West Indies", "Georgetown", "1983-03-31", "Test", true],
+    [103, "Pakistan", "Bengaluru", "1983-09-14", "Test", true],
+    [121, "West Indies", "Delhi", "1983-10-29", "Test"],
+    [236, "West Indies", "Chennai", "1983-12-28", "Test", true],
+    [166, "Australia", "Adelaide", "1985-12-15", "Test", true],
+    [172, "Australia", "Sydney", "1986-01-02", "Test"],
+    [103, "Australia", "Mumbai", "1986-10-15", "Test"],
+    [176, "Sri Lanka", "Kanpur", "1986-12-17", "Test"],
+    [103, "New Zealand", "Nagpur", "1987-10-31", "ODI", true]
+  ].map((row, index) => ({
+    number: index + 1,
+    score: row[0],
+    opponent: row[1],
+    venue: row[2],
+    date: row[3],
+    format: row[4],
+    notOut: row[5] === true
+  }));
+
+  const list = document.getElementById("list");
+  const search = document.getElementById("search");
+  const format = document.getElementById("format");
+  const sort = document.getElementById("sort");
+  const count = document.getElementById("count");
+  const empty = document.getElementById("empty");
+
+  function youtubeSearch(century) {
+    const query =
+      `Sunil Gavaskar ${century.score}${century.notOut ? " not out" : ""}` +
+      ` vs ${century.opponent} ${century.venue} ${century.date.slice(0, 4)}` +
+      ` ${century.format} highlights`;
+
+    return "https://www.youtube.com/results?search_query=" +
+      encodeURIComponent(query);
+  }
+
+  function render() {
+    const term = search.value.trim().toLowerCase();
+    const selectedFormat = format.value;
+
+    let filtered = centuries.filter(c => {
+      const searchable = [
+        c.score,
+        c.opponent,
+        c.venue,
+        c.date,
+        c.format,
+        c.number
+      ].join(" ").toLowerCase();
+
+      return searchable.includes(term) &&
+        (selectedFormat === "All" || c.format === selectedFormat);
+    });
+
+    if (sort.value === "highest") {
+      filtered.sort((a, b) => b.score - a.score);
+    } else if (sort.value === "newest") {
+      filtered.sort((a, b) => b.date.localeCompare(a.date));
+    } else {
+      filtered.sort((a, b) => a.number - b.number);
+    }
+
+    count.textContent =
+      `Showing ${filtered.length} of ${centuries.length} centuries`;
+
+    empty.style.display = filtered.length ? "none" : "block";
+
+    list.innerHTML = filtered.map(c => {
+      const score = c.score + (c.notOut ? "*" : "");
+      const date = new Date(c.date + "T12:00:00")
+        .toLocaleDateString("en-GB", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+          timeZone: "UTC"
+        });
+
+      return `
+        <article class="century-card">
+          <div class="details">
+            <div>
+              <span class="score">${score}</span>
+              <span class="format">${c.format}</span>
+            </div>
+            <h2>#${c.number} — ${c.opponent}</h2>
+            <p>${c.venue} · ${date}</p>
+            <p>${c.notOut ? "Not out · " : ""}International century</p>
+          </div>
+
+          <a
+            class="youtube"
+            href="${youtubeSearch(c)}"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Find YouTube videos for ${score} against ${c.opponent}"
+          >▶ Watch on YouTube</a>
+        </article>
+      `;
+    }).join("");
+  }
+
+  search.addEventListener("input", render);
+  format.addEventListener("change", render);
+  sort.addEventListener("change", render);
+
+  render();
+</script>
+
+</body>
+</html>

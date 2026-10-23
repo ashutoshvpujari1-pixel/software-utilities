@@ -1,0 +1,481 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sachin Tendulkar Century Explorer | All 100 Tons</title>
+<meta name="description" content="Explore Sachin Tendulkar's 100 international centuries with YouTube video search links, scores, opponents, venues and dates.">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+
+<style>
+:root {
+  --navy: #071a35;
+  --blue: #123f78;
+  --gold: #ffc857;
+  --bg: #f2f6fc;
+  --card: #ffffff;
+  --text: #17243a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+header {
+  background: linear-gradient(125deg, #06152c, #124d8b);
+  color: white;
+  text-align: center;
+  padding: 38px 18px 30px;
+  border-bottom: 5px solid var(--gold);
+}
+header .ball { font-size: 38px; }
+h1 { margin: 10px 0; font-size: clamp(27px, 4vw, 43px); }
+header p { line-height: 1.7; margin: 8px auto; max-width: 760px; }
+.gold { color: var(--gold); font-weight: bold; }
+main { max-width: 1250px; margin: auto; padding: 22px 15px; }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  padding: 20px 10px;
+  text-align: center;
+  border-radius: 13px;
+  box-shadow: 0 4px 15px #102c5010;
+}
+.stat strong { display: block; font-size: 29px; color: var(--blue); }
+.stat span { font-size: 13px; color: #62718a; }
+.panel {
+  background: var(--card);
+  padding: 17px;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px #102c5010;
+  margin-bottom: 20px;
+}
+.controls {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 10px;
+}
+input, select, button {
+  font: inherit;
+  padding: 12px;
+  border: 1px solid #d5dfed;
+  border-radius: 9px;
+}
+input, select { width: 100%; background: white; color: #17243a; }
+button { cursor: pointer; font-weight: bold; }
+button:hover, a:hover { filter: brightness(.94); }
+.actions { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 12px; }
+.btn {
+  background: var(--blue); color: white; border: 0;
+  display: inline-block; text-decoration: none;
+  padding: 11px 14px; border-radius: 8px; text-align: center;
+}
+.btn.goldbtn { background: #f5b92f; color: #14233b; }
+.note { font-size: 13px; color: #61718a; line-height: 1.6; }
+#status { padding: 10px 0; font-size: 14px; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+.century {
+  background: white;
+  border: 1px solid #e0e8f3;
+  border-radius: 13px;
+  padding: 17px;
+  box-shadow: 0 4px 14px #102c5008;
+  transition: transform .18s, box-shadow .18s;
+}
+.century:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px #102c5018;
+}
+.cardtop { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.number {
+  background: #e7f0ff; color: #17477e;
+  padding: 7px 10px; border-radius: 8px; font-weight: bold;
+}
+.format {
+  background: #fff0c9; color: #77520a;
+  border-radius: 20px; padding: 5px 9px;
+  font-size: 11px; font-weight: bold;
+}
+.score { font-size: 32px; color: #124d8b; font-weight: 800; margin: 14px 0 5px; }
+.opponent { font-size: 17px; font-weight: bold; }
+.details { font-size: 13px; color: #65738a; line-height: 1.8; margin: 8px 0 15px; }
+.cardbuttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.cardbuttons a { font-size: 12px; padding: 11px 6px; }
+#loadMore { margin: 22px auto; display: block; }
+footer {
+  background: var(--navy); color: white; text-align: center;
+  padding: 23px 15px; line-height: 1.8; font-size: 13px;
+}
+footer a { color: var(--gold); }
+@media(max-width:900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width:600px) {
+  .grid { grid-template-columns: 1fr; }
+  .controls { grid-template-columns: 1fr; }
+  .stats { gap: 6px; }
+  .stat strong { font-size: 23px; }
+  .stat span { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="ball">🏏</div>
+  <h1>Sachin Tendulkar<br><span class="gold">Century Explorer</span></h1>
+  <p>Relive the magic of the Master Blaster — from his first Test century in 1990 to his historic 100th international hundred in 2012.</p>
+  <p><strong>100 International Centuries · 51 Tests · 49 ODIs</strong></p>
+</header>
+
+<main>
+  <section class="stats">
+    <div class="stat"><strong>100</strong><span>International centuries</span></div>
+    <div class="stat"><strong>51</strong><span>Test centuries</span></div>
+    <div class="stat"><strong>49</strong><span>ODI centuries</span></div>
+  </section>
+
+  <section class="panel">
+    <h2>🔎 Find a century</h2>
+    <div class="controls">
+      <input id="search" type="search"
+        placeholder="Search opponent, score, venue, year..."
+        aria-label="Search centuries">
+      <select id="format" aria-label="Filter by format">
+        <option value="All">All formats</option>
+        <option value="Test">Test</option>
+        <option value="ODI">ODI</option>
+      </select>
+      <select id="sort" aria-label="Sort centuries">
+        <option value="chronological">Chronological order</option>
+        <option value="highest">Highest score first</option>
+        <option value="newest">Newest first</option>
+      </select>
+    </div>
+    <div class="actions">
+      <a class="btn goldbtn" target="_blank" rel="noopener"
+         href="https://www.youtube.com/results?search_query=Sachin+Tendulkar+all+100+international+centuries+highlights">
+         ▶ Search all 100 tons on YouTube
+      </a>
+      <a class="btn" target="_blank" rel="noopener"
+         href="https://en.wikipedia.org/wiki/List_of_international_cricket_centuries_by_Sachin_Tendulkar">
+         View complete statistics
+      </a>
+    </div>
+    <p class="note">The century database is loaded from Wikipedia when available. Each entry gets a YouTube search link tailored to its score, opponent, venue and date. These links find available videos; they are not guarantees of full-match footage.</p>
+    <div id="status" role="status">Loading century records...</div>
+  </section>
+
+  <section id="results" class="grid" aria-live="polite"></section>
+  <button id="loadMore" class="btn" hidden>Show more centuries</button>
+  <p class="note">Video availability depends on the uploader and regional rights. Some results may show highlights, news clips or match summaries rather than the complete innings.</p>
+</main>
+
+<footer>
+  <strong>Sachin Tendulkar Century Explorer</strong><br>
+  A fan-made cricket history and video discovery page.<br>
+  Statistics reference:
+  <a href="https://en.wikipedia.org/wiki/List_of_international_cricket_centuries_by_Sachin_Tendulkar" target="_blank" rel="noopener">International centuries list</a>
+  · <a href="https://www.bcci.tv/" target="_blank" rel="noopener">BCCI</a>
+</footer>
+
+<script>
+"use strict";
+
+const API =
+ "https://en.wikipedia.org/w/api.php?action=parse" +
+ "&page=List_of_international_cricket_centuries_by_Sachin_Tendulkar" +
+ "&prop=text&format=json&origin=*";
+
+let centuries = [];
+let filtered = [];
+let visibleCount = 18;
+
+const $ = id => document.getElementById(id);
+
+function cleanText(el) {
+  return (el?.textContent || "")
+    .replace(/\[[^\]]*\]/g, "")
+    .replace(/[†‡]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function youtubeURL(c) {
+  const q = [
+    "Sachin Tendulkar",
+    c.score,
+    "vs",
+    c.opponent,
+    c.venue,
+    c.date,
+    c.format,
+    "century highlights"
+  ].filter(Boolean).join(" ");
+  return "https://www.youtube.com/results?search_query=" +
+    encodeURIComponent(q);
+}
+
+function safeText(value) {
+  return String(value ?? "");
+}
+
+function parseCenturyTable(table, format) {
+  const rows = [...table.querySelectorAll("tr")];
+  const output = [];
+
+  for (const row of rows) {
+    const cells = [...row.querySelectorAll("th,td")];
+    if (cells.length < 7) continue;
+
+    const values = cells.map(cleanText);
+    if (!/^\d+$/.test(values[0])) continue;
+
+    const number = Number(values[0]);
+    const score = values[1];
+    const opponent = values[2];
+    const venue = values[6] || "";
+    const date = values[8] || "";
+
+    if (!score || !opponent || !date) continue;
+
+    output.push({
+      number,
+      score,
+      opponent,
+      venue,
+      date,
+      format,
+      globalNumber: 0
+    });
+  }
+  return output;
+}
+
+function render() {
+  const query = $("search").value.trim().toLowerCase();
+  const format = $("format").value;
+  const sort = $("sort").value;
+
+  filtered = centuries.filter(c => {
+    const matchesFormat = format === "All" || c.format === format;
+    const text = [
+      c.globalNumber, c.number, c.score, c.opponent,
+      c.venue, c.date, c.format
+    ].join(" ").toLowerCase();
+
+    return matchesFormat && text.includes(query);
+  });
+
+  filtered.sort((a, b) => {
+    if (sort === "highest") {
+      return (parseInt(b.score, 10) || 0) -
+             (parseInt(a.score, 10) || 0);
+    }
+    if (sort === "newest") {
+      return b.globalNumber - a.globalNumber;
+    }
+    return a.globalNumber - b.globalNumber;
+  });
+
+  const shown = filtered.slice(0, visibleCount);
+  $("results").replaceChildren();
+
+  for (const c of shown) {
+    const article = document.createElement("article");
+    article.className = "century";
+
+    const top = document.createElement("div");
+    top.className = "cardtop";
+
+    const badge = document.createElement("span");
+    badge.className = "number";
+    badge.textContent = "Century #" + c.globalNumber;
+
+    const formatBadge = document.createElement("span");
+    formatBadge.className = "format";
+    formatBadge.textContent = c.format;
+
+    top.append(badge, formatBadge);
+
+    const score = document.createElement("div");
+    score.className = "score";
+    score.textContent = c.score + " runs";
+
+    const opponent = document.createElement("div");
+    opponent.className = "opponent";
+    opponent.textContent = "🇮🇳 India vs " + c.opponent;
+
+    const details = document.createElement("div");
+    details.className = "details";
+    details.textContent = "📍 " + c.venue + "\n📅 " + c.date;
+    details.style.whiteSpace = "pre-line";
+
+    const buttons = document.createElement("div");
+    buttons.className = "cardbuttons";
+
+    const video = document.createElement("a");
+    video.className = "btn";
+    video.textContent = "▶ Find video";
+    video.href = youtubeURL(c);
+    video.target = "_blank";
+    video.rel = "noopener";
+
+    const searchAll = document.createElement("a");
+    searchAll.className = "btn goldbtn";
+    searchAll.textContent = "More clips";
+    searchAll.href = "https://www.youtube.com/results?search_query=" +
+      encodeURIComponent(
+        "Sachin Tendulkar " + c.score + " " + c.opponent +
+        " " + c.date + " innings highlights"
+      );
+    searchAll.target = "_blank";
+    searchAll.rel = "noopener";
+
+    buttons.append(video, searchAll);
+    article.append(top, score, opponent, details, buttons);
+    $("results").append(article);
+  }
+
+  $("status").textContent =
+    filtered.length
+      ? `Showing ${shown.length} of ${filtered.length} matching centuries` +
+        ` · Database records loaded: ${centuries.length}`
+      : "No matching centuries. Try a different search.";
+
+  $("loadMore").hidden = visibleCount >= filtered.length;
+}
+
+async function loadData() {
+  $("status").textContent = "Loading the Test and ODI century tables...";
+
+  try {
+    const response = await fetch(API);
+    if (!response.ok) throw new Error("Wikipedia request failed");
+
+    const json = await response.json();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(json.parse.text["*"], "text/html");
+
+    const headings = [...doc.querySelectorAll("h2")];
+    let testTable = null;
+    let odiTable = null;
+
+    for (const heading of headings) {
+      const label = cleanText(heading);
+      let next = heading.nextElementSibling;
+
+      while (next && next.tagName !== "TABLE" &&
+             !/^H[1-6]$/.test(next.tagName)) {
+        if (next.tagName === "TABLE") break;
+        next = next.nextElementSibling;
+      }
+
+      if (/List of Test cricket centuries/i.test(label) && next?.tagName === "TABLE") {
+        testTable = next;
+      }
+      if (/List of ODI centuries/i.test(label) && next?.tagName === "TABLE") {
+        odiTable = next;
+      }
+    }
+
+    // Robust fallback: identify the two century tables by their headers.
+    const tables = [...doc.querySelectorAll("table.wikitable")];
+    for (const table of tables) {
+      const header = cleanText(table.querySelector("tr"));
+      if (!testTable && /Against.*Venue.*Date/i.test(header) &&
+          /Test/i.test(cleanText(table.previousElementSibling))) {
+        testTable = table;
+      }
+    }
+
+    // The table order on the reference page is Test first, ODI second.
+    const testCandidates = tables.filter(t =>
+      /Against/.test(cleanText(t.querySelector("tr"))) &&
+      /Result/.test(cleanText(t.querySelector("tr")))
+    );
+
+    if (!testTable && testCandidates.length) testTable = testCandidates[0];
+    if (!odiTable && testCandidates.length > 1) odiTable = testCandidates[1];
+
+    let tests = testTable ? parseCenturyTable(testTable, "Test") : [];
+    let odis = odiTable ? parseCenturyTable(odiTable, "ODI") : [];
+
+    // If table discovery differs across Wikipedia layouts, don't silently
+    // present incomplete records as the full list.
+    if (tests.length !== 51 || odis.length !== 49) {
+      throw new Error(
+        "The century tables could not be identified completely. " +
+        "Please use the source link below to view the complete list."
+      );
+    }
+
+    // Put all centuries in the order in which they were scored.
+    centuries = [...tests, ...odis].map(c => ({
+      ...c,
+      parsedDate: new Date(c.date).getTime()
+    })).sort((a, b) => a.parsedDate - b.parsedDate);
+
+    centuries.forEach((c, i) => c.globalNumber = i + 1);
+
+    $("status").textContent =
+      "Successfully loaded all 100 international centuries.";
+    render();
+  } catch (error) {
+    console.error(error);
+    $("status").textContent =
+      "Could not load the complete century database automatically. " +
+      "Check your internet connection or open the full statistics source below.";
+    $("results").replaceChildren();
+
+    const fallback = document.createElement("div");
+    fallback.className = "century";
+    fallback.style.gridColumn = "1 / -1";
+    fallback.textContent =
+      "Automatic loading requires an internet connection and access to Wikipedia's API. " +
+      "The YouTube search buttons above remain available.";
+    $("results").append(fallback);
+    $("loadMore").hidden = true;
+  }
+}
+
+$("search").addEventListener("input", () => {
+  visibleCount = 18;
+  render();
+});
+$("format").addEventListener("change", () => {
+  visibleCount = 18;
+  render();
+});
+$("sort").addEventListener("change", () => {
+  visibleCount = 18;
+  render();
+});
+$("loadMore").addEventListener("click", () => {
+  visibleCount += 18;
+  render();
+});
+
+loadData();
+</script>
+</body>
+</html>

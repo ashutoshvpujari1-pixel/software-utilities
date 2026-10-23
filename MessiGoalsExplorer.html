@@ -1,0 +1,493 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Explore Lionel Messi football goals, iconic strikes, free kicks, World Cup goals and club highlights through YouTube.">
+<title>Messi Goals Explorer | Football Legends</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+<style>
+:root {
+  --bg: #07111f;
+  --panel: #101f32;
+  --text: #f2f7ff;
+  --muted: #a8b8ce;
+  --accent: #67e8f9;
+  --pink: #e879f9;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: var(--text);
+  background: radial-gradient(ellipse at top, #193d60, var(--bg) 65%);
+  min-height: 100vh;
+}
+header {
+  text-align: center;
+  padding: 36px 18px 28px;
+  background: linear-gradient(120deg, #07111f, #17436b, #07111f);
+  border-bottom: 2px solid #3c91b8;
+}
+header h1 { font-size: clamp(30px, 5vw, 52px); margin: 0 0 12px; }
+header p { color: #d3e8ff; line-height: 1.6; }
+.hero-ball { font-size: 52px; }
+main { max-width: 1200px; margin: auto; padding: 22px; }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.stat, .panel, .goal-card {
+  background: rgba(16,31,50,.94);
+  border: 1px solid #29435d;
+  border-radius: 15px;
+  padding: 18px;
+}
+.stat strong { display: block; color: var(--accent); font-size: 23px; }
+.stat span { color: var(--muted); font-size: 13px; }
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+input, select, button, .btn {
+  font: inherit;
+  border-radius: 9px;
+  padding: 12px;
+}
+input, select {
+  width: 100%;
+  background: #071524;
+  color: white;
+  border: 1px solid #38516b;
+}
+button, .btn {
+  border: 0;
+  cursor: pointer;
+  background: #087da7;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+}
+button:hover, .btn:hover { background: #119cc7; }
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0;
+}
+.category-buttons button { background: #233c55; }
+.category-buttons button.active { background: #087da7; }
+h2 { margin-top: 24px; }
+#resultInfo { color: var(--muted); margin: 15px 0; }
+.goals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.goal-card {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.goal-icon {
+  min-height: 100px;
+  border-radius: 10px;
+  background: linear-gradient(140deg, #174b70, #101b31);
+  display: grid;
+  place-items: center;
+  font-size: 42px;
+}
+.goal-card h3 { margin: 0; line-height: 1.4; }
+.goal-card p { margin: 0; color: var(--muted); line-height: 1.5; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+.actions a, .actions button { flex: 1; min-width: 100px; font-size: 13px; }
+.secondary { background: #34475d !important; }
+footer {
+  text-align: center;
+  padding: 25px 15px;
+  color: var(--muted);
+  margin-top: 35px;
+  border-top: 1px solid #29435d;
+}
+footer a { color: var(--accent); }
+#player { display: none; margin-top: 20px; }
+#player iframe { width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 12px; }
+.note { color: var(--muted); font-size: 13px; line-height: 1.6; }
+</style>
+</head>
+
+<body>
+<header>
+  <div class="hero-ball">⚽ 🐐 ⚽</div>
+  <h1>Messi Goals Explorer</h1>
+  <p>Celebrate the magic of Lionel Messi — from Barcelona to Argentina
+     and Inter Miami.</p>
+  <p>Search goals • Discover iconic moments • Watch YouTube highlights</p>
+</header>
+
+<main>
+  <section class="stats">
+    <div class="stat"><strong>Barcelona</strong><span>Club goal highlights</span></div>
+    <div class="stat"><strong>Argentina</strong><span>International goals</span></div>
+    <div class="stat"><strong>Free Kicks</strong><span>Dead-ball magic</span></div>
+    <div class="stat"><strong>World Cup</strong><span>Football's biggest stage</span></div>
+  </section>
+
+  <section class="panel">
+    <h2>🔎 Find a Messi Goal</h2>
+    <div class="controls">
+      <input id="search" placeholder="Search opponent, year, goal type..."
+             aria-label="Search goals">
+      <select id="team" aria-label="Filter by team">
+        <option value="all">All teams</option>
+        <option>Barcelona</option>
+        <option>PSG</option>
+        <option>Inter Miami</option>
+        <option>Argentina</option>
+      </select>
+      <select id="kind" aria-label="Filter by goal type">
+        <option value="all">All goal types</option>
+        <option>Free kick</option>
+        <option>Penalty</option>
+        <option>Long range</option>
+        <option>Solo goal</option>
+        <option>Hat-trick</option>
+        <option>World Cup</option>
+        <option>Champions League</option>
+      </select>
+      <select id="sort" aria-label="Sort categories">
+        <option value="featured">Featured first</option>
+        <option value="az">Title A–Z</option>
+      </select>
+    </div>
+
+    <div class="category-buttons" id="categories">
+      <button class="active" data-category="all">All Highlights</button>
+      <button data-category="Barcelona">Barcelona</button>
+      <button data-category="Argentina">Argentina</button>
+      <button data-category="PSG">PSG</button>
+      <button data-category="Inter Miami">Inter Miami</button>
+    </div>
+
+    <p id="resultInfo" aria-live="polite"></p>
+    <div class="goals" id="goals"></div>
+    <div style="text-align:center;margin-top:20px">
+      <button id="more" style="display:none">Show More Results</button>
+    </div>
+  </section>
+
+  <section class="panel" id="player">
+    <h2 id="playerTitle">Watch Highlights</h2>
+    <p class="note">If the video cannot be embedded, use the YouTube search link.</p>
+    <iframe id="video" title="Messi goal video" allowfullscreen
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <p><a id="youtubeFallback" class="btn" target="_blank"
+       rel="noopener noreferrer">Open on YouTube ↗</a></p>
+  </section>
+
+  <section class="panel" style="margin-top:20px">
+    <h2>⭐ Popular Messi Goal Searches</h2>
+    <div class="category-buttons">
+      <button onclick="quickSearch('Messi goal vs Getafe 2007')">Getafe solo goal</button>
+      <button onclick="quickSearch('Messi goal vs Real Madrid 2017')">Real Madrid</button>
+      <button onclick="quickSearch('Messi free kick Liverpool 2019')">Liverpool free kick</button>
+      <button onclick="quickSearch('Messi World Cup final France 2022 goals')">World Cup final</button>
+      <button onclick="quickSearch('Messi goal vs Mexico World Cup 2022')">Mexico 2022</button>
+      <button onclick="quickSearch('Messi Inter Miami free kick highlights')">Inter Miami</button>
+      <button onclick="quickSearch('Messi hat trick highlights')">Hat-tricks</button>
+      <button onclick="quickSearch('Messi 91 goals in 2012 highlights')">2012 highlights</button>
+    </div>
+  </section>
+
+  <p class="note">
+    Important: This page creates searchable YouTube links; it does not claim
+    to contain a verified video URL for every individual goal. YouTube results
+    may include full-match highlights, compilations, and duplicate uploads.
+    Availability depends on the video owner and region.
+  </p>
+</main>
+
+<footer>
+  <p>Messi Goals Explorer • Made for football fans ⚽</p>
+  <p>Video content belongs to its respective owners. Links open YouTube.</p>
+</footer>
+
+<script>
+const examples = [
+  {
+    title: "The famous solo goal against Getafe",
+    team: "Barcelona", kind: "Solo goal", year: "2007",
+    query: "Lionel Messi goal vs Getafe 18 April 2007 full highlight",
+    featured: 1
+  },
+  {
+    title: "Messi's goal against Real Madrid",
+    team: "Barcelona", kind: "Solo goal", year: "2011",
+    query: "Lionel Messi solo goal Real Madrid Champions League 2011",
+    featured: 2
+  },
+  {
+    title: "Champions League free kick against Liverpool",
+    team: "Barcelona", kind: "Free kick", year: "2019",
+    query: "Messi free kick Barcelona Liverpool 2019 3-0",
+    featured: 3
+  },
+  {
+    title: "World Cup final: Argentina vs France",
+    team: "Argentina", kind: "World Cup", year: "2022",
+    query: "Messi goals Argentina France World Cup final 2022",
+    featured: 4
+  },
+  {
+    title: "Messi's goal against Mexico at Qatar 2022",
+    team: "Argentina", kind: "World Cup", year: "2022",
+    query: "Messi goal Argentina Mexico World Cup 2022",
+    featured: 5
+  },
+  {
+    title: "Argentina vs Croatia — World Cup semifinal",
+    team: "Argentina", kind: "World Cup", year: "2022",
+    query: "Messi goal Argentina Croatia World Cup semifinal 2022",
+    featured: 6
+  },
+  {
+    title: "Messi's 91-goal calendar year",
+    team: "Barcelona", kind: "Hat-trick", year: "2012",
+    query: "Lionel Messi 91 goals 2012 all goals compilation",
+    featured: 7
+  },
+  {
+    title: "Messi's Olympic and international goals",
+    team: "Argentina", kind: "International", year: "2008",
+    query: "Lionel Messi Argentina Olympic football goals 2008",
+    featured: 8
+  },
+  {
+    title: "Messi free-kick collection",
+    team: "Barcelona", kind: "Free kick", year: "Career",
+    query: "Lionel Messi best free kicks career compilation",
+    featured: 9
+  },
+  {
+    title: "Messi penalty goals",
+    team: "Argentina", kind: "Penalty", year: "Career",
+    query: "Lionel Messi penalty goals career compilation",
+    featured: 10
+  },
+  {
+    title: "Messi long-range goals",
+    team: "Barcelona", kind: "Long range", year: "Career",
+    query: "Lionel Messi best long range goals Barcelona",
+    featured: 11
+  },
+  {
+    title: "Messi's PSG goals",
+    team: "PSG", kind: "Long range", year: "2021–2023",
+    query: "Lionel Messi PSG all goals highlights",
+    featured: 12
+  },
+  {
+    title: "Messi's Inter Miami goals",
+    team: "Inter Miami", kind: "Free kick", year: "2023–present",
+    query: "Lionel Messi Inter Miami goals highlights",
+    featured: 13
+  },
+  {
+    title: "Barcelona Champions League goals",
+    team: "Barcelona", kind: "Champions League", year: "Career",
+    query: "Lionel Messi all Champions League goals Barcelona",
+    featured: 14
+  },
+  {
+    title: "Messi hat-trick collection",
+    team: "Barcelona", kind: "Hat-trick", year: "Career",
+    query: "Lionel Messi all hat tricks career highlights",
+    featured: 15
+  },
+  {
+    title: "Messi goals against Real Madrid",
+    team: "Barcelona", kind: "Solo goal", year: "Career",
+    query: "Lionel Messi goals vs Real Madrid all goals",
+    featured: 16
+  },
+  {
+    title: "Messi goals in Copa America",
+    team: "Argentina", kind: "International", year: "Career",
+    query: "Lionel Messi Copa America goals Argentina",
+    featured: 17
+  },
+  {
+    title: "Messi goals in La Liga",
+    team: "Barcelona", kind: "Long range", year: "Career",
+    query: "Lionel Messi all La Liga goals compilation",
+    featured: 18
+  }
+];
+
+let category = "all";
+let page = 1;
+const pageSize = 9;
+
+const search = document.getElementById("search");
+const team = document.getElementById("team");
+const kind = document.getElementById("kind");
+const sort = document.getElementById("sort");
+const goals = document.getElementById("goals");
+const info = document.getElementById("resultInfo");
+const more = document.getElementById("more");
+
+function youtubeSearch(query) {
+  return "https://www.youtube.com/results?search_query=" +
+    encodeURIComponent(query);
+}
+
+function getFiltered() {
+  const q = search.value.trim().toLowerCase();
+  return examples.filter(g => {
+    const searchable = [g.title, g.team, g.kind, g.year, g.query]
+      .join(" ").toLowerCase();
+    return (!q || searchable.includes(q)) &&
+      (team.value === "all" || g.team === team.value) &&
+      (kind.value === "all" || g.kind === kind.value) &&
+      (category === "all" || g.team === category);
+  }).sort((a, b) => sort.value === "az"
+    ? a.title.localeCompare(b.title)
+    : a.featured - b.featured);
+}
+
+function render() {
+  const filtered = getFiltered();
+  const visible = filtered.slice(0, page * pageSize);
+  info.textContent = `Showing ${visible.length} of ${filtered.length} featured searches.`;
+  goals.innerHTML = "";
+
+  if (!filtered.length) {
+    goals.innerHTML = "<p>No matching featured searches. Try a broader term or use the YouTube search button below.</p>";
+  }
+
+  visible.forEach(g => {
+    const card = document.createElement("article");
+    card.className = "goal-card";
+
+    const icon = document.createElement("div");
+    icon.className = "goal-icon";
+    icon.textContent = "⚽";
+    card.appendChild(icon);
+
+    const title = document.createElement("h3");
+    title.textContent = g.title;
+    card.appendChild(title);
+
+    const description = document.createElement("p");
+    description.textContent = `${g.team} · ${g.kind} · ${g.year}`;
+    card.appendChild(description);
+
+    const actions = document.createElement("div");
+    actions.className = "actions";
+
+    const watch = document.createElement("button");
+    watch.textContent = "Watch / Search";
+    watch.addEventListener("click", () => play(g));
+    actions.appendChild(watch);
+
+    const open = document.createElement("a");
+    open.className = "btn secondary";
+    open.textContent = "YouTube ↗";
+    open.href = youtubeSearch(g.query);
+    open.target = "_blank";
+    open.rel = "noopener noreferrer";
+    actions.appendChild(open);
+
+    const share = document.createElement("button");
+    share.className = "secondary";
+    share.textContent = "Share";
+    share.addEventListener("click", async () => {
+      const url = youtubeSearch(g.query);
+      try {
+        if (navigator.share) {
+          await navigator.share({title: g.title, url});
+        } else if (navigator.clipboard) {
+          await navigator.clipboard.writeText(url);
+          alert("YouTube link copied!");
+        } else {
+          prompt("Copy this YouTube link:", url);
+        }
+      } catch (e) {
+        if (e.name !== "AbortError") prompt("Copy link:", url);
+      }
+    });
+    actions.appendChild(share);
+
+    card.appendChild(actions);
+    goals.appendChild(card);
+  });
+
+  more.style.display = visible.length < filtered.length ? "inline-block" : "none";
+}
+
+function play(g) {
+  const url = youtubeSearch(g.query);
+  document.getElementById("playerTitle").textContent = g.title;
+  document.getElementById("youtubeFallback").href = url;
+
+  // YouTube search pages cannot be reliably embedded. Open search in a
+  // new tab instead of pretending a search URL is a playable video ID.
+  document.getElementById("player").style.display = "block";
+  document.getElementById("video").removeAttribute("src");
+  document.getElementById("player").scrollIntoView({behavior: "smooth"});
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
+function quickSearch(q) {
+  search.value = q;
+  team.value = "all";
+  kind.value = "all";
+  category = "all";
+  page = 1;
+  document.querySelectorAll("#categories button").forEach(b =>
+    b.classList.toggle("active", b.dataset.category === "all"));
+  render();
+
+  // Directly open relevant YouTube results for the selected famous moment.
+  window.open(youtubeSearch(q), "_blank", "noopener,noreferrer");
+}
+
+[search, team, kind, sort].forEach(el => {
+  el.addEventListener("input", () => { page = 1; render(); });
+  el.addEventListener("change", () => { page = 1; render(); });
+});
+
+document.querySelectorAll("#categories button").forEach(button => {
+  button.addEventListener("click", () => {
+    category = button.dataset.category;
+    page = 1;
+    document.querySelectorAll("#categories button").forEach(b =>
+      b.classList.toggle("active", b === button));
+    render();
+  });
+});
+
+more.addEventListener("click", () => { page++; render(); });
+
+render();
+</script>
+</body>
+</html>

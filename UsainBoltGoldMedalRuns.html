@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Explore Usain Bolt's Olympic and World Championship gold medal runs with YouTube video search links.">
+<title>Usain Bolt Gold Medal Runs Explorer</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+<style>
+:root {
+  --bg: #08111f;
+  --panel: #121f32;
+  --gold: #ffd447;
+  --text: #f5f7fb;
+  --muted: #b8c4d6;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(145deg, #08111f, #182b46);
+  color: var(--text);
+  min-height: 100vh;
+}
+header {
+  text-align: center;
+  padding: 38px 16px 30px;
+  background: linear-gradient(120deg, #121e30, #453516);
+  border-bottom: 2px solid var(--gold);
+}
+header h1 {
+  color: var(--gold);
+  font-size: clamp(27px, 5vw, 44px);
+  margin: 0 0 12px;
+}
+header p { color: var(--muted); line-height: 1.6; }
+.trophy { font-size: 48px; }
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 12px;
+}
+.stat {
+  background: var(--panel);
+  padding: 15px 25px;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 135px;
+  border: 1px solid #34435b;
+}
+.stat strong {
+  display: block;
+  color: var(--gold);
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+main { max-width: 1200px; margin: auto; padding: 15px; }
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0 22px;
+}
+input, select, button {
+  font: inherit;
+  border-radius: 8px;
+  padding: 12px;
+}
+input, select {
+  color: var(--text);
+  background: #101b2b;
+  border: 1px solid #46546b;
+  flex: 1;
+  min-width: 180px;
+}
+button {
+  cursor: pointer;
+  border: 0;
+  font-weight: bold;
+}
+.gold-button { background: var(--gold); color: #171717; }
+.secondary-button { background: #2b3e59; color: white; }
+.section-heading { color: var(--gold); margin: 28px 0 8px; }
+.results-count { color: var(--muted); margin: 10px 0 16px; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+  gap: 16px;
+}
+.card {
+  background: var(--panel);
+  border: 1px solid #34435b;
+  border-radius: 14px;
+  padding: 19px;
+  display: flex;
+  flex-direction: column;
+  transition: transform .2s, border-color .2s;
+}
+.card:hover { transform: translateY(-3px); border-color: var(--gold); }
+.card .year { color: var(--gold); font-size: 14px; font-weight: bold; }
+.card h3 { margin: 10px 0; font-size: 21px; }
+.card p { color: var(--muted); line-height: 1.55; margin: 5px 0 12px; }
+.tag {
+  display: inline-block;
+  padding: 5px 9px;
+  background: #273953;
+  border-radius: 20px;
+  font-size: 12px;
+  margin: 0 4px 5px 0;
+}
+.card .actions { margin-top: auto; padding-top: 16px; }
+.card .actions a {
+  display: inline-block;
+  text-decoration: none;
+  margin: 0 5px 6px 0;
+  padding: 10px 12px;
+  border-radius: 7px;
+  background: var(--gold);
+  color: #171717;
+  font-size: 14px;
+  font-weight: bold;
+}
+.card .actions a.secondary {
+  background: #2b3e59;
+  color: white;
+}
+.note {
+  background: #15253a;
+  padding: 16px;
+  margin: 20px 0;
+  border-radius: 10px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+footer {
+  text-align: center;
+  padding: 28px 15px;
+  margin-top: 35px;
+  background: #070d17;
+  color: var(--muted);
+  line-height: 1.8;
+}
+footer a { color: var(--gold); }
+@media(max-width: 500px) {
+  .stat { flex: 1; }
+  main { padding: 10px; }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="trophy">🏆 ⚡ 🏆</div>
+  <h1>Usain Bolt Gold Medal Runs</h1>
+  <p>The fastest man in history — explore his greatest championship victories.</p>
+  <p>Olympic Games • World Championships • Historic Sprint Performances</p>
+</header>
+
+<section class="stats">
+  <div class="stat"><strong>8</strong>Official Olympic Golds</div>
+  <div class="stat"><strong>11</strong>World Championship Golds</div>
+  <div class="stat"><strong>9.58s</strong>100 m World Record</div>
+  <div class="stat"><strong>19.19s</strong>200 m World Record</div>
+</section>
+
+<main>
+  <h2 class="section-heading">🔎 Find Your Favourite Run</h2>
+  <div class="controls">
+    <input id="search" type="search"
+      placeholder="Search year, event, venue or record..."
+      aria-label="Search runs">
+
+    <select id="competition" aria-label="Filter competition">
+      <option value="all">All competitions</option>
+      <option value="Olympics">Olympic Games</option>
+      <option value="World Championships">World Championships</option>
+      <option value="Other">Other championships</option>
+    </select>
+
+    <select id="event" aria-label="Filter event">
+      <option value="all">All events</option>
+      <option value="100m">100 metres</option>
+      <option value="200m">200 metres</option>
+      <option value="4x100m">4 × 100 metres relay</option>
+    </select>
+
+    <button class="gold-button" onclick="resetFilters()">Reset</button>
+  </div>
+
+  <p id="count" class="results-count" aria-live="polite"></p>
+  <div id="cards" class="grid"></div>
+
+  <div class="note">
+    <strong>Important historical note:</strong> Jamaica's 2008 Olympic
+    4 × 100 m relay result was later disqualified following a doping
+    violation by teammate Nesta Carter. It is not counted among Bolt's
+    eight official Olympic gold medals. His 2008 100 m and 200 m golds
+    remain official.
+    <br><br>
+    Video links open YouTube search results for each performance.
+    They are not guarantees of a complete race recording or official
+    footage. Availability depends on the video publisher.
+  </div>
+
+  <h2 class="section-heading">📚 Verify Results</h2>
+  <p class="note">
+    <a href="https://worldathletics.org/athletes/_/14201847"
+       target="_blank" rel="noopener">World Athletics — Athlete profile</a>
+    <br><br>
+    <a href="https://www.olympedia.org/athletes/105512"
+       target="_blank" rel="noopener">Olympedia — Olympic results</a>
+    <br><br>
+    <a href="https://worldathletics.org/competitions/world-athletics-championships"
+       target="_blank" rel="noopener">World Athletics Championships</a>
+  </p>
+</main>
+
+<footer>
+  <strong>Usain Bolt Gold Medal Runs Explorer</strong>
+  <br>Made for athletics fans, students and sports lovers.
+  <br>Video content belongs to its respective publishers.
+</footer>
+
+<script>
+const runs = [
+  // Olympic victories
+  {year:2008, competition:"Olympics", venue:"Beijing",
+   event:"100m", title:"Olympic 100 m Final",
+   time:"9.69 seconds — world record at the time",
+   detail:"Bolt won his first Olympic 100 m title.",
+   query:"Usain Bolt Beijing 2008 Olympic 100m final full race"},
+
+  {year:2008, competition:"Olympics", venue:"Beijing",
+   event:"200m", title:"Olympic 200 m Final",
+   time:"19.30 seconds — world record at the time",
+   detail:"A historic 200 m victory in Beijing.",
+   query:"Usain Bolt Beijing 2008 Olympic 200m final full race"},
+
+  {year:2012, competition:"Olympics", venue:"London",
+   event:"100m", title:"Olympic 100 m Final",
+   time:"9.63 seconds — Olympic record",
+   detail:"Bolt defended his Olympic 100 m crown.",
+   query:"Usain Bolt London 2012 Olympic 100m final full race"},
+
+  {year:2012, competition:"Olympics", venue:"London",
+   event:"200m", title:"Olympic 200 m Final",
+   time:"19.32 seconds",
+   detail:"Bolt became the first man to defend the Olympic 200 m title.",
+   query:"Usain Bolt London 2012 Olympic 200m final full race"},
+
+  {year:2012, competition:"Olympics", venue:"London",
+   event:"4x100m", title:"Olympic 4 × 100 m Relay Final",
+   time:"36.84 seconds — world record at the time",
+   detail:"Bolt anchored Jamaica's record-breaking relay team.",
+   query:"Usain Bolt Jamaica London 2012 4x100 relay final full race"},
+
+  {year:2016, competition:"Olympics", venue:"Rio de Janeiro",
+   event:"100m", title:"Olympic 100 m Final",
+   time:"9.81 seconds",
+   detail:"Bolt won his third consecutive Olympic 100 m title.",
+   query:"Usain Bolt Rio 2016 Olympic 100m final full race"},
+
+  {year:2016, competition:"Olympics", venue:"Rio de Janeiro",
+   event:"200m", title:"Olympic 200 m Final",
+   time:"19.78 seconds",
+   detail:"His third consecutive Olympic 200 m title.",
+   query:"Usain Bolt Rio 2016 Olympic 200m final full race"},
+
+  {year:2016, competition:"Olympics", venue:"Rio de Janeiro",
+   event:"4x100m", title:"Olympic 4 × 100 m Relay Final",
+   time:"37.27 seconds",
+   detail:"Jamaica won relay gold, with Bolt running the anchor leg.",
+   query:"Usain Bolt Rio 2016 Jamaica 4x100 relay final full race"},
+
+  // World Championship victories
+  {year:2009, competition:"World Championships", venue:"Berlin",
+   event:"100m", title:"World Championship 100 m Final",
+   time:"9.58 seconds — world record",
+   detail:"The fastest officially recorded 100 m in history.",
+   query:"Usain Bolt 9.58 Berlin 2009 World Championships 100m full race"},
+
+  {year:2009, competition:"World Championships", venue:"Berlin",
+   event:"200m", title:"World Championship 200 m Final",
+   time:"19.19 seconds — world record",
+   detail:"Bolt set the 200 m world record three days after his 100 m record.",
+   query:"Usain Bolt 19.19 Berlin 2009 World Championships 200m full race"},
+
+  {year:2009, competition:"World Championships", venue:"Berlin",
+   event:"4x100m", title:"World Championship 4 × 100 m Relay",
+   time:"37.31 seconds",
+   detail:"Jamaica won the sprint relay title.",
+   query:"Jamaica Usain Bolt Berlin 2009 World Championships 4x100 relay"},
+
+  {year:2011, competition:"World Championships", venue:"Daegu",
+   event:"200m", title:"World Championship 200 m Final",
+   time:"19.40 seconds",
+   detail:"Bolt bounced back from his 100 m false start disqualification.",
+   query:"Usain Bolt Daegu 2011 World Championships 200m final full race"},
+
+  {year:2011, competition:"World Championships", venue:"Daegu",
+   event:"4x100m", title:"World Championship 4 × 100 m Relay",
+   time:"37.04 seconds — world record at the time",
+   detail:"Jamaica set a world record with Bolt on the anchor leg.",
+   query:"Usain Bolt Jamaica Daegu 2011 4x100 relay 37.04 full race"},
+
+  {year:2013, competition:"World Championships", venue:"Moscow",
+   event:"100m", title:"World Championship 100 m Final",
+   time:"9.77 seconds",
+   detail:"Bolt reclaimed the world 100 m title.",
+   query:"Usain Bolt Moscow 2013 World Championships 100m final full race"},
+
+  {year:2013, competition:"World Championships", venue:"Moscow",
+   event:"200m", title:"World Championship 200 m Final",
+   time:"19.66 seconds",
+   detail:"Another world 200 m championship gold.",
+   query:"Usain Bolt Moscow 2013 World Championships 200m final full race"},
+
+  {year:2013, competition:"World Championships", venue:"Moscow",
+   event:"4x100m", title:"World Championship 4 × 100 m Relay",
+   time:"37.36 seconds",
+   detail:"Jamaica won the relay with Bolt anchoring the team.",
+   query:"Usain Bolt Jamaica Moscow 2013 4x100 relay final full race"},
+
+  {year:2015, competition:"World Championships", venue:"Beijing",
+   event:"100m", title:"World Championship 100 m Final",
+   time:"9.79 seconds",
+   detail:"Bolt beat a strong field to win another world title.",
+   query:"Usain Bolt Beijing 2015 World Championships 100m final full race"},
+
+  {year:2015, competition:"World Championships", venue:"Beijing",
+   event:"200m", title:"World Championship 200 m Final",
+   time:"19.55 seconds",
+   detail:"His fourth consecutive World Championships 200 m title.",
+   query:"Usain Bolt Beijing 2015 World Championships 200m final full race"},
+
+  {year:2015, competition:"World Championships", venue:"Beijing",
+   event:"4x100m", title:"World Championship 4 × 100 m Relay",
+   time:"37.36 seconds",
+   detail:"Jamaica completed another championship relay victory.",
+   query:"Usain Bolt Jamaica Beijing 2015 4x100 relay final full race"},
+
+  // Other championship golds
+  {year:2002, competition:"Other", venue:"Kingston",
+   event:"200m", title:"World Junior Championships 200 m",
+   time:"20.61 seconds",
+   detail:"Bolt won the world junior title as a 15-year-old.",
+   query:"Usain Bolt 2002 World Junior Championships 200m final"},
+
+  {year:2003, competition:"Other", venue:"Sherbrooke",
+   event:"200m", title:"World Youth Championships 200 m",
+   time:"20.40 seconds",
+   detail:"Bolt won the world youth 200 m title.",
+   query:"Usain Bolt 2003 World Youth Championships 200m final"},
+
+  {year:2014, competition:"Other", venue:"Glasgow",
+   event:"4x100m", title:"Commonwealth Games 4 × 100 m Relay",
+   time:"37.58 seconds",
+   detail:"Bolt anchored Jamaica to Commonwealth relay gold.",
+   query:"Usain Bolt Glasgow 2014 Commonwealth Games 4x100 relay final"}
+];
+
+const eventNames = {
+  "100m": "100 metres",
+  "200m": "200 metres",
+  "4x100m": "4 × 100 metres relay"
+};
+
+function youtubeUrl(query) {
+  return "https://www.youtube.com/results?search_query=" +
+         encodeURIComponent(query);
+}
+
+function renderRuns() {
+  const search = document.getElementById("search").value
+    .trim().toLowerCase();
+  const competition = document.getElementById("competition").value;
+  const event = document.getElementById("event").value;
+
+  const filtered = runs.filter(run => {
+    const text = [
+      run.year, run.competition, run.venue, run.event,
+      run.title, run.time, run.detail
+    ].join(" ").toLowerCase();
+
+    return text.includes(search) &&
+      (competition === "all" || run.competition === competition) &&
+      (event === "all" || run.event === event);
+  });
+
+  document.getElementById("count").textContent =
+    `Showing ${filtered.length} of ${runs.length} listed performances`;
+
+  const cards = document.getElementById("cards");
+
+  if (!filtered.length) {
+    cards.innerHTML = "<p>No matching runs found. Try another search.</p>";
+    return;
+  }
+
+  cards.innerHTML = filtered.map(run => {
+    const query = youtubeUrl(run.query);
+    const generalQuery = youtubeUrl(
+      `Usain Bolt ${run.year} ${run.venue} ${eventNames[run.event]} race`
+    );
+
+    return `
+      <article class="card">
+        <div class="year">${run.year} · ${run.venue}</div>
+        <h3>⚡ ${run.title}</h3>
+        <div>
+          <span class="tag">${run.competition}</span>
+          <span class="tag">${eventNames[run.event]}</span>
+        </div>
+        <p><strong>${run.time}</strong></p>
+        <p>${run.detail}</p>
+        <div class="actions">
+          <a href="${query}" target="_blank" rel="noopener">
+            ▶ Find Race Video
+          </a>
+          <a class="secondary" href="${generalQuery}"
+             target="_blank" rel="noopener">
+            More Videos
+          </a>
+        </div>
+      </article>`;
+  }).join("");
+}
+
+function resetFilters() {
+  document.getElementById("search").value = "";
+  document.getElementById("competition").value = "all";
+  document.getElementById("event").value = "all";
+  renderRuns();
+}
+
+document.getElementById("search").addEventListener("input", renderRuns);
+document.getElementById("competition").addEventListener("change", renderRuns);
+document.getElementById("event").addEventListener("change", renderRuns);
+
+renderRuns();
+</script>
+</body>
+</html>

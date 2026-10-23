@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Explore Cristiano Ronaldo goals, iconic strikes, club highlights and international goals through YouTube.">
+<title>CR7 Goal Explorer | Cristiano Ronaldo</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+
+<style>
+:root {
+  --bg:#07111f; --panel:#111f32; --text:#f5f7ff;
+  --muted:#aab9cf; --gold:#ffd166; --red:#f04452;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:linear-gradient(135deg,#07111f,#172b46);
+  color:var(--text);font-family:Arial,sans-serif;min-height:100vh
+}
+header{
+  padding:35px 18px;text-align:center;
+  background:radial-gradient(ellipse at top,#244a75,#07111f 75%);
+  border-bottom:2px solid var(--gold)
+}
+header h1{font-size:clamp(28px,5vw,48px);margin:8px}
+header p{color:var(--muted);line-height:1.6}
+.cr7{font-size:64px;font-weight:900;color:var(--gold)}
+main{max-width:1150px;margin:auto;padding:22px}
+.controls{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:12px;margin:20px 0
+}
+input,select{
+  padding:14px;border-radius:10px;border:1px solid #40516b;
+  background:#0c192a;color:white;font-size:16px;width:100%
+}
+button,.btn{
+  border:0;border-radius:9px;padding:12px 16px;
+  background:var(--gold);color:#111827;font-weight:bold;
+  cursor:pointer;text-decoration:none;display:inline-block
+}
+button:hover,.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.section-title{margin-top:32px;color:var(--gold)}
+.grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:16px
+}
+.card{
+  background:var(--panel);border:1px solid #293c56;
+  border-radius:15px;padding:19px;display:flex;
+  flex-direction:column;gap:12px
+}
+.card h3{margin:0;font-size:20px}
+.card p{color:var(--muted);line-height:1.5;margin:0}
+.card .btn{margin-top:auto;text-align:center}
+.tag{color:var(--gold);font-size:12px;font-weight:bold;letter-spacing:1px}
+#count{color:var(--muted);margin:15px 0}
+.note{
+  padding:16px;border-left:4px solid var(--gold);
+  background:#111f32;border-radius:8px;line-height:1.6
+}
+footer{text-align:center;padding:30px;color:var(--muted);line-height:1.8}
+footer a{color:var(--gold)}
+@media(max-width:480px){main{padding:14px}.cr7{font-size:48px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="cr7">CR7</div>
+  <h1>Ronaldo Goal Explorer</h1>
+  <p>Explore legendary goals, stunning free kicks, powerful headers
+  and unforgettable football moments.</p>
+  <a class="btn" href="https://www.youtube.com/watch?v=5vcdrDnrL0s"
+     target="_blank" rel="noopener">▶ Career Goals Compilation</a>
+</header>
+
+<main>
+  <div class="note">
+    <strong>Welcome, football fans!</strong><br>
+    Search goal videos across Cristiano Ronaldo's career with
+    Manchester United, Real Madrid, Juventus, Al-Nassr and Portugal.
+    YouTube results may vary by availability and region.
+  </div>
+
+  <h2 class="section-title">🔎 Find Ronaldo Goals</h2>
+  <div class="controls">
+    <input id="search" placeholder="Search goals, opponent, season..."
+           aria-label="Search goals">
+    <select id="club" aria-label="Filter by club">
+      <option value="all">All clubs and Portugal</option>
+      <option>Sporting CP</option>
+      <option>Manchester United</option>
+      <option>Real Madrid</option>
+      <option>Juventus</option>
+      <option>Al-Nassr</option>
+      <option>Portugal</option>
+    </select>
+    <select id="type" aria-label="Filter by goal type">
+      <option value="all">All goal types</option>
+      <option>Free Kicks</option>
+      <option>Headers</option>
+      <option>Long Range</option>
+      <option>Bicycle Kicks</option>
+      <option>Hat Tricks</option>
+      <option>Champions League</option>
+      <option>World Cup</option>
+    </select>
+  </div>
+
+  <div id="count" aria-live="polite"></div>
+  <div id="results" class="grid"></div>
+
+  <h2 class="section-title">🌟 Famous Goal Moments</h2>
+  <div class="grid" id="famous"></div>
+
+  <h2 class="section-title">📚 Explore More Goals</h2>
+  <div class="grid">
+    <article class="card">
+      <h3>All Career Goals Archive</h3>
+      <p>Browse a searchable career goal database with match records.</p>
+      <a class="btn" href="https://cr7allgoals.com/"
+         target="_blank" rel="noopener">Explore Goal Archive ↗</a>
+    </article>
+    <article class="card">
+      <h3>Official Manchester United Goals</h3>
+      <p>Watch the club's compilation of Ronaldo's goals across his two spells.</p>
+      <a class="btn" href="https://www.youtube.com/watch?v=JC90NBGC_bA"
+         target="_blank" rel="noopener">Watch 145 Goals ↗</a>
+    </article>
+    <article class="card">
+      <h3>UEFA Champions League</h3>
+      <p>Search for Ronaldo's iconic European goals and match highlights.</p>
+      <a class="btn" href="https://www.youtube.com/results?search_query=Cristiano+Ronaldo+Champions+League+goals"
+         target="_blank" rel="noopener">Explore UCL Goals ↗</a>
+    </article>
+  </div>
+
+  <p style="text-align:center;margin-top:30px">
+    <button onclick="resetFilters()">Reset Filters</button>
+    <button onclick="sharePage()">Share This Page</button>
+  </p>
+</main>
+
+<footer>
+  <strong>CR7 Goal Explorer</strong><br>
+  An independent fan-made video discovery page. Not affiliated with
+  Cristiano Ronaldo, YouTube or any football club.<br>
+  Videos remain hosted by their respective publishers.
+</footer>
+
+<script>
+const clubs = [
+  {
+    name:"Sporting CP", years:"2002–2003",
+    desc:"Early career goals and breakthrough moments",
+    query:"Cristiano Ronaldo Sporting CP goals highlights"
+  },
+  {
+    name:"Manchester United", years:"2003–2009, 2021–2022",
+    desc:"Premier League goals, solo runs and memorable strikes",
+    query:"Cristiano Ronaldo Manchester United all goals official"
+  },
+  {
+    name:"Real Madrid", years:"2009–2018",
+    desc:"La Liga goals, El Clásico and European nights",
+    query:"Cristiano Ronaldo Real Madrid all 450 goals"
+  },
+  {
+    name:"Juventus", years:"2018–2021",
+    desc:"Serie A finishes, headers and acrobatic goals",
+    query:"Cristiano Ronaldo Juventus all goals"
+  },
+  {
+    name:"Al-Nassr", years:"2023–present",
+    desc:"Saudi Pro League goals and recent highlights",
+    query:"Cristiano Ronaldo Al Nassr all goals highlights"
+  },
+  {
+    name:"Portugal", years:"2003–present",
+    desc:"International goals, Euros and World Cup moments",
+    query:"Cristiano Ronaldo Portugal all international goals"
+  }
+];
+
+const types = [
+  {
+    name:"Free Kicks", icon:"🎯",
+    desc:"Knuckleball strikes and spectacular free kicks",
+    query:"Cristiano Ronaldo best free kick goals"
+  },
+  {
+    name:"Headers", icon:"🚀",
+    desc:"Powerful jumps, timing and extraordinary headers",
+    query:"Cristiano Ronaldo best headers goals"
+  },
+  {
+    name:"Long Range", icon:"💥",
+    desc:"Powerful shots from outside the penalty area",
+    query:"Cristiano Ronaldo best long range goals"
+  },
+  {
+    name:"Bicycle Kicks", icon:"⚽",
+    desc:"Overhead kicks and spectacular acrobatic finishes",
+    query:"Cristiano Ronaldo bicycle kick goals"
+  },
+  {
+    name:"Hat Tricks", icon:"🔥",
+    desc:"Three-goal performances and unforgettable match days",
+    query:"Cristiano Ronaldo career hat tricks highlights"
+  },
+  {
+    name:"Champions League", icon:"🏆",
+    desc:"European competition goals and knockout matches",
+    query:"Cristiano Ronaldo Champions League all goals"
+  },
+  {
+    name:"World Cup", icon:"🌍",
+    desc:"Ronaldo's FIFA World Cup goals for Portugal",
+    query:"Cristiano Ronaldo FIFA World Cup all goals"
+  }
+];
+
+const famous = [
+  {
+    title:"The Bicycle Kick vs Juventus",
+    desc:"His famous overhead kick for Real Madrid in 2018.",
+    query:"Cristiano Ronaldo bicycle kick Juventus 2018 official"
+  },
+  {
+    title:"900th Career Goal",
+    desc:"The milestone goal against Croatia for Portugal in 2024.",
+    query:"Cristiano Ronaldo 900th career goal Croatia Portugal"
+  },
+  {
+    title:"Free Kick vs Spain",
+    desc:"His memorable 2018 World Cup hat trick against Spain.",
+    query:"Cristiano Ronaldo Spain Portugal 2018 free kick hat trick"
+  },
+  {
+    title:"Champions League Finals",
+    desc:"Explore his goals in UEFA Champions League finals.",
+    query:"Cristiano Ronaldo Champions League final goals"
+  },
+  {
+    title:"El Clásico Goals",
+    desc:"Memorable goals against Barcelona.",
+    query:"Cristiano Ronaldo best El Clasico goals"
+  },
+  {
+    title:"Portugal Euro Goals",
+    desc:"Explore his goals in the UEFA European Championship.",
+    query:"Cristiano Ronaldo all Euro Championship goals"
+  }
+];
+
+function youtubeSearch(query) {
+  return "https://www.youtube.com/results?search_query=" +
+    encodeURIComponent(query);
+}
+
+function makeCard(title, description, tag, query) {
+  const article = document.createElement("article");
+  article.className = "card";
+
+  const label = document.createElement("span");
+  label.className = "tag";
+  label.textContent = tag;
+
+  const heading = document.createElement("h3");
+  heading.textContent = title;
+
+  const para = document.createElement("p");
+  para.textContent = description;
+
+  const link = document.createElement("a");
+  link.className = "btn";
+  link.href = youtubeSearch(query);
+  link.target = "_blank";
+  link.rel = "noopener";
+  link.textContent = "▶ Watch YouTube Videos";
+
+  article.append(label, heading, para, link);
+  return article;
+}
+
+function render() {
+  const search = document.getElementById("search").value
+    .trim().toLowerCase();
+  const club = document.getElementById("club").value;
+  const type = document.getElementById("type").value;
+  const results = document.getElementById("results");
+  results.replaceChildren();
+
+  let items = [];
+
+  clubs.forEach(item => {
+    items.push({
+      title:item.name + " Goals",
+      desc:item.desc + " (" + item.years + ")",
+      tag:"CLUB / COUNTRY",
+      query:item.query,
+      club:item.name,
+      type:""
+    });
+  });
+
+  types.forEach(item => {
+    items.push({
+      title:item.icon + " " + item.name,
+      desc:item.desc,
+      tag:"GOAL COLLECTION",
+      query:item.query,
+      club:"all",
+      type:item.name
+    });
+  });
+
+  const filtered = items.filter(item => {
+    const matchesSearch =
+      (item.title + " " + item.desc + " " + item.query)
+      .toLowerCase().includes(search);
+    const matchesClub = club === "all" || item.club === club;
+    const matchesType = type === "all" || item.type === type;
+    return matchesSearch && matchesClub && matchesType;
+  });
+
+  document.getElementById("count").textContent =
+    filtered.length + " collections found";
+
+  if (!filtered.length) {
+    const message = document.createElement("p");
+    message.textContent = "No matching collections. Try another search.";
+    results.append(message);
+  }
+
+  filtered.forEach(item => {
+    results.append(makeCard(item.title, item.desc, item.tag, item.query));
+  });
+}
+
+function renderFamous() {
+  const container = document.getElementById("famous");
+  famous.forEach(item => {
+    container.append(makeCard(
+      item.title, item.desc, "ICONIC MOMENT", item.query
+    ));
+  });
+}
+
+function resetFilters() {
+  document.getElementById("search").value = "";
+  document.getElementById("club").value = "all";
+  document.getElementById("type").value = "all";
+  render();
+}
+
+async function sharePage() {
+  const data = {
+    title:"Ronaldo Goal Explorer",
+    text:"Explore Cristiano Ronaldo goal videos!",
+    url:location.href
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(data);
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(data.url);
+      alert("Page link copied!");
+    } else {
+      prompt("Copy this page link:", data.url);
+    }
+  } catch (error) {
+    if (error.name !== "AbortError") {
+      alert("Sharing is not available in this browser.");
+    }
+  }
+}
+
+document.getElementById("search").addEventListener("input", render);
+document.getElementById("club").addEventListener("change", render);
+document.getElementById("type").addEventListener("change", render);
+
+render();
+renderFamous();
+</script>
+</body>
+</html>
