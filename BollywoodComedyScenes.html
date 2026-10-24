@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Explore Bollywood comedy scenes, classic Hindi movie moments and funny clips. Search YouTube by film, actor or comedy style.">
+<meta property="og:title" content="Bollywood Comedy Scenes Explorer">
+<meta property="og:description" content="Discover classic and modern Bollywood comedy moments.">
+<title>Bollywood Comedy Scenes Explorer</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+
+<style>
+:root{--bg:#101326;--panel:#1b2040;--text:#f7f7ff;--muted:#bfc5e5;--accent:#ffbf47;--pink:#ff5f9e;--line:#343b64}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#3a2058 0,#101326 42%);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
+header{padding:32px 18px 24px;text-align:center;background:linear-gradient(120deg,#5d2a8a99,#e9437b55);border-bottom:1px solid var(--line)}
+h1{font-size:clamp(2rem,5vw,3.4rem);margin:0 0 8px}header p{max-width:760px;margin:0 auto;color:#f0eaff}
+.wrap{max-width:1200px;margin:auto;padding:22px 16px}.toolbar{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-bottom:18px}
+input,select,button{font:inherit;border-radius:12px;padding:13px 14px;border:1px solid var(--line)}input,select{background:#11162e;color:var(--text);min-width:0}button{cursor:pointer;font-weight:700;background:var(--accent);color:#24152b;border:0}button:hover,a.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.categories{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 22px}.chip{background:#272d51;color:var(--text);border:1px solid #454c7c;padding:9px 13px;border-radius:99px}.chip.active{background:var(--pink);color:white}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:15px}.card{background:linear-gradient(145deg,#202648,#171b35);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:9px;box-shadow:0 10px 25px #0002}.emoji{font-size:2rem}.card h3{margin:0;font-size:1.15rem}.card p{margin:0;color:var(--muted);font-size:.94rem;flex:1}.tag{font-size:.78rem;color:#ffcf72;text-transform:uppercase;letter-spacing:.08em}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.btn{display:inline-block;text-decoration:none;text-align:center;border-radius:10px;padding:10px 12px;font-weight:700;font-size:.9rem;background:var(--accent);color:#24152b}.btn.secondary{background:#30385f;color:white;border:1px solid #4a5283}
+.panel{background:#171c36;border:1px solid var(--line);padding:18px;border-radius:16px;margin:22px 0}.panel h2{margin-top:0}.quick{display:flex;flex-wrap:wrap;gap:9px}.quick a{color:#ffe0a1}.note{color:var(--muted);font-size:.9rem}.empty{text-align:center;padding:35px;color:var(--muted)}footer{text-align:center;padding:25px 15px;border-top:1px solid var(--line);color:var(--muted)}footer a{color:#ffd27a}
+@media(max-width:600px){.toolbar{grid-template-columns:1fr}.wrap{padding:16px 12px}.card{padding:15px}}
+</style>
+</head>
+<body>
+<header>
+  <div style="font-size:2rem" aria-hidden="true">😂 🎬 🍿</div>
+  <h1>Bollywood Comedy Scenes Explorer</h1>
+  <p>Relive hilarious Hindi-film moments, legendary comic actors and laugh-out-loud scenes. Search, filter and open videos on YouTube.</p>
+</header>
+<main class="wrap">
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="Search film, actor, scene or keyword…" aria-label="Search comedy scenes">
+    <select id="category" aria-label="Filter by category">
+      <option value="all">All comedy categories</option>
+      <option value="classic">Classic Bollywood</option>
+      <option value="90s">90s Comedy</option>
+      <option value="2000s">2000s Comedy</option>
+      <option value="actor">Comedy Actors</option>
+      <option value="modern">Modern & Popular</option>
+    </select>
+  </div>
+  <div class="categories" id="chips">
+    <button class="chip active" data-cat="all">All scenes</button>
+    <button class="chip" data-cat="classic">Classics</button>
+    <button class="chip" data-cat="90s">90s favourites</button>
+    <button class="chip" data-cat="2000s">2000s hits</button>
+    <button class="chip" data-cat="actor">Comedy legends</button>
+    <button class="chip" data-cat="modern">Modern picks</button>
+  </div>
+  <div class="actions" style="margin-bottom:20px">
+    <button id="randomBtn">🎲 Pick a random comedy</button>
+    <button id="shareBtn" class="chip">↗ Share this page</button>
+    <button id="copyBtn" class="chip">Copy page link</button>
+  </div>
+  <div id="status" class="note" aria-live="polite"></div>
+  <section id="results" class="grid" aria-label="Comedy video links"></section>
+  <div class="panel">
+    <h2>🔎 Find even more comedy scenes</h2>
+    <p class="note">These searches open YouTube results so you can discover more clips, compilations and official uploads. Availability and video links may change; choose official or licensed uploads when possible.</p>
+    <div class="quick" id="searchLinks"></div>
+  </div>
+  <div class="panel">
+    <h2>About this collection</h2>
+    <p>This page is a discovery guide, not a complete archive of every Bollywood scene. It links to selected videos and targeted YouTube searches; it does not download, host or reproduce movie footage.</p>
+  </div>
+</main>
+<footer>
+  <p>Bollywood Comedy Scenes Explorer · Made for movie fans</p>
+  <p>Video content belongs to its respective rights holders. YouTube opens in a new tab.</p>
+</footer>
+<script>
+const scenes = [
+ {title:"Top 12 Comedy Scenes — Johnny Lever, Rajpal Yadav & Kader Khan",film:"Comedy compilation",actors:"Johnny Lever, Rajpal Yadav, Kader Khan",cat:"actor",emoji:"🤣",desc:"A compilation of comic moments from several popular Hindi films.",url:"https://www.youtube.com/watch?v=8t-NhmLsfDY",type:"Direct video"},
+ {title:"Best of Bollywood Comedy Scenes",film:"Multi-film compilation",actors:"Rajpal Yadav, Johnny Lever, Paresh Rawal, Akshay Kumar",cat:"actor",emoji:"😂",desc:"A comedy compilation featuring familiar Bollywood comic performers.",url:"https://www.youtube.com/watch?v=iCY_gQCOWAE",type:"Direct video"},
+ {title:"Chatur's Speech",film:"3 Idiots (2009)",actors:"Aamir Khan, Omi Vaidya",cat:"2000s",emoji:"🎓",desc:"The famously funny speech scene. Search results can help locate the preferred upload.",query:"3 Idiots Chatur speech comedy scene official"},
+ {title:"Dhoti Utha Le scene",film:"Hera Pheri (2000)",actors:"Akshay Kumar, Suniel Shetty, Paresh Rawal",cat:"2000s",emoji:"🩳",desc:"A much-loved moment from the cult comedy.",query:"Hera Pheri Dhoti Utha Le comedy scene"},
+ {title:"Aeroplane scene",film:"Dhamaal (2007)",actors:"Sanjay Dutt, Arshad Warsi, Javed Jaffrey, Ashish Chaudhary",cat:"2000s",emoji:"✈️",desc:"Absurd chaos and comic timing in the flying-plane sequence.",url:"https://www.youtube.com/watch?v=EocHhTd6fqI",type:"Video link"},
+ {title:"Angrezi Jailer",film:"Sholay (1975)",actors:"Asrani, Amitabh Bachchan, Dharmendra",cat:"classic",emoji:"🎭",desc:"The iconic jailer and his unforgettable comic delivery.",url:"https://www.youtube.com/watch?v=8b2abMFe3Qk",type:"Video link"},
+ {title:"Chalti Ka Naam Gaadi comedy moments",film:"Chalti Ka Naam Gaadi (1958)",actors:"Kishore Kumar, Ashok Kumar, Anoop Kumar, Madhubala",cat:"classic",emoji:"🚗",desc:"A timeless black-and-white comedy classic.",url:"https://www.youtube.com/watch?v=xlbAlfzIPo0",type:"Video link"},
+ {title:"Bhoot Bangla comedy scenes",film:"Bhoot Bangla (1965)",actors:"Mehmood",cat:"classic",emoji:"👻",desc:"Classic comedy with a spooky twist.",url:"https://www.youtube.com/watch?v=morLqJId824",type:"Video link"},
+ {title:"Chashme Buddoor funny moments",film:"Chashme Buddoor (1981)",actors:"Farooq Shaikh, Deepti Naval",cat:"classic",emoji:"👓",desc:"Gentle, witty humour from a beloved classic.",url:"https://www.youtube.com/watch?v=T-ThNHVUM8g",type:"Video link"},
+ {title:"Andaz Apna Apna funny scenes",film:"Andaz Apna Apna (1994)",actors:"Aamir Khan, Salman Khan, Paresh Rawal, Shakti Kapoor",cat:"90s",emoji:"🤪",desc:"Absurd situations and endlessly quotable characters.",query:"Andaz Apna Apna best comedy scenes official"},
+ {title:"Ishq comedy scenes",film:"Ishq (1997)",actors:"Aamir Khan, Ajay Devgn, Juhi Chawla, Kajol",cat:"90s",emoji:"💘",desc:"Romantic-comedy misunderstandings and slapstick.",query:"Ishq 1997 Bollywood comedy scenes official"},
+ {title:"Haseena Maan Jaayegi comedy",film:"Haseena Maan Jaayegi (1999)",actors:"Govinda, Sanjay Dutt, Kader Khan",cat:"90s",emoji:"😆",desc:"A high-energy comedy with classic 90s humour.",query:"Haseena Maan Jaayegi best comedy scenes"},
+ {title:"Hera Pheri funniest moments",film:"Hera Pheri (2000)",actors:"Paresh Rawal, Akshay Kumar, Suniel Shetty",cat:"2000s",emoji:"📞",desc:"The trio's misadventures and memorable misunderstandings.",query:"Hera Pheri funniest scenes official movie clips"},
+ {title:"Chup Chup Ke comedy scenes",film:"Chup Chup Ke (2006)",actors:"Paresh Rawal, Rajpal Yadav, Shahid Kapoor",cat:"2000s",emoji:"🤐",desc:"Confusion, mistaken identity and comic performances.",query:"Chup Chup Ke comedy scenes official"},
+ {title:"Bhool Bhulaiyaa funny scenes",film:"Bhool Bhulaiyaa (2007)",actors:"Akshay Kumar, Paresh Rawal, Rajpal Yadav",cat:"2000s",emoji:"🏚️",desc:"Comedy mixed with mystery and memorable reactions.",query:"Bhool Bhulaiyaa 2007 comedy scenes official"},
+ {title:"Welcome — iconic comedy moments",film:"Welcome (2007)",actors:"Anil Kapoor, Nana Patekar, Akshay Kumar",cat:"2000s",emoji:"🕶️",desc:"Gangster characters, dramatic reactions and comic timing.",query:"Welcome 2007 best comedy scenes official"},
+ {title:"Golmaal comedy scenes",film:"Golmaal: Fun Unlimited (2006)",actors:"Ajay Devgn, Arshad Warsi, Tusshar Kapoor",cat:"2000s",emoji:"🚘",desc:"Fast-paced ensemble comedy and pranks.",query:"Golmaal Fun Unlimited best comedy scenes official"},
+ {title:"Dhamaal funniest moments",film:"Dhamaal (2007)",actors:"Riteish Deshmukh, Arshad Warsi, Javed Jaffrey",cat:"2000s",emoji:"🗺️",desc:"A madcap treasure-hunt comedy.",query:"Dhamaal 2007 funniest scenes official"},
+ {title:"Johnny Lever comedy scenes",film:"Various films",actors:"Johnny Lever",cat:"actor",emoji:"🎤",desc:"Explore expressions, mimicry and rapid-fire punchlines.",query:"Johnny Lever best Bollywood comedy scenes official"},
+ {title:"Paresh Rawal comedy scenes",film:"Various films",actors:"Paresh Rawal",cat:"actor",emoji:"😜",desc:"Discover scene-stealing comic performances.",query:"Paresh Rawal best comedy scenes official"},
+ {title:"Rajpal Yadav comedy scenes",film:"Various films",actors:"Rajpal Yadav",cat:"actor",emoji:"🤣",desc:"Physical comedy, reactions and unforgettable characters.",query:"Rajpal Yadav best comedy scenes official"},
+ {title:"Kader Khan comedy scenes",film:"Various films",actors:"Kader Khan",cat:"actor",emoji:"🎬",desc:"Classic dialogue delivery and comic characters.",query:"Kader Khan best Bollywood comedy scenes official"},
+ {title:"Boman Irani comedy scenes",film:"Various films",actors:"Boman Irani",cat:"actor",emoji:"🎭",desc:"Dry wit and perfectly timed reactions.",query:"Boman Irani funny Bollywood scenes official"},
+ {title:"Jab We Met funny moments",film:"Jab We Met (2007)",actors:"Kareena Kapoor Khan, Shahid Kapoor",cat:"modern",emoji:"🚆",desc:"Fast-talking, lively romantic-comedy moments.",query:"Jab We Met funny scenes official"},
+ {title:"No Entry comedy scenes",film:"No Entry (2005)",actors:"Anil Kapoor, Salman Khan, Fardeen Khan",cat:"2000s",emoji:"🚪",desc:"A farce built on misunderstandings and escalating chaos.",query:"No Entry 2005 best comedy scenes official"},
+ {title:"Khosla Ka Ghosla funny moments",film:"Khosla Ka Ghosla (2006)",actors:"Anupam Kher, Boman Irani, Parvin Dabas",cat:"2000s",emoji:"🏠",desc:"Sharp situational humour and clever schemes.",query:"Khosla Ka Ghosla funny scenes official"},
+ {title:"Modern Bollywood comedy highlights",film:"Recent Hindi films",actors:"Ensemble casts",cat:"modern",emoji:"✨",desc:"Explore comedy clips from newer Hindi releases.",query:"latest Bollywood comedy scenes official clips"}
+];
+const searchTerms = [
+ ["Hera Pheri","Hera Pheri funniest comedy scenes"],
+ ["Andaz Apna Apna","Andaz Apna Apna best comedy scenes"],
+ ["Golmaal","Golmaal Bollywood comedy scenes"],
+ ["Dhamaal","Dhamaal funniest scenes"],
+ ["Chup Chup Ke","Chup Chup Ke comedy scenes"],
+ ["Bhool Bhulaiyaa","Bhool Bhulaiyaa comedy scenes"],
+ ["Akshay Kumar","Akshay Kumar best comedy scenes"],
+ ["Govinda","Govinda classic comedy scenes"],
+ ["Johnny Lever","Johnny Lever comedy compilation"],
+ ["Paresh Rawal","Paresh Rawal comedy scenes"],
+ ["Rajpal Yadav","Rajpal Yadav funny scenes"],
+ ["Kader Khan","Kader Khan comedy scenes"],
+ ["Old Bollywood","classic Hindi film comedy scenes"],
+ ["Family comedy","family friendly Bollywood comedy scenes"]
+];
+const results=document.getElementById("results"), search=document.getElementById("search"), category=document.getElementById("category"), status=document.getElementById("status");
+let activeCat="all";
+function ytSearch(q){return "https://www.youtube.com/results?search_query="+encodeURIComponent(q);}
+function card(s){const url=s.url||ytSearch(s.query||s.film+" "+s.actors+" comedy scene");return `<article class="card"><div class="emoji">${s.emoji}</div><div class="tag">${s.cat==="90s"?"90s favourites":s.cat==="2000s"?"2000s comedy":s.cat==="classic"?"Classic Bollywood":s.cat==="actor"?"Comedy actor":"Modern & popular"}</div><h3>${s.title}</h3><p><strong>${s.film}</strong><br>${s.actors}</p><p>${s.desc}</p><div class="actions"><a class="btn" href="${url}" target="_blank" rel="noopener noreferrer">▶ Watch / Search YouTube</a><button class="chip" onclick="shareScene('${encodeURIComponent(s.title)}','${encodeURIComponent(url)}')">Share</button></div></article>`;}
+function render(){const q=search.value.trim().toLowerCase(), cat=category.value==="all"?activeCat:category.value;const filtered=scenes.filter(s=>(cat==="all"||s.cat===cat)&&(!q||(s.title+" "+s.film+" "+s.actors+" "+s.desc).toLowerCase().includes(q)));results.innerHTML=filtered.map(card).join("");status.textContent=`Showing ${filtered.length} of ${scenes.length} featured entries. YouTube search links discover additional uploads.`;if(!filtered.length)results.innerHTML='<div class="empty">No matching entries. Try a film name or actor, or choose another category.</div>';}
+function shareScene(title,url){const t=decodeURIComponent(title),u=decodeURIComponent(url);if(navigator.share){navigator.share({title:t,url:u}).catch(()=>{});}else{navigator.clipboard?.writeText(t+" — "+u).then(()=>alert("Scene link copied!")).catch(()=>window.open(u,"_blank"));}}
+search.addEventListener("input",render);category.addEventListener("change",()=>{activeCat="all";document.querySelectorAll(".chip[data-cat]").forEach(b=>b.classList.toggle("active",b.dataset.cat==="all"));render();});
+document.querySelectorAll(".chip[data-cat]").forEach(b=>b.addEventListener("click",()=>{activeCat=b.dataset.cat;category.value="all";document.querySelectorAll(".chip[data-cat]").forEach(x=>x.classList.toggle("active",x===b));render();}));
+document.getElementById("randomBtn").addEventListener("click",()=>{const s=scenes[Math.floor(Math.random()*scenes.length)];window.open(s.url||ytSearch(s.query||s.film+" "+s.actors+" comedy scene"),"_blank","noopener");});
+document.getElementById("shareBtn").addEventListener("click",()=>{if(navigator.share)navigator.share({title:document.title,url:location.href}).catch(()=>{});else alert("Use Copy page link to share this page.");});
+document.getElementById("copyBtn").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(location.href);alert("Page link copied!");}catch(e){prompt("Copy this page link:",location.href);}});
+document.getElementById("searchLinks").innerHTML=searchTerms.map(([label,q])=>`<a href="${ytSearch(q)}" target="_blank" rel="noopener noreferrer">${label} ↗</a>`).join("");
+render();
+</script>
+</body>
+</html>
