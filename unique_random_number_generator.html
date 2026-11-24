@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unique Random Number Generator</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MQJRN78HQR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MQJRN78HQR');
+</script>
+
+
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex items-center justify-center p-4 sm:p-6 antialiased selection:bg-indigo-100 selection:text-indigo-700">
+
+    <!-- Main Container Card -->
+    <main class="w-full max-w-lg bg-white rounded-3xl shadow-xl shadow-slate-200/70 border border-slate-100 overflow-hidden">
+        
+        <!-- Header Section -->
+        <header class="bg-gradient-to-r from-indigo-600 to-violet-600 px-6 py-6 sm:px-8 text-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-bold tracking-tight">Unique Number Generator</h1>
+                    <p class="text-indigo-100 text-xs sm:text-sm mt-1">Session-persistent non-repeating random integers</p>
+                </div>
+                <div class="bg-white/15 backdrop-blur-sm p-2.5 rounded-2xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                </div>
+            </div>
+        </header>
+
+        <!-- Body Content -->
+        <div class="p-6 sm:p-8 space-y-6">
+
+            <!-- Notification / Validation Banner (Replaces alert()) -->
+            <div id="status-banner" class="hidden rounded-2xl p-4 text-sm font-medium flex items-start gap-3 transition-all duration-200" role="alert">
+                <span id="status-icon" class="shrink-0 mt-0.5"></span>
+                <span id="status-message" class="leading-relaxed"></span>
+            </div>
+
+            <!-- Range Input Controls -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label for="min-input" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                        Minimum (Min)
+                    </label>
+                    <input 
+                        type="number" 
+                        id="min-input" 
+                        value="1" 
+                        step="1"
+                        placeholder="e.g., 1"
+                        class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 font-semibold text-base focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                    >
+                </div>
+                <div>
+                    <label for="max-input" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                        Maximum (Max)
+                    </label>
+                    <input 
+                        type="number" 
+                        id="max-input" 
+                        value="10" 
+                        step="1"
+                        placeholder="e.g., 10"
+                        class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 font-semibold text-base focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                    >
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-y-3">
+                <button 
+                    id="generate-btn" 
+                    type="button"
+                    class="w-full py-3.5 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-[0.99] text-white font-semibold text-base shadow-lg shadow-indigo-200 transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
+                    </svg>
+                    <span>Generate Random Number</span>
+                </button>
+
+                <button 
+                    id="generate-all-btn" 
+                    type="button"
+                    class="w-full py-3 px-6 rounded-xl bg-violet-50 hover:bg-violet-100 active:scale-[0.99] text-violet-700 border border-violet-200 font-semibold text-sm sm:text-base transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                    <span>Generate All Unique numbers at one Go</span>
+                </button>
+            </div>
+
+            <!-- Prominent Result Display Card -->
+            <section class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 text-center relative overflow-hidden">
+                <span id="result-label" class="text-xs font-semibold uppercase tracking-widest text-slate-400 block mb-2">
+                    Generated Number
+                </span>
+                <div id="result-display" class="text-5xl sm:text-6xl font-extrabold text-indigo-600 tracking-tight py-2 transition-transform duration-200">
+                    —
+                </div>
+                <p id="remaining-counter" class="text-xs text-slate-500 mt-2 font-medium">
+                    Ready to generate unique numbers
+                </p>
+            </section>
+
+            <!-- Session History Section -->
+            <section class="space-y-3 pt-2 border-t border-slate-100">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center gap-2">
+                        <h2 class="text-sm font-bold text-slate-700">Session History</h2>
+                        <span id="history-count" class="px-2 py-0.5 text-xs font-semibold rounded-full bg-indigo-50 text-indigo-600">
+                            0
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <button 
+                            id="copy-all-btn" 
+                            type="button"
+                            class="text-xs font-semibold text-slate-600 hover:text-indigo-700 hover:bg-indigo-50 px-2.5 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer"
+                            title="Copy all generated numbers to clipboard"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                            <span id="copy-all-text">Copy All</span>
+                        </button>
+                        <button 
+                            id="reset-btn" 
+                            type="button"
+                            class="text-xs font-semibold text-rose-600 hover:text-rose-700 hover:bg-rose-50 px-2.5 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                            <span>Reset Session</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- History Badges Container -->
+                <div id="history-container" class="min-h-[64px] max-h-56 overflow-y-auto p-3 rounded-2xl bg-slate-50/70 border border-slate-200/60 flex flex-wrap gap-2 items-center">
+                    <span id="empty-history-text" class="text-xs text-slate-400 italic w-full text-center py-2">
+                        No numbers generated in this tab session yet.
+                    </span>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        /**
+         * Unique Random Number Generator Application
+         * Uses sessionStorage to track generated numbers within the current tab/window session.
+         */
+        (function () {
+            // Storage keys scoped to sessionStorage
+            const STORAGE_KEYS = {
+                HISTORY: 'urng_session_history',
+                MIN: 'urng_session_min',
+                MAX: 'urng_session_max'
+            };
+
+            // Safety threshold for generating all remaining numbers at once to avoid DOM freeze
+            const MAX_BATCH_LIMIT = 50000;
+
+            // DOM Elements
+            const minInput = document.getElementById('min-input');
+            const maxInput = document.getElementById('max-input');
+            const generateBtn = document.getElementById('generate-btn');
+            const generateAllBtn = document.getElementById('generate-all-btn');
+            const copyAllBtn = document.getElementById('copy-all-btn');
+            const copyAllText = document.getElementById('copy-all-text');
+            const resetBtn = document.getElementById('reset-btn');
+            const resultLabel = document.getElementById('result-label');
+            const resultDisplay = document.getElementById('result-display');
+            const remainingCounter = document.getElementById('remaining-counter');
+            const historyContainer = document.getElementById('history-container');
+            const historyCount = document.getElementById('history-count');
+            const statusBanner = document.getElementById('status-banner');
+            const statusIcon = document.getElementById('status-icon');
+            const statusMessage = document.getElementById('status-message');
+
+            // Application State
+            let generatedHistory = [];
+
+            /**
+             * Initializes the application by loading existing session state if available.
+             */
+            function init() {
+                try {
+                    const savedHistory = sessionStorage.getItem(STORAGE_KEYS.HISTORY);
+                    const savedMin = sessionStorage.getItem(STORAGE_KEYS.MIN);
+                    const savedMax = sessionStorage.getItem(STORAGE_KEYS.MAX);
+
+                    if (savedMin !== null) minInput.value = savedMin;
+                    if (savedMax !== null) maxInput.value = savedMax;
+
+                    if (savedHistory) {
+                        const parsed = JSON.parse(savedHistory);
+                        if (Array.isArray(parsed)) {
+                            generatedHistory = parsed;
+                        }
+                    }
+
+                    // Render initial UI state
+                    if (generatedHistory.length > 0) {
+                        const latestNumber = generatedHistory[generatedHistory.length - 1];
+                        resultDisplay.textContent = latestNumber;
+                    }
+                    renderHistory();
+                    updateRemainingStats();
+                } catch (error) {
+                    console.error('Error loading session data:', error);
+                    generatedHistory = [];
+                }
+            }
+
+            /**
+             * Saves the current history and range inputs into sessionStorage.
+             */
+            function saveSessionState() {
+                try {
+                    sessionStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(generatedHistory));
+                    sessionStorage.setItem(STORAGE_KEYS.MIN, minInput.value.trim());
+                    sessionStorage.setItem(STORAGE_KEYS.MAX, maxInput.value.trim());
+                } catch (error) {
+                    showBanner('error', 'Unable to save to session storage. Browser storage may be restricted.');
+                }
+            }
+
+            /**
+             * Displays an inline status banner (error, warning, or info).
+             * @param {'error'|'warning'|'info'} type - Visual style of the alert
+             * @param {string} message - Message text to display
+             */
+            function showBanner(type, message) {
+                statusBanner.classList.remove(
+                    'hidden',
+                    'bg-rose-50', 'text-rose-800', 'border', 'border-rose-200',
+                    'bg-amber-50', 'text-amber-800', 'border-amber-200',
+                    'bg-indigo-50', 'text-indigo-800', 'border-indigo-200'
+                );
+
+                if (type === 'error') {
+                    statusBanner.classList.add('bg-rose-50', 'text-rose-800', 'border', 'border-rose-200');
+                    statusIcon.innerHTML = `<svg class="w-5 h-5 text-rose-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>`;
+                } else if (type === 'warning') {
+                    statusBanner.classList.add('bg-amber-50', 'text-amber-800', 'border', 'border-amber-200');
+                    statusIcon.innerHTML = `<svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>`;
+                } else {
+                    statusBanner.classList.add('bg-indigo-50', 'text-indigo-800', 'border', 'border-indigo-200');
+                    statusIcon.innerHTML = `<svg class="w-5 h-5 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>`;
+                }
+
+                statusMessage.textContent = message;
+            }
+
+            /**
+             * Hides the inline status banner.
+             */
+            function hideBanner() {
+                statusBanner.classList.add('hidden');
+            }
+
+            /**
+             * Validates Min and Max inputs.
+             * @returns {{ valid: boolean, min?: number, max?: number, error?: string }}
+             */
+            function validateInputs() {
+                const rawMin = minInput.value.trim();
+                const rawMax = maxInput.value.trim();
+
+                if (rawMin === '' || rawMax === '') {
+                    return { valid: false, error: 'Please enter both a Minimum and Maximum integer.' };
+                }
+
+                const minVal = Number(rawMin);
+                const maxVal = Number(rawMax);
+
+                if (isNaN(minVal) || isNaN(maxVal)) {
+                    return { valid: false, error: 'Inputs must be valid numeric values.' };
+                }
+
+                if (!Number.isInteger(minVal) || !Number.isInteger(maxVal)) {
+                    return { valid: false, error: 'Decimals are not allowed. Please enter whole integers only.' };
+                }
+
+                if (!Number.isSafeInteger(minVal) || !Number.isSafeInteger(maxVal)) {
+                    return { valid: false, error: 'Numbers are outside the safe integer limit.' };
+                }
+
+                if (minVal > maxVal) {
+                    return { valid: false, error: 'Minimum value cannot be greater than Maximum value.' };
+                }
+
+                return { valid: true, min: minVal, max: maxVal };
+            }
+
+            /**
+             * Updates the helper text showing how many unique numbers remain in the current range.
+             */
+            function updateRemainingStats() {
+                const validation = validateInputs();
+                if (!validation.valid) {
+                    remainingCounter.textContent = 'Enter a valid range to see availability';
+                    return;
+                }
+
+                const { min, max } = validation;
+                const totalPossible = max - min + 1;
+                const usedInRange = generatedHistory.filter(num => num >= min && num <= max).length;
+                const remaining = Math.max(0, totalPossible - usedInRange);
+
+                remainingCounter.textContent = `${remaining.toLocaleString()} of ${totalPossible.toLocaleString()} numbers remaining in range [${min}, ${max}]`;
+            }
+
+            /**
+             * Renders the list of generated numbers in the session history panel.
+             */
+            function renderHistory() {
+                historyCount.textContent = generatedHistory.length;
+                historyContainer.innerHTML = '';
+
+                if (generatedHistory.length === 0) {
+                    const emptyMsg = document.createElement('span');
+                    emptyMsg.id = 'empty-history-text';
+                    emptyMsg.className = 'text-xs text-slate-400 italic w-full text-center py-2';
+                    emptyMsg.textContent = 'No numbers generated in this tab session yet.';
+                    historyContainer.appendChild(emptyMsg);
+                    return;
+                }
+
+                // Use DocumentFragment for high-speed batch rendering
+                const fragment = document.createDocumentFragment();
+                generatedHistory.forEach((num, idx) => {
+                    const isLatest = idx === generatedHistory.length - 1;
+                    const badge = document.createElement('span');
+                    badge.textContent = num;
+                    badge.title = `Draw #${idx + 1}`;
+                    
+                    if (isLatest) {
+                        badge.className = 'px-3 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow-sm ring-2 ring-indigo-200 transition-all';
+                    } else {
+                        badge.className = 'px-2.5 py-1 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-200 shadow-2xs';
+                    }
+
+                    fragment.appendChild(badge);
+                });
+
+                historyContainer.appendChild(fragment);
+
+                // Scroll to the end to show the newest badge
+                historyContainer.scrollTop = historyContainer.scrollHeight;
+            }
+
+            /**
+             * Generates a unique random integer within [min, max] not yet in generatedHistory.
+             */
+            function handleGenerate() {
+                hideBanner();
+                const validation = validateInputs();
+
+                if (!validation.valid) {
+                    showBanner('error', validation.error);
+                    return;
+                }
+
+                const { min, max } = validation;
+                const totalPossible = max - min + 1;
+                const usedSet = new Set(generatedHistory);
+
+                // Count how many numbers within [min, max] have already been generated
+                let usedInRangeCount = 0;
+                for (const num of usedSet) {
+                    if (num >= min && num <= max) {
+                        usedInRangeCount++;
+                    }
+                }
+
+                // Check if all numbers in the given range have been exhausted
+                if (usedInRangeCount >= totalPossible) {
+                    showBanner(
+                        'warning',
+                        `All ${totalPossible.toLocaleString()} unique numbers between ${min} and ${max} have been exhausted in this session! Expand your range or click "Reset Session" to start fresh.`
+                    );
+                    updateRemainingStats();
+                    return;
+                }
+
+                let chosenNumber;
+                const remainingCount = totalPossible - usedInRangeCount;
+
+                // Efficient selection strategy:
+                // If range is reasonably sized (<= 100,000), build the pool of remaining numbers for guaranteed O(1) draw.
+                // For massive ranges (e.g., 1 to 1,000,000,000), use rejection sampling since collision probability is tiny.
+                if (totalPossible <= 100000) {
+                    const availablePool = [];
+                    for (let i = min; i <= max; i++) {
+                        if (!usedSet.has(i)) {
+                            availablePool.push(i);
+                        }
+                    }
+                    const randomIndex = Math.floor(Math.random() * availablePool.length);
+                    chosenNumber = availablePool[randomIndex];
+                } else {
+                    do {
+                        chosenNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+                    } while (usedSet.has(chosenNumber));
+                }
+
+                // Record and persist
+                generatedHistory.push(chosenNumber);
+                saveSessionState();
+
+                // Update UI with subtle pop animation
+                resultLabel.textContent = 'Generated Number';
+                resultDisplay.textContent = chosenNumber;
+                resultDisplay.classList.remove('scale-110');
+                void resultDisplay.offsetWidth; // trigger reflow
+                resultDisplay.classList.add('scale-110');
+                setTimeout(() => resultDisplay.classList.remove('scale-110'), 180);
+
+                renderHistory();
+                updateRemainingStats();
+
+                // Notify gracefully if that was the final available number in the range
+                if (remainingCount === 1) {
+                    showBanner(
+                        'info',
+                        `That was the final available number in the range [${min}, ${max}]!`
+                    );
+                }
+            }
+
+            /**
+             * Generates all remaining unique random integers within [min, max] in randomized order
+             * using the Fisher-Yates shuffle algorithm and appends them to session history.
+             */
+            function handleGenerateAll() {
+                hideBanner();
+                const validation = validateInputs();
+
+                if (!validation.valid) {
+                    showBanner('error', validation.error);
+                    return;
+                }
+
+                const { min, max } = validation;
+                const totalPossible = max - min + 1;
+                const usedSet = new Set(generatedHistory);
+
+                // Count how many numbers in [min, max] are already used
+                let usedInRangeCount = 0;
+                for (const num of usedSet) {
+                    if (num >= min && num <= max) {
+                        usedInRangeCount++;
+                    }
+                }
+
+                const remainingCount = totalPossible - usedInRangeCount;
+
+                if (remainingCount <= 0) {
+                    showBanner(
+                        'warning',
+                        `All ${totalPossible.toLocaleString()} unique numbers between ${min} and ${max} have already been exhausted in this session!`
+                    );
+                    updateRemainingStats();
+                    return;
+                }
+
+                // Safety guard to protect browser performance on huge ranges
+                if (remainingCount > MAX_BATCH_LIMIT) {
+                    showBanner(
+                        'error',
+                        `Safety limit exceeded: ${remainingCount.toLocaleString()} numbers remaining. "Generate All" supports up to ${MAX_BATCH_LIMIT.toLocaleString()} remaining numbers at once to prevent browser slowdown.`
+                    );
+                    return;
+                }
+
+                // Build array of all remaining numbers in [min, max]
+                const remainingPool = [];
+                for (let i = min; i <= max; i++) {
+                    if (!usedSet.has(i)) {
+                        remainingPool.push(i);
+                    }
+                }
+
+                // Fisher-Yates unbiased shuffle
+                for (let i = remainingPool.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    const temp = remainingPool[i];
+                    remainingPool[i] = remainingPool[j];
+                    remainingPool[j] = temp;
+                }
+
+                // Append shuffled batch to session history and persist
+                generatedHistory.push(...remainingPool);
+                saveSessionState();
+
+                // Update prominent display with the final drawn number and batch summary
+                const lastDrawn = remainingPool[remainingPool.length - 1];
+                resultLabel.textContent = `All ${remainingPool.length.toLocaleString()} Remaining Drawn (Latest)`;
+                resultDisplay.textContent = lastDrawn;
+                resultDisplay.classList.remove('scale-110');
+                void resultDisplay.offsetWidth;
+                resultDisplay.classList.add('scale-110');
+                setTimeout(() => resultDisplay.classList.remove('scale-110'), 180);
+
+                renderHistory();
+                updateRemainingStats();
+
+                showBanner(
+                    'info',
+                    `Generated all ${remainingPool.length.toLocaleString()} remaining unique numbers in randomized order! Range [${min}, ${max}] is now complete.`
+                );
+            }
+
+            /**
+             * Copies all generated numbers in the current session to the clipboard.
+             */
+            function handleCopyAll() {
+                if (generatedHistory.length === 0) {
+                    showBanner('warning', 'There are no generated numbers to copy yet.');
+                    return;
+                }
+
+                const textToCopy = generatedHistory.join(', ');
+                const textarea = document.createElement('textarea');
+                textarea.value = textToCopy;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+
+                try {
+                    document.execCommand('copy');
+                    copyAllText.textContent = 'Copied!';
+                    setTimeout(() => {
+                        copyAllText.textContent = 'Copy All';
+                    }, 1800);
+                } catch (err) {
+                    showBanner('error', 'Failed to copy numbers to clipboard.');
+                } finally {
+                    document.body.removeChild(textarea);
+                }
+            }
+
+            /**
+             * Clears session history and resets UI state.
+             */
+            function handleResetSession() {
+                generatedHistory = [];
+                try {
+                    sessionStorage.removeItem(STORAGE_KEYS.HISTORY);
+                } catch (e) {
+                    console.error('Failed to clear session storage:', e);
+                }
+
+                resultLabel.textContent = 'Generated Number';
+                resultDisplay.textContent = '—';
+                renderHistory();
+                updateRemainingStats();
+                showBanner('info', 'Session reset. All numbers are now available again.');
+            }
+
+            // Event Listeners
+            generateBtn.addEventListener('click', handleGenerate);
+            generateAllBtn.addEventListener('click', handleGenerateAll);
+            copyAllBtn.addEventListener('click', handleCopyAll);
+            resetBtn.addEventListener('click', handleResetSession);
+
+            // Allow pressing Enter inside inputs to trigger generation
+            [minInput, maxInput].forEach(input => {
+                input.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        handleGenerate();
+                    }
+                });
+
+                input.addEventListener('input', () => {
+                    hideBanner();
+                    saveSessionState();
+                    updateRemainingStats();
+                });
+            });
+
+            // Initialize app on load
+            init();
+        })();
+    </script>
+</body>
+</html>
